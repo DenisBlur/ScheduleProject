@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Application9</string>
+    <string name="app_name">Расписание</string>
     <string name="title_activity_group">GroupActivity</string>
     <string name="action_settings">Settings</string>
 </resources>

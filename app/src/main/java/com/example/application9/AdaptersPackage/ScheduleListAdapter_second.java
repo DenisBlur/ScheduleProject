@@ -69,8 +69,8 @@ public class ScheduleListAdapter_second extends RecyclerView.Adapter<ScheduleLis
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        private Chip schedule_second_date_name, schedule_second_teacher_name;
-        private TextView schedule_second_lesson_name, schedule_second_cabinet_name;
+        private Chip schedule_second_date_name;
+        private TextView schedule_second_lesson_name, schedule_second_cabinet_name, schedule_second_teacher_name;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
