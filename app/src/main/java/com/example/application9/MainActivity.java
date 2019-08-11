@@ -78,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
         hello_title = findViewById(R.id.hello_title);
         NestedScrollView fake_fragment_schedule = findViewById(R.id.fake_fragment_schedule);
         NestedScrollView fake_fragment_timeline = findViewById(R.id.fake_fragment_timeline);
+        NestedScrollView fake_fragment_account = findViewById(R.id.fake_fragment_account);
         BottomNavigationView bottom_nav_view = findViewById(R.id.bottom_nav_view);
         toolbar = findViewById(R.id.toolbar);
         //initializing all component
@@ -111,8 +112,9 @@ public class MainActivity extends AppCompatActivity {
         bottom_nav_view.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId())
             {
-                case R.id.schedule: fake_fragment_schedule.setVisibility(View.VISIBLE); fake_fragment_timeline.setVisibility(View.GONE); return true;
-                case R.id.timeline: fake_fragment_schedule.setVisibility(View.GONE); fake_fragment_timeline.setVisibility(View.VISIBLE); return true;
+                case R.id.schedule: fake_fragment_schedule.setVisibility(View.VISIBLE); fake_fragment_timeline.setVisibility(View.GONE); fake_fragment_account.setVisibility(View.GONE); return true;
+                case R.id.timeline: fake_fragment_schedule.setVisibility(View.GONE); fake_fragment_timeline.setVisibility(View.VISIBLE); fake_fragment_account.setVisibility(View.GONE); return true;
+                case R.id.account: fake_fragment_schedule.setVisibility(View.GONE); fake_fragment_timeline.setVisibility(View.GONE); fake_fragment_account.setVisibility(View.VISIBLE); return true;
 
             }
             return false;

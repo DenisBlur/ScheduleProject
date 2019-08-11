@@ -69,5 +69,8 @@
         layout="@layout/fragment_schedule_list"
         android:visibility="visible" />
 
+    <include
+        layout="@layout/fragment_account"
+        android:visibility="gone" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

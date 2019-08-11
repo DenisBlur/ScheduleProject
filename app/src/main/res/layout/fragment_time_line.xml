@@ -18,7 +18,6 @@
             android:layout_height="275dp" />
 
         <LinearLayout
-            android:layout_marginTop="4dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_fragment_round_up"
@@ -28,6 +27,7 @@
                 android:id="@+id/recycler_view_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/recycler_item_main_time" />
 
