@@ -3,15 +3,16 @@ package com.example.application9;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.transition.Fade;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -21,6 +22,7 @@ import androidx.preference.PreferenceManager;
 
 import com.example.application9.AdaptersPackage.GroupListAdapter_main;
 import com.example.application9.AdaptersPackage.TimeListAdapter_main;
+import com.example.application9.CustomDialog.FirstDialog;
 import com.example.application9.DataPackage.GroupList_main;
 import com.example.application9.DataPackage.TimeList_main;
 import com.example.application9.HomePageFragments.AccountFragment;
@@ -37,6 +39,7 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static com.example.application9.HomePageFragments.GroupsHomeFragment.recycler_view_group;
 import static com.example.application9.HomePageFragments.TimeLineFragment.recycler_view_timeline;
@@ -52,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
     public static TimeListAdapter_main timeListAdapterMain;
 
     public static String _DESIGN_COLOR;
+    public static String _SITE;
     public static boolean _ONE_DAY;
     public static boolean _DARK_THEME;
     public static int resID;
@@ -63,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView hello_bitmap;
     private TextView hello_title;
     private Float dp;
+    private FirstDialog cdd;
 
     final Fragment fragment1 = new GroupsHomeFragment();
     final Fragment fragment2 = new TimeLineFragment();
@@ -76,9 +81,17 @@ public class MainActivity extends AppCompatActivity {
         //Setting
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         _DESIGN_COLOR = sharedPref.getString("_design_color_list", "Orange");
+        _SITE = sharedPref.getString("_site_list", "first_site");
         _ONE_DAY = sharedPref.getBoolean("_main_one_day_switch", false);
         _DARK_THEME = sharedPref.getBoolean("_design_dark_theme", false);
+
         //resID = getResId("AppTheme_" + _DESIGN_COLOR, R.style.class);
+
+        if (_SITE.equals("first_site")) {
+            _MAIN_URL_FOR_GROUP_NAME = "http://83.174.201.182/";
+        } else {
+            _MAIN_URL_FOR_GROUP_NAME = "http://83.174.201.182:85/";
+        }
 
         if (!_DARK_THEME) {
             resID = getResId("AppTheme_" + _DESIGN_COLOR + "_Light", R.style.class);
@@ -100,6 +113,9 @@ public class MainActivity extends AppCompatActivity {
         fm.beginTransaction().add(R.id.fragment_container, fragment2, "2").hide(fragment2).commit();
         fm.beginTransaction().add(R.id.fragment_container, fragment1, "1").commit();
 
+        cdd = new FirstDialog(this);
+        Objects.requireNonNull(cdd.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        cdd.show();
         //Fragments
 
         //
@@ -136,8 +152,6 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         bottom_nav_view.setOnNavigationItemSelectedListener(item -> {
-
-            Fragment fragment = null;
 
             switch (item.getItemId()) {
                 case R.id.schedule:
@@ -256,7 +270,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... voids) {
             try {
-                Document document_FULL_HTML_CODE = Jsoup.connect(_MAIN_URL_FOR_GROUP_NAME).get();
+                Document document_FULL_HTML_CODE = Jsoup.connect(_MAIN_URL_FOR_GROUP_NAME  + "cg.htm").get();
                 Element document_TABLE_HTML_CODE = document_FULL_HTML_CODE.select("table.inf").first();
                 Elements document_TABLE_ELEMENTS = document_TABLE_HTML_CODE.select("tr");
                 for (Element document_TABLE_SELECTED : document_TABLE_ELEMENTS) {
@@ -278,6 +292,9 @@ public class MainActivity extends AppCompatActivity {
             super.onPostExecute(aVoid);
             groupListAdapterMain = new GroupListAdapter_main(mContext, groupListMains);
             recycler_view_group.setAdapter(groupListAdapterMain);
+            Animation animation = AnimationUtils.loadAnimation(mContext, R.anim.item_animation_fall_down);
+            recycler_view_group.startAnimation(animation);
+            cdd.dismiss();
         }
     }
 }

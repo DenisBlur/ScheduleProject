@@ -1,27 +1,42 @@
 <androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:iconSpaceReserved="false">
+    xmlns:app="http://schemas.android.com/apk/res-auto" >
 
-    <PreferenceCategory app:title="Основное">
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:title="Основное">
+        <ListPreference
+            android:defaultValue="1"
+            android:entries="@array/site"
+            android:entryValues="@array/site_st"
+            android:key="_site_list"
+            android:title="Площадка"
+            app:iconSpaceReserved="false" />
+
         <SwitchPreference
             android:defaultValue="false"
             android:key="_main_one_day_switch"
-            android:title="Загружать расписание на день" />
+            android:title="Загружать расписание на день"
+            app:iconSpaceReserved="false" />
+
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="Оформление">
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:title="Оформление">
+
+        <ListPreference
+            android:defaultValue="1"
+            android:entries="@array/design_color"
+            android:entryValues="@array/design_color_st"
+            android:key="_design_color_list"
+            android:title="Цвет приложения"
+            app:iconSpaceReserved="false" />
 
         <SwitchPreference
             android:defaultValue="false"
             android:key="_design_dark_theme"
-            android:title="Темная тема" />
-
-        <ListPreference
-            android:defaultValue="5"
-            android:entries="@array/design_color"
-            android:entryValues="@array/design_color_st"
-            android:key="_design_color_list"
-            android:title="Цвет приложения" />
+            android:title="Темная тема"
+            app:iconSpaceReserved="false" />
 
     </PreferenceCategory>
 

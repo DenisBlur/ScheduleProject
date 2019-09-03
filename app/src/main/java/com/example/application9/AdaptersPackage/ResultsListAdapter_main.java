@@ -5,6 +5,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.application9.DataPackage.ResultsList_main;
 import com.example.application9.R;
+import com.google.android.material.card.MaterialCardView;
 
 import java.util.List;
 
@@ -55,6 +57,7 @@ public class ResultsListAdapter_main extends RecyclerView.Adapter<ResultsListAda
 
         TextView name_t, name_l, hour_all,hour_out;
         ProgressBar progressBar;
+        MaterialCardView container;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -63,6 +66,7 @@ public class ResultsListAdapter_main extends RecyclerView.Adapter<ResultsListAda
             hour_all = itemView.findViewById(R.id.hour_all);
             hour_out = itemView.findViewById(R.id.hour_out);
             progressBar = itemView.findViewById(R.id.progressBar);
+            container = itemView.findViewById(R.id.container);
         }
     }
 }

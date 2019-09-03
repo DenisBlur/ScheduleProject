@@ -5,6 +5,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -82,6 +83,7 @@ public class ScheduleListAdapter_second extends RecyclerView.Adapter<ScheduleLis
         private Chip schedule_second_date_name;
         private View bottom_view;
         private TextView schedule_second_lesson_name, schedule_second_cabinet_name, schedule_second_teacher_name, schedule_second_number_name;
+        private LinearLayout container;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -91,6 +93,7 @@ public class ScheduleListAdapter_second extends RecyclerView.Adapter<ScheduleLis
             schedule_second_teacher_name = itemView.findViewById(R.id.schedule_second_teacher_name);
             schedule_second_lesson_name = itemView.findViewById(R.id.schedule_second_lesson_name);
             schedule_second_cabinet_name = itemView.findViewById(R.id.schedule_second_cabinet_name);
+            container = itemView.findViewById(R.id.container);
             bottom_view = itemView.findViewById(R.id.bottom_view);
 
         }

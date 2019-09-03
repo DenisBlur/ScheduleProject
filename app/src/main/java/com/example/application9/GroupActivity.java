@@ -1,10 +1,14 @@
 package com.example.application9;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
@@ -12,6 +16,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.application9.AdaptersPackage.ResultsListAdapter_main;
 import com.example.application9.AdaptersPackage.ScheduleListAdapter_second;
 import com.example.application9.AdaptersPackage.TabAdapter;
+import com.example.application9.CustomDialog.FirstDialog;
 import com.example.application9.DataPackage.ResultsList_main;
 import com.example.application9.DataPackage.ScheduleList_second;
 import com.example.application9.GroupPageFragments.FirstTab;
@@ -26,21 +31,21 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static com.example.application9.GroupPageFragments.FirstTab.recyclerView_first;
 import static com.example.application9.GroupPageFragments.SecondTab.recyclerView_second;
+import static com.example.application9.MainActivity._MAIN_URL_FOR_GROUP_NAME;
 import static com.example.application9.MainActivity.resID;
 
 public class GroupActivity extends AppCompatActivity {
 
     public static String _MAIN_URL_FOR_GROUP_WEEK_SC;
     public static String _MAIN_URL_FOR_GROUP_RESULTS_SC;
-    private String group_TITLE, group_ID, group_ID_RESULTS;
-    private TextView group_title;
-    private TabAdapter adapter;
     private List<ScheduleList_second> scheduleListSecond = new ArrayList<>();
     private List<ResultsList_main> resultsListMains = new ArrayList<>();
-
+    private FirstDialog cdd;
+    private Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,13 +58,13 @@ public class GroupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_group);
 
         //Component Initializing
-        group_title = findViewById(R.id.group_title);
+        TextView group_title = findViewById(R.id.group_title);
         //Component Initializing
 
         //TabLayout
         ViewPager pager = findViewById(R.id.pager);
         TabLayout tabs = findViewById(R.id.tabs);
-        adapter = new TabAdapter(getSupportFragmentManager());
+        TabAdapter adapter = new TabAdapter(getSupportFragmentManager());
         adapter.addFragment(new FirstTab(), "Расписание");
         adapter.addFragment(new SecondTab(), "Итоги");
         pager.setAdapter(adapter);
@@ -67,17 +72,21 @@ public class GroupActivity extends AppCompatActivity {
         //TabLayout
 
         //GetIntent
-        group_TITLE = getIntent().getStringExtra("group_TITLE");
-        group_ID = getIntent().getStringExtra("group_ID");
-        group_ID_RESULTS = group_ID.replaceAll("cg", "vg");
-        group_title.setText(group_TITLE);
-        _MAIN_URL_FOR_GROUP_WEEK_SC = "http://83.174.201.182/" + group_ID;
-        _MAIN_URL_FOR_GROUP_RESULTS_SC = "http://83.174.201.182/" + group_ID_RESULTS;
+        mContext = GroupActivity.this;
 
-        Toast.makeText(this, group_ID_RESULTS, Toast.LENGTH_SHORT).show();
+        String group_TITLE = getIntent().getStringExtra("group_TITLE");
+        String group_ID = getIntent().getStringExtra("group_ID");
+        String group_ID_RESULTS = group_ID.replaceAll("cg", "vg");
+        group_title.setText(group_TITLE);
+        _MAIN_URL_FOR_GROUP_WEEK_SC = _MAIN_URL_FOR_GROUP_NAME + group_ID;
+        _MAIN_URL_FOR_GROUP_RESULTS_SC = _MAIN_URL_FOR_GROUP_NAME + group_ID_RESULTS;
         //GetIntent
 
         //ThreadStart
+        cdd = new FirstDialog(this);
+        Objects.requireNonNull(cdd.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        cdd.show();
+
         ThreadGetWeek threadGetWeek = new ThreadGetWeek();
         threadGetWeek.execute();
 
@@ -122,14 +131,14 @@ public class GroupActivity extends AppCompatActivity {
             super.onPostExecute(aVoid);
             ResultsListAdapter_main resultsListAdapter_main = new ResultsListAdapter_main(GroupActivity.this, resultsListMains);
             recyclerView_second.setAdapter(resultsListAdapter_main);
+            Animation animation = AnimationUtils.loadAnimation(mContext, R.anim.item_animation_fall_down);
+            recyclerView_second.startAnimation(animation);
+            cdd.dismiss();
         }
     }
 
     @SuppressLint("StaticFieldLeak")
     class ThreadGetWeek extends AsyncTask<Void, Void, Void> {
-
-        //TODO deleted that
-        String test;
 
         @Override
         protected Void doInBackground(Void... voids) {
@@ -192,9 +201,10 @@ public class GroupActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            Toast.makeText(GroupActivity.this, test, Toast.LENGTH_SHORT).show();
             ScheduleListAdapter_second scheduleListAdapterSecond = new ScheduleListAdapter_second(GroupActivity.this, scheduleListSecond);
             recyclerView_first.setAdapter(scheduleListAdapterSecond);
+            Animation animation = AnimationUtils.loadAnimation(mContext, R.anim.item_animation_fall_down);
+            recyclerView_first.startAnimation(animation);
         }
     }
 }

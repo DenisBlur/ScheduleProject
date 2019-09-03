@@ -44,4 +44,14 @@
         <item>blueGrey</item>
     </string-array>
 
+    <string-array name="site">
+        <item>Первая площадка</item>
+        <item>Тертья плошадка</item>
+    </string-array>
+
+    <string-array name="site_st">
+        <item>first_site</item>
+        <item>third_site</item>
+    </string-array>
+
 </resources>
