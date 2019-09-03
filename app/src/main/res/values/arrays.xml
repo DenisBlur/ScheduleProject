@@ -1,12 +1,47 @@
 <resources>
     <!-- Reply Preference -->
-    <string-array name="reply_entries">
-        <item>Reply</item>
-        <item>Reply to all</item>
+    <string-array name="design_color">
+        <item>Red</item>
+        <item>Pink</item>
+        <item>Purple</item>
+        <item>deepPurple</item>
+        <item>Indigo</item>
+        <item>Blue</item>
+        <item>lightBlue</item>
+        <item>Cyan</item>
+        <item>Teal</item>
+        <item>Green</item>
+        <item>lightGreen</item>
+        <item>Lime</item>
+        <item>Yellow</item>
+        <item>Amber</item>
+        <item>Orange</item>
+        <item>deepOrange</item>
+        <item>Brown</item>
+        <item>Grey</item>
+        <item>blueGrey</item>
     </string-array>
 
-    <string-array name="reply_values">
-        <item>reply</item>
-        <item>reply_all</item>
+    <string-array name="design_color_st">
+        <item>Red</item>
+        <item>Pink</item>
+        <item>Purple</item>
+        <item>deepPurple</item>
+        <item>Indigo</item>
+        <item>Blue</item>
+        <item>lightBlue</item>
+        <item>Cyan</item>
+        <item>Teal</item>
+        <item>Green</item>
+        <item>lightGreen</item>
+        <item>Lime</item>
+        <item>Yellow</item>
+        <item>Amber</item>
+        <item>Orange</item>
+        <item>deepOrange</item>
+        <item>Brown</item>
+        <item>Grey</item>
+        <item>blueGrey</item>
     </string-array>
+
 </resources>

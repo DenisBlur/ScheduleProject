@@ -1,15 +1,27 @@
-<androidx.preference.PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:iconSpaceReserved="false">
 
-    <PreferenceCategory app:title="Main">
-
-        <EditTextPreference
-            app:key="signature"
-            app:title="Hello"
-            app:useSimpleSummaryProvider="true" />
-
+    <PreferenceCategory app:title="Основное">
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="_main_one_day_switch"
+            android:title="Загружать расписание на день" />
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="Design">
+    <PreferenceCategory app:title="Оформление">
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="_design_dark_theme"
+            android:title="Темная тема" />
+
+        <ListPreference
+            android:defaultValue="5"
+            android:entries="@array/design_color"
+            android:entryValues="@array/design_color_st"
+            android:key="_design_color_list"
+            android:title="Цвет приложения" />
 
     </PreferenceCategory>
 

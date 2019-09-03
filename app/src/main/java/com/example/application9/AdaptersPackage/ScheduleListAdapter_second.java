@@ -1,5 +1,6 @@
 package com.example.application9.AdaptersPackage;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,12 +46,16 @@ public class ScheduleListAdapter_second extends RecyclerView.Adapter<ScheduleLis
         } else if (viewType == 4) {
             View view = layoutInflater.inflate(R.layout.recycler_item_second_schedule_clear, parent, false);
             return new ViewHolder(view);
-        }else {
+        } else if (viewType == 5) {
+            View view = layoutInflater.inflate(R.layout.recycler_item_second_schedule_launch, parent, false);
+            return new ViewHolder(view);
+        } else {
             View view = layoutInflater.inflate(R.layout.recycler_item_second_schedule, parent, false);
             return new ViewHolder(view);
         }
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ScheduleList_second listSecond = scheduleListSecond.get(position);
@@ -59,6 +64,11 @@ public class ScheduleListAdapter_second extends RecyclerView.Adapter<ScheduleLis
         holder.schedule_second_teacher_name.setText(listSecond.getTeacher_name());
         holder.schedule_second_lesson_name.setText(listSecond.getLesson_name());
         holder.schedule_second_cabinet_name.setText(listSecond.getCabinet_number());
+        holder.schedule_second_number_name.setText(Integer.toString(listSecond.getNum_schedule()));
+
+        if (listSecond.getNum_schedule() == 2) {
+            holder.bottom_view.setVisibility(View.INVISIBLE);
+        }
 
     }
 
@@ -70,15 +80,18 @@ public class ScheduleListAdapter_second extends RecyclerView.Adapter<ScheduleLis
     class ViewHolder extends RecyclerView.ViewHolder {
 
         private Chip schedule_second_date_name;
-        private TextView schedule_second_lesson_name, schedule_second_cabinet_name, schedule_second_teacher_name;
+        private View bottom_view;
+        private TextView schedule_second_lesson_name, schedule_second_cabinet_name, schedule_second_teacher_name, schedule_second_number_name;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             schedule_second_date_name = itemView.findViewById(R.id.schedule_second_date_name);
+            schedule_second_number_name = itemView.findViewById(R.id.schedule_second_number_name);
             schedule_second_teacher_name = itemView.findViewById(R.id.schedule_second_teacher_name);
             schedule_second_lesson_name = itemView.findViewById(R.id.schedule_second_lesson_name);
             schedule_second_cabinet_name = itemView.findViewById(R.id.schedule_second_cabinet_name);
+            bottom_view = itemView.findViewById(R.id.bottom_view);
 
         }
     }
@@ -98,6 +111,8 @@ public class ScheduleListAdapter_second extends RecyclerView.Adapter<ScheduleLis
             return 3;
         } else if (listSecond.getType_schedule() == 4) {
             return 4;
+        } else if (listSecond.getType_schedule() == 5) {
+            return 5;
         } else {
             return super.getItemViewType(position);
         }

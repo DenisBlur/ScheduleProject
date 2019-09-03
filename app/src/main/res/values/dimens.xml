@@ -1,17 +1,27 @@
 <resources>
-    <dimen name="app_bar_height">180dp</dimen>
+    <dimen name="shrine_tall_toolbar_height">474dp</dimen>
+    <dimen name="shrine_toolbar_image_offset_top">48dp</dimen>
+    <dimen name="shrine_toolbar_offset_start">124dp</dimen>
+    <dimen name="shrine_toolbar_offset_top">124dp</dimen>
+    <dimen name="shrine_toolbar_subtitle_offset_top">232dp</dimen>
+    <dimen name="shrine_toolbar_subtitle_offset_start">124dp</dimen>
+    <dimen name="shrine_card_inner_padding">8dp</dimen>
+    <dimen name="shrine_grid_item_margin">4dp</dimen>
+    <dimen name="shrine_grid_outer_margin">12dp</dimen>
+    <dimen name="shrine_grid_image_height">200dp</dimen>
+    <dimen name="shrine_item_image_height">292dp</dimen>
+    <dimen name="shrine_item_product_title_size">30sp</dimen>
+    <dimen name="shrine_large_margin_start">56dp</dimen>
+    <dimen name="shrine_spinner_width">212dp</dimen>
+    <dimen name="shrine_spinner_height">48dp</dimen>
+    <dimen name="shrine_spinner_border_width">2dp</dimen>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
-    <dimen name="text_margin">16dp</dimen>
-
-    <dimen name="image_width">120dp</dimen>
-    <dimen name="image_final_width">32dp</dimen>
-    <dimen name="spacing_normal">16dp</dimen>
-
-    <declare-styleable name="AvatarImageBehavior">
-        <attr name="finalYPosition" format="dimension"/>
-        <attr name="startXPosition" format="dimension"/>
-        <attr name="startToolbarPosition" format="dimension"/>
-        <attr name="startHeight" format="dimension"/>
-        <attr name="finalHeight" format="dimension"/>
-    </declare-styleable>
+    <dimen name="dots_height">30dp</dimen>
+    <dimen name="dots_margin_bottom">70dp</dimen>
+    <dimen name="img_width_height">120dp</dimen>
+    <dimen name="slide_title">30dp</dimen>
+    <dimen name="slide_desc">16dp</dimen>
+    <dimen name="desc_padding">40dp</dimen>
 </resources>
