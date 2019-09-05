@@ -169,9 +169,9 @@ public class GroupActivity extends AppCompatActivity {
                                 String cabinet_name = document_TABLE_ELEMENTS.get(i + j).select("tr > td.ur > a.z2").text();
                                 String teacher_name = document_TABLE_ELEMENTS.get(i + j).select("tr > td.ur > a.z3").text();
                                 if (lesson_name.contains("Пр")) {
-                                    scheduleListSecond.add(new ScheduleList_second(day_params, lesson_name, cabinet_name, teacher_name, "практика",2, j+1));
+                                    scheduleListSecond.add(new ScheduleList_second(day_params, lesson_name, cabinet_name, teacher_name, "практика",2, j));
                                 } else {
-                                    scheduleListSecond.add(new ScheduleList_second(day_params, lesson_name, cabinet_name, teacher_name, "лекция",2, j+1));
+                                    scheduleListSecond.add(new ScheduleList_second(day_params, lesson_name, cabinet_name, teacher_name, "лекция",2, j));
                                 }
                             } else {
                                 String lesson_name = document_TABLE_ELEMENTS.get(i + j).select("tr > td.ur > a.z1").text();
@@ -183,7 +183,7 @@ public class GroupActivity extends AppCompatActivity {
                                     scheduleListSecond.add(new ScheduleList_second(day_params, lesson_name, cabinet_name, teacher_name, "",4, j+1));
                                 }
                                 if (j == 1) {
-                                    scheduleListSecond.add(new ScheduleList_second(day_params, "Обеденный перерыв", "", "", "",5, j+1));
+                                    scheduleListSecond.add(new ScheduleList_second(day_params, "Обеденный перерыв", "", "", "",5, 9));
                                 }
                             }
                         }
@@ -207,4 +207,28 @@ public class GroupActivity extends AppCompatActivity {
             recyclerView_first.startAnimation(animation);
         }
     }
+
+    class ThreadGetOneDay extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+
+            Document document_FULL_HTML_CODE = null;
+            try {
+                document_FULL_HTML_CODE = Jsoup.connect(_MAIN_URL_FOR_GROUP_WEEK_SC).get();
+                Element document_TABLE_HTML_CODE = document_FULL_HTML_CODE.select("table.inf").first();
+                Elements document_TABLE_ELEMENTS = document_TABLE_HTML_CODE.select("tr");
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+        }
+    }
+
 }

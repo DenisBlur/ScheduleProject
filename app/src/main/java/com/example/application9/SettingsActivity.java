@@ -1,5 +1,6 @@
 package com.example.application9;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.appcompat.app.ActionBar;
@@ -10,7 +11,7 @@ import static com.example.application9.MainActivity._DESIGN_COLOR;
 import static com.example.application9.MainActivity.getResId;
 import static com.example.application9.MainActivity.resID;
 
-public class SettingsActivity extends AppCompatActivity {
+public class SettingsActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
 
 
     @Override
@@ -28,6 +29,11 @@ public class SettingsActivity extends AppCompatActivity {
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        finish();
     }
 
 

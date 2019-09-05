@@ -4,21 +4,11 @@
         <item>Red</item>
         <item>Pink</item>
         <item>Purple</item>
-        <item>deepPurple</item>
         <item>Indigo</item>
-        <item>Blue</item>
-        <item>lightBlue</item>
-        <item>Cyan</item>
         <item>Teal</item>
         <item>Green</item>
-        <item>lightGreen</item>
-        <item>Lime</item>
         <item>Yellow</item>
-        <item>Amber</item>
-        <item>Orange</item>
         <item>deepOrange</item>
-        <item>Brown</item>
-        <item>Grey</item>
         <item>blueGrey</item>
     </string-array>
 
@@ -26,32 +16,34 @@
         <item>Red</item>
         <item>Pink</item>
         <item>Purple</item>
-        <item>deepPurple</item>
         <item>Indigo</item>
-        <item>Blue</item>
-        <item>lightBlue</item>
-        <item>Cyan</item>
         <item>Teal</item>
         <item>Green</item>
-        <item>lightGreen</item>
-        <item>Lime</item>
         <item>Yellow</item>
-        <item>Amber</item>
-        <item>Orange</item>
         <item>deepOrange</item>
-        <item>Brown</item>
-        <item>Grey</item>
         <item>blueGrey</item>
     </string-array>
 
     <string-array name="site">
         <item>Первая площадка</item>
-        <item>Тертья плошадка</item>
+        <item>Третья плошадка</item>
     </string-array>
 
     <string-array name="site_st">
         <item>first_site</item>
         <item>third_site</item>
+    </string-array>
+
+    <string-array name="theme_lds">
+        <item>Светлая тема</item>
+        <item>Темная тема</item>
+        <item>Тема системы</item>
+    </string-array>
+
+    <string-array name="theme_lds_st">
+        <item>Light</item>
+        <item>Dark</item>
+        <item>Andorid</item>
     </string-array>
 
 </resources>

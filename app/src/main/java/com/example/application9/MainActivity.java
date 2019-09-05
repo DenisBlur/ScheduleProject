@@ -9,8 +9,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.transition.Fade;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -48,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static String _MAIN_URL_FOR_GROUP_NAME = "http://83.174.201.182/cg.htm";
     public static String _MAIN_URL_FOR_TIMES = "http://s917802v.bget.ru/times/";
+    public static String _ONE_DAY_SITE_CODE;
 
     @SuppressLint("StaticFieldLeak")
     public static GroupListAdapter_main groupListAdapterMain;
@@ -56,12 +55,12 @@ public class MainActivity extends AppCompatActivity {
 
     public static String _DESIGN_COLOR;
     public static String _SITE;
+    public static String _DARK_THEME;
     public static boolean _ONE_DAY;
-    public static boolean _DARK_THEME;
     public static int resID;
+    public static List<TimeList_main> timeListMains = new ArrayList<>();
 
     private List<GroupList_main> groupListMains = new ArrayList<>();
-    private List<TimeList_main> timeListMains = new ArrayList<>();
     private Context mContext;
     private View outlook_switch;
     private ImageView hello_bitmap;
@@ -80,10 +79,10 @@ public class MainActivity extends AppCompatActivity {
 
         //Setting
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-        _DESIGN_COLOR = sharedPref.getString("_design_color_list", "Orange");
+        _DESIGN_COLOR = sharedPref.getString("_design_color_list", "Red");
         _SITE = sharedPref.getString("_site_list", "first_site");
         _ONE_DAY = sharedPref.getBoolean("_main_one_day_switch", false);
-        _DARK_THEME = sharedPref.getBoolean("_design_dark_theme", false);
+        _DARK_THEME = sharedPref.getString("_theme_lds_list", "Andorid");
 
         //resID = getResId("AppTheme_" + _DESIGN_COLOR, R.style.class);
 
@@ -93,11 +92,8 @@ public class MainActivity extends AppCompatActivity {
             _MAIN_URL_FOR_GROUP_NAME = "http://83.174.201.182:85/";
         }
 
-        if (!_DARK_THEME) {
-            resID = getResId("AppTheme_" + _DESIGN_COLOR + "_Light", R.style.class);
-        } else {
-            resID = getResId("AppTheme_" + _DESIGN_COLOR, R.style.class);
-        }
+        resID = getResId("AppTheme_" + _DESIGN_COLOR + "_" + _DARK_THEME, R.style.class);
+
         setTheme(resID);
         //Setting
 
@@ -172,8 +168,13 @@ public class MainActivity extends AppCompatActivity {
         //Toolbar and AppBar Elements
 
         //thread start and more
-        ThreadGetGroupName getGroupName = new ThreadGetGroupName();
-        getGroupName.execute();
+        if (!_ONE_DAY) {
+            ThreadGetGroupNameWeek getGroupNameWeek = new ThreadGetGroupNameWeek();
+            getGroupNameWeek.execute();
+        } else {
+            ThreadGetGroupNameOneDay getGroupNameOneDay = new ThreadGetGroupNameOneDay();
+            getGroupNameOneDay.execute();
+        }
 
         ThreadGetTime threadGetTime = new ThreadGetTime();
         threadGetTime.execute();
@@ -265,19 +266,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @SuppressLint("StaticFieldLeak")
-    public class ThreadGetGroupName extends AsyncTask<Void, Void, Void> {
+    public class ThreadGetGroupNameOneDay extends AsyncTask<Void, Void, Void> {
 
         @Override
         protected Void doInBackground(Void... voids) {
             try {
-                Document document_FULL_HTML_CODE = Jsoup.connect(_MAIN_URL_FOR_GROUP_NAME  + "cg.htm").get();
+                Document document_FULL_HTML_CODE = Jsoup.connect(_MAIN_URL_FOR_GROUP_NAME + "hg.htm").get();
+                _ONE_DAY_SITE_CODE  = document_FULL_HTML_CODE.html();
                 Element document_TABLE_HTML_CODE = document_FULL_HTML_CODE.select("table.inf").first();
                 Elements document_TABLE_ELEMENTS = document_TABLE_HTML_CODE.select("tr");
                 for (Element document_TABLE_SELECTED : document_TABLE_ELEMENTS) {
-                    String group_TITLE = document_TABLE_SELECTED.select("tr > td.ur > a.z0").text();
-                    String group_ID = document_TABLE_SELECTED.select("tr > td.ur > a.z0").attr("href");
+                    String group_TITLE = document_TABLE_SELECTED.select("tr > td.hd > a.hd").text();
+                    String group_ID = document_TABLE_SELECTED.select("tr > td.hd > a.hd").attr("href");
                     if (!group_TITLE.equals("")) {
-                        groupListMains.add(new GroupList_main(group_TITLE, group_ID));
+                        groupListMains.add(new GroupList_main(group_TITLE, group_ID, ""));
                     }
                 }
 
@@ -292,8 +294,39 @@ public class MainActivity extends AppCompatActivity {
             super.onPostExecute(aVoid);
             groupListAdapterMain = new GroupListAdapter_main(mContext, groupListMains);
             recycler_view_group.setAdapter(groupListAdapterMain);
-            Animation animation = AnimationUtils.loadAnimation(mContext, R.anim.item_animation_fall_down);
-            recycler_view_group.startAnimation(animation);
+            cdd.dismiss();
+        }
+
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    public class ThreadGetGroupNameWeek extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            try {
+                Document document_FULL_HTML_CODE = Jsoup.connect(_MAIN_URL_FOR_GROUP_NAME + "cg.htm").get();
+                Element document_TABLE_HTML_CODE = document_FULL_HTML_CODE.select("table.inf").first();
+                Elements document_TABLE_ELEMENTS = document_TABLE_HTML_CODE.select("tr");
+                for (Element document_TABLE_SELECTED : document_TABLE_ELEMENTS) {
+                    String group_TITLE = document_TABLE_SELECTED.select("tr > td.ur > a.z0").text();
+                    String group_ID = document_TABLE_SELECTED.select("tr > td.ur > a.z0").attr("href");
+                    if (!group_TITLE.equals("")) {
+                        groupListMains.add(new GroupList_main(group_TITLE, group_ID, ""));
+                    }
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            groupListAdapterMain = new GroupListAdapter_main(mContext, groupListMains);
+            recycler_view_group.setAdapter(groupListAdapterMain);
             cdd.dismiss();
         }
     }

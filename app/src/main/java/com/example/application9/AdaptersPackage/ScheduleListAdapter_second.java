@@ -5,17 +5,19 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.application9.DataPackage.ScheduleList_second;
+import com.example.application9.DataPackage.TimeList_main;
 import com.example.application9.R;
 import com.google.android.material.chip.Chip;
 
 import java.util.List;
+
+import static com.example.application9.MainActivity.timeListMains;
 
 public class ScheduleListAdapter_second extends RecyclerView.Adapter<ScheduleListAdapter_second.ViewHolder> {
 
@@ -67,8 +69,23 @@ public class ScheduleListAdapter_second extends RecyclerView.Adapter<ScheduleLis
         holder.schedule_second_cabinet_name.setText(listSecond.getCabinet_number());
         holder.schedule_second_number_name.setText(Integer.toString(listSecond.getNum_schedule()));
 
+        TimeList_main listMain;
+
+
+        switch (listSecond.getNum_schedule()) {
+            case 1: listMain = timeListMains.get(0); holder.schedule_second_time_name.setText(listMain.getTime_support()); break;
+            case 2: listMain = timeListMains.get(1); holder.schedule_second_time_name.setText(listMain.getTime_support()); break;
+            case 3: listMain = timeListMains.get(3); holder.schedule_second_time_name.setText(listMain.getTime_support()); break;
+            case 4: listMain = timeListMains.get(4); holder.schedule_second_time_name.setText(listMain.getTime_support()); break;
+            case 5: listMain = timeListMains.get(5); holder.schedule_second_time_name.setText(listMain.getTime_support()); break;
+            case 6: listMain = timeListMains.get(6); holder.schedule_second_time_name.setText(listMain.getTime_support()); break;
+            case 9: listMain = timeListMains.get(2); holder.schedule_second_time_name.setText(listMain.getTime_support()); break;
+
+        }
+
         if (listSecond.getNum_schedule() == 2) {
             holder.bottom_view.setVisibility(View.INVISIBLE);
+
         }
 
     }
@@ -82,8 +99,7 @@ public class ScheduleListAdapter_second extends RecyclerView.Adapter<ScheduleLis
 
         private Chip schedule_second_date_name;
         private View bottom_view;
-        private TextView schedule_second_lesson_name, schedule_second_cabinet_name, schedule_second_teacher_name, schedule_second_number_name;
-        private LinearLayout container;
+        private TextView schedule_second_lesson_name, schedule_second_cabinet_name, schedule_second_teacher_name, schedule_second_number_name, schedule_second_time_name;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -93,7 +109,7 @@ public class ScheduleListAdapter_second extends RecyclerView.Adapter<ScheduleLis
             schedule_second_teacher_name = itemView.findViewById(R.id.schedule_second_teacher_name);
             schedule_second_lesson_name = itemView.findViewById(R.id.schedule_second_lesson_name);
             schedule_second_cabinet_name = itemView.findViewById(R.id.schedule_second_cabinet_name);
-            container = itemView.findViewById(R.id.container);
+            schedule_second_time_name = itemView.findViewById(R.id.schedule_second_time_name);
             bottom_view = itemView.findViewById(R.id.bottom_view);
 
         }
