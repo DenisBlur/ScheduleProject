@@ -6,6 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="56dp"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
+
+
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/main.appbar"
         android:layout_width="match_parent"
@@ -17,10 +25,24 @@
             app:contentScrim="?android:attr/colorBackground"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/no_internet"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:scaleType="centerCrop"
+                android:visibility="gone"
+                app:layout_collapseMode="parallax"
+                app:layout_collapseParallaxMultiplier="0.5"
+                app:lottie_autoPlay="true"
+                app:lottie_fileName="no-connection.json"
+                app:lottie_loop="true" />
+
             <ImageView
                 android:id="@+id/backdrop_bitmap"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
+                android:alpha="0"
                 android:scaleType="centerCrop"
                 android:src="@drawable/night"
                 app:layout_collapseMode="parallax"
@@ -33,6 +55,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginBottom="28dp"
+                android:alpha="0"
                 android:background="@drawable/bg_for_text"
                 android:padding="8dp"
                 android:textStyle="bold"
@@ -47,30 +71,13 @@
                 android:background="@drawable/bg_fragment_round_up"
                 android:padding="0dp"
                 app:layout_collapseMode="pin"
+                app:menu="@menu/main_activity_toolbar_menu"
                 tools:ignore="RtlSymmetry">
 
                 <androidx.coordinatorlayout.widget.CoordinatorLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:visibility="gone">
-
-                    <View
-                        android:id="@+id/outlook_bg"
-                        android:layout_width="192dp"
-                        android:layout_height="32dp"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="16dp"
-                        android:background="@drawable/outlook_detail_bg" />
-
-                    <View
-                        android:id="@+id/outlook_switch"
-                        android:layout_width="96dp"
-                        android:layout_height="32dp"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="16dp"
-                        android:background="@drawable/outlook_detail_switch"
-                        android:elevation="4dp"
-                        android:visibility="visible" />
 
                     <LinearLayout
                         android:id="@+id/outlook_button_condition"
@@ -103,6 +110,24 @@
 
                     </LinearLayout>
 
+                    <View
+                        android:id="@+id/outlook_switch"
+                        android:layout_width="96dp"
+                        android:layout_height="32dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="16dp"
+                        android:background="@drawable/outlook_detail_switch"
+                        android:elevation="4dp"
+                        android:visibility="visible" />
+
+                    <View
+                        android:id="@+id/outlook_bg"
+                        android:layout_width="192dp"
+                        android:layout_height="32dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="16dp"
+                        android:background="@drawable/outlook_detail_bg" />
+
 
                 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
@@ -110,7 +135,6 @@
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
-
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav_view"
@@ -123,13 +147,6 @@
         app:itemTextColor="@drawable/bottom_navigation_selector"
         app:labelVisibilityMode="unlabeled"
         app:menu="@menu/main_activity_bottom_navigation_view_menu" />
-
-    <FrameLayout
-        android:id="@+id/fragment_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="56dp"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
 
     <!--<include-->
     <!--layout="@layout/fragment_time_line"-->

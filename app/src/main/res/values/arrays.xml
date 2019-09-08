@@ -8,8 +8,8 @@
         <item>Teal</item>
         <item>Green</item>
         <item>Yellow</item>
-        <item>deepOrange</item>
-        <item>blueGrey</item>
+        <item>DeepOrange</item>
+        <item>BlueGrey</item>
     </string-array>
 
     <string-array name="design_color_st">
@@ -20,8 +20,8 @@
         <item>Teal</item>
         <item>Green</item>
         <item>Yellow</item>
-        <item>deepOrange</item>
-        <item>blueGrey</item>
+        <item>DeepOrange</item>
+        <item>BlueGrey</item>
     </string-array>
 
     <string-array name="site">

@@ -2,6 +2,7 @@ package com.example.application9;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
@@ -19,6 +20,7 @@ import com.example.application9.AdaptersPackage.TabAdapter;
 import com.example.application9.CustomDialog.FirstDialog;
 import com.example.application9.DataPackage.ResultsList_main;
 import com.example.application9.DataPackage.ScheduleList_second;
+import com.example.application9.DataPackage.VariableList;
 import com.example.application9.GroupPageFragments.FirstTab;
 import com.example.application9.GroupPageFragments.SecondTab;
 import com.google.android.material.tabs.TabLayout;
@@ -37,6 +39,7 @@ import static com.example.application9.GroupPageFragments.FirstTab.recyclerView_
 import static com.example.application9.GroupPageFragments.SecondTab.recyclerView_second;
 import static com.example.application9.MainActivity._MAIN_URL_FOR_GROUP_NAME;
 import static com.example.application9.MainActivity.resID;
+import static com.example.application9.MainActivity.variableList;
 
 public class GroupActivity extends AppCompatActivity {
 
@@ -106,15 +109,16 @@ public class GroupActivity extends AppCompatActivity {
                 Element document_TABLE_HTML_CODE = document_FULL_HTML_CODE.select("table.inf").first();
                 Elements document_TABLE_ELEMENTS = document_TABLE_HTML_CODE.select("tr");
                 for (int i = 1; i < document_TABLE_ELEMENTS.size(); i++) {
+
                     Element document_TABLE_SELECTED = document_TABLE_ELEMENTS.get(i);
                     Elements document_TABLE_SELECTED_TD = document_TABLE_SELECTED.select("td");
-                    String num = document_TABLE_SELECTED_TD.get(0).text();
-                    String name_t = document_TABLE_SELECTED_TD.get(1).text();
-                    String name_gr = document_TABLE_SELECTED_TD.get(2).text();
-                    String name_l = document_TABLE_SELECTED_TD.get(4).text();
-                    String hour_all = document_TABLE_SELECTED_TD.get(5).text();
-                    String hour_out = document_TABLE_SELECTED_TD.get(8).text();
-                    int progress = Integer.parseInt(document_TABLE_SELECTED_TD.get(12).select("img").attr("alt"));
+                    String num = document_TABLE_SELECTED_TD.get(Integer.parseInt(variableList.get(0).getValue())).text();
+                    String name_t = document_TABLE_SELECTED_TD.get(Integer.parseInt(variableList.get(1).getValue())).text();
+                    String name_gr = document_TABLE_SELECTED_TD.get(Integer.parseInt(variableList.get(2).getValue())).text();
+                    String name_l = document_TABLE_SELECTED_TD.get(Integer.parseInt(variableList.get(3).getValue())).text();
+                    String hour_all = document_TABLE_SELECTED_TD.get(Integer.parseInt(variableList.get(4).getValue())).text();
+                    String hour_out = document_TABLE_SELECTED_TD.get(Integer.parseInt(variableList.get(5).getValue())).text();
+                    int progress = Integer.parseInt(document_TABLE_SELECTED_TD.get(Integer.parseInt(variableList.get(6).getValue())).select("img").attr("alt"));
 
                     resultsListMains.add(new ResultsList_main(num,name_t,name_gr,name_l,hour_all,hour_out,progress));
                 }
@@ -131,8 +135,8 @@ public class GroupActivity extends AppCompatActivity {
             super.onPostExecute(aVoid);
             ResultsListAdapter_main resultsListAdapter_main = new ResultsListAdapter_main(GroupActivity.this, resultsListMains);
             recyclerView_second.setAdapter(resultsListAdapter_main);
-            Animation animation = AnimationUtils.loadAnimation(mContext, R.anim.item_animation_fall_down);
-            recyclerView_second.startAnimation(animation);
+            recyclerView_second.setAlpha(0);
+            recyclerView_second.animate().setDuration(250).alpha(1).start();
             cdd.dismiss();
         }
     }
@@ -203,8 +207,8 @@ public class GroupActivity extends AppCompatActivity {
             super.onPostExecute(aVoid);
             ScheduleListAdapter_second scheduleListAdapterSecond = new ScheduleListAdapter_second(GroupActivity.this, scheduleListSecond);
             recyclerView_first.setAdapter(scheduleListAdapterSecond);
-            Animation animation = AnimationUtils.loadAnimation(mContext, R.anim.item_animation_fall_down);
-            recyclerView_first.startAnimation(animation);
+            recyclerView_first.setAlpha(0);
+            recyclerView_first.animate().setDuration(250).alpha(1).start();
         }
     }
 

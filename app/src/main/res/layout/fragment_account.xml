@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,9 +19,9 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="16dp"
             app:cardBackgroundColor="@color/colorVK"
-            app:cardCornerRadius="16dp"
+            app:cardCornerRadius="8dp"
             app:cardElevation="8dp">
 
             <ImageView
@@ -63,6 +63,57 @@
 
         </com.google.android.material.card.MaterialCardView>
 
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/ach_fake_button"
+            android:visibility="gone"
+            style="@style/Widget.MaterialComponents.CardView"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:layout_weight="1"
+            app:cardBackgroundColor="?android:attr/colorPrimary"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="2dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="что нового"
+                android:textAllCaps="true"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textStyle="bold" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/event_fake_button"
+            android:visibility="gone"
+            style="@style/Widget.MaterialComponents.CardView"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:layout_weight="1"
+            app:cardBackgroundColor="?android:attr/colorAccent"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="2dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/achievement"
+                android:textAllCaps="true"
+                android:textColor="#FFF"
+                android:textStyle="bold" />
+
+        </com.google.android.material.card.MaterialCardView>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -79,7 +130,7 @@
                 android:layout_marginBottom="8dp"
                 android:layout_weight="1"
                 app:cardBackgroundColor="?android:attr/colorAccent"
-                app:cardCornerRadius="16dp"
+                app:cardCornerRadius="8dp"
                 app:cardElevation="2dp">
 
                 <TextView
@@ -103,7 +154,7 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="8dp"
                 android:layout_weight="1"
-                app:cardCornerRadius="16dp"
+                app:cardCornerRadius="8dp"
                 app:cardElevation="2dp">
 
                 <TextView
@@ -118,6 +169,12 @@
             </com.google.android.material.card.MaterialCardView>
 
         </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="v 0.0.1 BETA"/>
 
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

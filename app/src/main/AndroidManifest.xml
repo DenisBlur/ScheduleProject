@@ -4,11 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.application9">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-
-    <dist:module dist:instant="true" />
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher_new"
@@ -18,6 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.Red.Light"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning,UnusedAttribute">
+        <activity android:name="com.bluedexon.denis.application.WhatsNewActivity" />
         <activity android:name=".WelcomeActivity" />
         <activity
             android:name=".SettingsActivity"
@@ -41,5 +37,12 @@
         </activity>
         <activity android:name=".MainActivity" />
     </application>
+
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"
+        tools:ignore="ManifestOrder" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <dist:module dist:instant="true" />
 
 </manifest>

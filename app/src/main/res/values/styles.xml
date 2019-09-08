@@ -33,8 +33,11 @@
     <style name="AppTheme.Yellow.Light" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_Yellow_Light</item>
     </style>
-    <style name="AppTheme.deepOrange.Light" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
+    <style name="AppTheme.DeepOrange.Light" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_deepOrange_Light</item>
+    </style>
+    <style name="AppTheme.BlueGrey.Light" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
+        <item name="colorAccent">@color/colorAccent_blueGrey_Light</item>
     </style>
     //LIGHT THEME
 
@@ -60,8 +63,11 @@
     <style name="AppTheme.Yellow.Andorid" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_Yellow_Light</item>
     </style>
-    <style name="AppTheme.deepOrange.Andorid" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
+    <style name="AppTheme.DeepOrange.Andorid" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_deepOrange_Light</item>
+    </style>
+    <style name="AppTheme.BlueGrey.Andorid" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
+        <item name="colorAccent">@color/colorAccent_blueGrey_Light</item>
     </style>
     //DayNight THEME
 
@@ -87,8 +93,11 @@
     <style name="AppTheme.Yellow.Dark" parent="Theme.MaterialComponents.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_Yellow_Light</item>
     </style>
-    <style name="AppTheme.deepOrange.Dark" parent="Theme.MaterialComponents.NoActionBar.Bridge">
+    <style name="AppTheme.DeepOrange.Dark" parent="Theme.MaterialComponents.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_deepOrange_Light</item>
+    </style>
+    <style name="AppTheme.BlueGrey.Dark" parent="Theme.MaterialComponents.NoActionBar.Bridge">
+        <item name="colorAccent">@color/colorAccent_blueGrey_Light</item>
     </style>
     //DARK THEME
 

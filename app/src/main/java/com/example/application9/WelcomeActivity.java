@@ -1,5 +1,7 @@
 package com.example.application9;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -120,11 +122,17 @@ public class WelcomeActivity extends AppCompatActivity {
                 // last page. make button text to GOT IT
                 btnNext.setText("START");
                 btnNext.setVisibility(View.VISIBLE);
-                btnSkip.setVisibility(View.GONE);
+                btnNext.setAlpha(0);
+                btnNext.animate().setDuration(250).alpha(1).start();
             } else {
                 btnNext.setText("START");
-                btnNext.setVisibility(View.GONE);
-                btnSkip.setVisibility(View.GONE);
+                btnNext.animate().setDuration(250).setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        super.onAnimationEnd(animation);
+                        btnSkip.setVisibility(View.GONE);
+                    }
+                }).alpha(0).start();
             }
         }
 

@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+<!--    <item-->
+<!--        android:id="@+id/event_note"-->
+<!--        android:icon="@drawable/ic_event_note_24x"-->
+<!--        android:title="Event"-->
+<!--        app:showAsAction="ifRoom" />-->
     <item
-        android:id="@+id/settings"
-        app:showAsAction="always"
-        android:title="Setting"
-        android:icon="@drawable/ic_outline_settings_24px"
-        />
+        android:id="@+id/refresh"
+        android:icon="@drawable/ic_refresh_24x"
+        android:title="Refresh"
+        app:showAsAction="always" />
 </menu>

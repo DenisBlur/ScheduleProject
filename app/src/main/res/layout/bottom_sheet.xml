@@ -15,10 +15,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:visibility="gone"
         android:layout_marginTop="16dp"
         android:text="Donation Alerts" />
 
     <com.google.android.material.card.MaterialCardView
+        android:visibility="gone"
         android:id="@+id/fake_button_da"
         android:layout_width="match_parent"
         android:layout_height="200dp"

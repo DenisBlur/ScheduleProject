@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    android:layout_height="wrap_content"
+    android:padding="16dp"
+    android:background="@drawable/dialog_bg"
+    android:orientation="vertical">
+
+    <TextView
+        android:text="@string/app_name"
+        style="@style/TextAppearance.AppCompat.Title"
+        android:textStyle="bold"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        style="@style/TextAppearance.AppCompat.Subhead"
+        android:layout_marginTop="16dp"
+        android:text="Вы хотите закрепить группу?"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:layout_gravity="end"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/negative_button"
+            android:text="нет"
+            android:background="@drawable/transparent_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:id="@+id/positive_button"
+            android:background="@drawable/transparent_btn"
+            style="@style/TextAppearance.AppCompat.Widget.Button.Borderless.Colored"
+            android:text="Да"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+</LinearLayout>

@@ -8,9 +8,12 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.transition.Fade;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -18,14 +21,18 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.preference.PreferenceManager;
 
+import com.airbnb.lottie.LottieAnimationView;
+import com.bumptech.glide.Glide;
 import com.example.application9.AdaptersPackage.GroupListAdapter_main;
 import com.example.application9.AdaptersPackage.TimeListAdapter_main;
 import com.example.application9.CustomDialog.FirstDialog;
 import com.example.application9.DataPackage.GroupList_main;
 import com.example.application9.DataPackage.TimeList_main;
+import com.example.application9.DataPackage.VariableList;
 import com.example.application9.HomePageFragments.AccountFragment;
 import com.example.application9.HomePageFragments.GroupsHomeFragment;
 import com.example.application9.HomePageFragments.TimeLineFragment;
+import com.example.application9.Support.NetworkManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.jsoup.Jsoup;
@@ -45,7 +52,8 @@ import static com.example.application9.HomePageFragments.TimeLineFragment.recycl
 public class MainActivity extends AppCompatActivity {
 
     public static String _MAIN_URL_FOR_GROUP_NAME = "http://83.174.201.182/cg.htm";
-    public static String _MAIN_URL_FOR_TIMES = "http://s917802v.bget.ru/times/";
+    public static String _MAIN_URL_FOR_TIMES = "http://s917802v.beget.tech/server_time/";
+    public static String _MAIN_URL_FOR_VARIABLE = "http://s917802v.beget.tech/server_variable/";
     public static String _ONE_DAY_SITE_CODE;
 
     @SuppressLint("StaticFieldLeak")
@@ -59,8 +67,12 @@ public class MainActivity extends AppCompatActivity {
     public static boolean _ONE_DAY;
     public static int resID;
     public static List<TimeList_main> timeListMains = new ArrayList<>();
-
+    public static List<VariableList> variableList = new ArrayList<>();
     private List<GroupList_main> groupListMains = new ArrayList<>();
+
+    public static String _SECOND_GROUP_NAME, _SECOND_GROUP_ID;
+    public static SharedPreferences myPreferences;
+
     private Context mContext;
     private View outlook_switch;
     private ImageView hello_bitmap;
@@ -78,13 +90,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         //Setting
+        myPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         _DESIGN_COLOR = sharedPref.getString("_design_color_list", "Red");
         _SITE = sharedPref.getString("_site_list", "first_site");
         _ONE_DAY = sharedPref.getBoolean("_main_one_day_switch", false);
         _DARK_THEME = sharedPref.getString("_theme_lds_list", "Andorid");
 
-        //resID = getResId("AppTheme_" + _DESIGN_COLOR, R.style.class);
+        _SECOND_GROUP_NAME = sharedPref.getString("group_TITLE", "null");
+        _SECOND_GROUP_ID = sharedPref.getString("group_ID", "null");
 
         if (_SITE.equals("first_site")) {
             _MAIN_URL_FOR_GROUP_NAME = "http://83.174.201.182/";
@@ -100,9 +114,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Animation
+        //Toolbar
         getWindow().setEnterTransition(new Fade());
-        //Animation
+        //Toolbar
 
         //Fragments
         fm.beginTransaction().add(R.id.fragment_container, fragment3, "3").hide(fragment3).commit();
@@ -111,7 +125,6 @@ public class MainActivity extends AppCompatActivity {
 
         cdd = new FirstDialog(this);
         Objects.requireNonNull(cdd.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        cdd.show();
         //Fragments
 
         //
@@ -124,6 +137,8 @@ public class MainActivity extends AppCompatActivity {
         TextView week_button_sw = findViewById(R.id.week_button_sw);
         hello_bitmap = findViewById(R.id.backdrop_bitmap);
         hello_title = findViewById(R.id.hello_title);
+        Toolbar toolbar1 = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar1);
         BottomNavigationView bottom_nav_view = findViewById(R.id.bottom_nav_view);
         //initializing all component
 
@@ -143,23 +158,25 @@ public class MainActivity extends AppCompatActivity {
 
 
         //Toolbar and AppBar Elements
-
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
         bottom_nav_view.setOnNavigationItemSelectedListener(item -> {
 
             switch (item.getItemId()) {
                 case R.id.schedule:
-                    fm.beginTransaction().hide(active).show(fragment1).commit();
+                    if (active != fragment1) {
+                        fm.beginTransaction().setCustomAnimations(R.animator.fragment_anim_in, R.animator.fragment_anim_out).hide(active).show(fragment1).commit();
+                    }
                     active = fragment1;
                     return true;
                 case R.id.timeline:
-                    fm.beginTransaction().hide(active).show(fragment2).commit();
+                    if (active != fragment2) {
+                        fm.beginTransaction().setCustomAnimations(R.animator.fragment_anim_in, R.animator.fragment_anim_out).hide(active).show(fragment2).commit();
+                    }
                     active = fragment2;
                     return true;
                 case R.id.account:
-                    fm.beginTransaction().hide(active).show(fragment3).commit();
+                    if (active != fragment3) {
+                        fm.beginTransaction().setCustomAnimations(R.animator.fragment_anim_in, R.animator.fragment_anim_out).hide(active).show(fragment3).commit();
+                    }
                     active = fragment3;
                     return true;
             }
@@ -168,16 +185,7 @@ public class MainActivity extends AppCompatActivity {
         //Toolbar and AppBar Elements
 
         //thread start and more
-        if (!_ONE_DAY) {
-            ThreadGetGroupNameWeek getGroupNameWeek = new ThreadGetGroupNameWeek();
-            getGroupNameWeek.execute();
-        } else {
-            ThreadGetGroupNameOneDay getGroupNameOneDay = new ThreadGetGroupNameOneDay();
-            getGroupNameOneDay.execute();
-        }
-
-        ThreadGetTime threadGetTime = new ThreadGetTime();
-        threadGetTime.execute();
+        threadStart();
         //thread start and more
 
         //Outlooks details
@@ -187,6 +195,54 @@ public class MainActivity extends AppCompatActivity {
         //Outlooks details
     }
 
+    private void threadStart() {
+        LottieAnimationView lottieAnimationView = findViewById(R.id.no_internet);
+        if (NetworkManager.isNetworkAvailable(mContext)) {
+            if (!_ONE_DAY) {
+                ThreadGetGroupNameWeek getGroupNameWeek = new ThreadGetGroupNameWeek();
+                getGroupNameWeek.execute();
+            } else {
+                ThreadGetGroupNameOneDay getGroupNameOneDay = new ThreadGetGroupNameOneDay();
+                getGroupNameOneDay.execute();
+            }
+
+            ThreadGetTime threadGetTime = new ThreadGetTime();
+            threadGetTime.execute();
+
+            ThreadGetVariable threadGetVariable = new ThreadGetVariable();
+            threadGetVariable.execute();
+            cdd.show();
+            lottieAnimationView.setVisibility(View.GONE);
+        } else {
+            Toast.makeText(mContext, "Check your network connection", Toast.LENGTH_SHORT).show();
+            lottieAnimationView.setVisibility(View.VISIBLE);
+            hello_title.animate().setDuration(500).alpha(0).start();
+            hello_bitmap.animate().setDuration(250).setStartDelay(800).alpha(0).start();
+        }
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_activity_toolbar_menu, menu);
+
+        MenuItem item = menu.findItem(R.id.refresh);
+//        MenuItem item1 = menu.findItem(R.id.event_note);
+
+        item.setOnMenuItemClickListener(v -> {
+            threadStart();
+            return true;
+        });
+
+//        item1.setOnMenuItemClickListener(v -> {
+//
+//            //startActivity(new Intent(mContext, WhatsNewActivity.class));
+//
+//            return true;
+//        });
+
+        return true;
+    }
 
     public static int getResId(String resName, Class<?> c) {
 
@@ -243,25 +299,30 @@ public class MainActivity extends AppCompatActivity {
 
             switch (document_TIME_IMAGE_HTML_CODE) {
                 case "morning":
-                    hello_bitmap.setImageResource(R.drawable.morning);
+                    Glide.with(mContext).load("http://s917802v.beget.tech/server_backdrop/images/morning.jpg").into(hello_bitmap);
                     hello_title.setText("Доброе утро!");
                     break;
                 case "daytime":
-                    hello_bitmap.setImageResource(R.drawable.daytime);
+                    Glide.with(mContext).load("http://s917802v.beget.tech/server_backdrop/images/daytime.jpg").into(hello_bitmap);
                     hello_title.setText("Добрый день!");
                     break;
                 case "evening":
                     hello_bitmap.setImageResource(R.drawable.evening);
+                    Glide.with(mContext).load("http://s917802v.beget.tech/server_backdrop/images/evening.png").into(hello_bitmap);
                     hello_title.setText("Добрый вечер!");
                     break;
                 case "night":
-                    hello_bitmap.setImageResource(R.drawable.night);
+                    Glide.with(mContext).load("http://s917802v.beget.tech/server_backdrop/images/night.jpg").into(hello_bitmap);
                     hello_title.setText("Доброй ночи!");
                     break;
 
             }
             timeListAdapterMain = new TimeListAdapter_main(mContext, timeListMains);
             recycler_view_timeline.setAdapter(timeListAdapterMain);
+            recycler_view_timeline.setAlpha(0);
+            recycler_view_timeline.animate().setDuration(250).alpha(1).start();
+            hello_bitmap.animate().setDuration(500).alpha(1).start();
+            hello_title.animate().setDuration(250).setStartDelay(800).alpha(1).start();
         }
     }
 
@@ -272,7 +333,7 @@ public class MainActivity extends AppCompatActivity {
         protected Void doInBackground(Void... voids) {
             try {
                 Document document_FULL_HTML_CODE = Jsoup.connect(_MAIN_URL_FOR_GROUP_NAME + "hg.htm").get();
-                _ONE_DAY_SITE_CODE  = document_FULL_HTML_CODE.html();
+                _ONE_DAY_SITE_CODE = document_FULL_HTML_CODE.html();
                 Element document_TABLE_HTML_CODE = document_FULL_HTML_CODE.select("table.inf").first();
                 Elements document_TABLE_ELEMENTS = document_TABLE_HTML_CODE.select("tr");
                 for (Element document_TABLE_SELECTED : document_TABLE_ELEMENTS) {
@@ -327,7 +388,42 @@ public class MainActivity extends AppCompatActivity {
             super.onPostExecute(aVoid);
             groupListAdapterMain = new GroupListAdapter_main(mContext, groupListMains);
             recycler_view_group.setAdapter(groupListAdapterMain);
+            recycler_view_group.setAlpha(0);
+            recycler_view_group.animate().setDuration(250).alpha(1).start();
             cdd.dismiss();
         }
     }
+
+    @SuppressLint("StaticFieldLeak")
+    public class ThreadGetVariable extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            try {
+                Document document_FULL_HTML_CODE = Jsoup.connect(_MAIN_URL_FOR_VARIABLE).get();
+                Element document_TABLE_HTML_CODE = document_FULL_HTML_CODE.select("tbody.table_sior").first();
+                Elements document_TABLE_ELEMENTS = document_TABLE_HTML_CODE.select("tr");
+                for (Element document_TABLE_SELECTED : document_TABLE_ELEMENTS) {
+                    String name = document_TABLE_SELECTED.select("tr > td.mdl-data-table__cell--non-numeric").text();
+                    String value = document_TABLE_SELECTED.select("tr > td.value").text();
+                    String responsible = document_TABLE_SELECTED.select("tr > td.responsible").text();
+                    String type = document_TABLE_SELECTED.select("tr > td.type_s").text();
+
+                    variableList.add(new VariableList(name, value, responsible, type));
+
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            Toast.makeText(mContext, "OK", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 }

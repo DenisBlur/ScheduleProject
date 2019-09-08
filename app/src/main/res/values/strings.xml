@@ -20,4 +20,16 @@
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="donate_button">пожертвовать</string>
     <string name="setting_button">настройки</string>
+    <string name="achievement">Достижения</string>
+    <string name="zero_slide_main_text">Пришло время попрощаться со старым приложение СКСиПТ. Из-за утерянного исходного кода мне пришлось переписать его с нуля. На данный момент новое приложение работает намного лучше, а так же поддерживает новые API от Google. Я собирался выпустить его примерно в октябре, но из-за изменений на сайте старое приложение стало нерабочим. Я предусмотрел это и такие малейшие изменения на сайте я смогу спокойно поправить удаленно со своего сервера. Прошу прощения за неудобства.</string>
+    <string name="zelo_slide_title_text">Прощай.</string>
+    <string name="zero_slide_second_text">А так же не забудьте подписаться на мое сообщество ВКонтаке. Там я публикую информацию об обновлениях.</string>
+    <string name="first_slide_title_text">Новый дизайн</string>
+    <string name="first_slide_main_text">Полностью обновленный дизайн приложения</string>
+    <string name="four_slide_title_text">Начнем</string>
+    <string name="four_slide_main_text">Делитесь этим приложение меж всеми студентами коллежа!</string>
+    <string name="third_slide_title_text">Новая архитектура</string>
+    <string name="third_slide_main_text">Приложение было написано на новый архитектуре с использованием новых возможностей от Google</string>
+    <string name="second_slide_title_text">Темы приложения</string>
+    <string name="second_slide_main_text">Мы добавили и темную и светлую тему! Так же появились новые цвета</string>
 </resources>

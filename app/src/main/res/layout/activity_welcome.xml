@@ -2,8 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:showIn="@layout/activity_welcome">
+    android:layout_height="match_parent">
 
 
     <androidx.viewpager.widget.ViewPager
@@ -13,6 +12,7 @@
 
     <LinearLayout
         android:id="@+id/layoutDots"
+        android:layout_centerHorizontal="true"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dots_height"
         android:layout_alignParentBottom="true"
@@ -30,7 +30,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="14dp"
         android:text="NEXT"
-        android:textColor="@android:color/white" />
+        android:textColor="?android:attr/textColorPrimary" />
 
     <Button
         android:id="@+id/btn_skip"

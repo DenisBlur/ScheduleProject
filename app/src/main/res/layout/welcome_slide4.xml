@@ -3,7 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_screen4">
+    android:background="@color/white">
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        android:layout_marginBottom="280dp"
+        app:lottie_fileName="offline-sharing-animation.json" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -11,20 +19,12 @@
         android:layout_centerInParent="true"
         android:gravity="center_horizontal"
         android:orientation="vertical">
-
-        <com.airbnb.lottie.LottieAnimationView
-            android:layout_width="250dp"
-            android:layout_height="250dp"
-            android:scaleType="centerCrop"
-            app:lottie_autoPlay="true"
-            app:lottie_loop="true"
-            app:lottie_fileName="happy-blob-empty-sip-china.json" />
-
         <TextView
+            android:layout_marginTop="300dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Begin!"
-            android:textColor="@android:color/black"
+            android:text="@string/four_slide_title_text"
+            android:textColor="?android:attr/textColorPrimary"
             android:textSize="@dimen/slide_title"
             android:textStyle="bold" />
 
@@ -34,9 +34,9 @@
             android:layout_marginTop="16dp"
             android:paddingLeft="@dimen/desc_padding"
             android:paddingRight="@dimen/desc_padding"
-            android:text="These were major updates to the new app."
+            android:text="@string/four_slide_main_text"
             android:textAlignment="center"
-            android:textColor="@android:color/black"
+            android:textColor="?android:attr/textColorPrimary"
             android:textSize="@dimen/slide_desc" />
 
     </LinearLayout>
