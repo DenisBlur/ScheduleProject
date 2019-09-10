@@ -7,7 +7,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.transition.Fade;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,6 +33,7 @@ import com.example.application9.HomePageFragments.GroupsHomeFragment;
 import com.example.application9.HomePageFragments.TimeLineFragment;
 import com.example.application9.Support.NetworkManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.card.MaterialCardView;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
     public static String _MAIN_URL_FOR_TIMES = "http://s917802v.beget.tech/server_time/";
     public static String _MAIN_URL_FOR_VARIABLE = "http://s917802v.beget.tech/server_variable/";
     public static String _ONE_DAY_SITE_CODE;
+    public static String _NOW_DAY;
 
     @SuppressLint("StaticFieldLeak")
     public static GroupListAdapter_main groupListAdapterMain;
@@ -72,6 +73,10 @@ public class MainActivity extends AppCompatActivity {
 
     public static String _SECOND_GROUP_NAME, _SECOND_GROUP_ID;
     public static SharedPreferences myPreferences;
+    @SuppressLint("StaticFieldLeak")
+    public static MaterialCardView top_pin;
+    @SuppressLint("StaticFieldLeak")
+    public static TextView top_pin_title;
 
     private Context mContext;
     private View outlook_switch;
@@ -86,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
     final FragmentManager fm = getSupportFragmentManager();
     Fragment active = fragment1;
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -114,10 +120,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Toolbar
-        getWindow().setEnterTransition(new Fade());
-        //Toolbar
-
         //Fragments
         fm.beginTransaction().add(R.id.fragment_container, fragment3, "3").hide(fragment3).commit();
         fm.beginTransaction().add(R.id.fragment_container, fragment2, "2").hide(fragment2).commit();
@@ -137,6 +139,8 @@ public class MainActivity extends AppCompatActivity {
         TextView week_button_sw = findViewById(R.id.week_button_sw);
         hello_bitmap = findViewById(R.id.backdrop_bitmap);
         hello_title = findViewById(R.id.hello_title);
+        top_pin = findViewById(R.id.top_pin);
+        top_pin_title = findViewById(R.id.top_pin_title);
         Toolbar toolbar1 = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar1);
         BottomNavigationView bottom_nav_view = findViewById(R.id.bottom_nav_view);
@@ -192,10 +196,12 @@ public class MainActivity extends AppCompatActivity {
         week_button_sw.setOnClickListener(v -> outlook_switch.animate().translationX(0 * dp).setDuration(150).start());
 
         day_button_sw.setOnClickListener(v -> outlook_switch.animate().translationX(96 * dp).setDuration(150).start());
+
         //Outlooks details
     }
 
     private void threadStart() {
+        timeListMains = new ArrayList<>();
         LottieAnimationView lottieAnimationView = findViewById(R.id.no_internet);
         if (NetworkManager.isNetworkAvailable(mContext)) {
             if (!_ONE_DAY) {
@@ -255,6 +261,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
     @SuppressLint("StaticFieldLeak")
     public class ThreadGetTime extends AsyncTask<Void, Void, Void> {
 
@@ -266,6 +273,7 @@ public class MainActivity extends AppCompatActivity {
                 Document document_FULL_HTML_CODE = Jsoup.connect(_MAIN_URL_FOR_TIMES).get();
                 String document_TYPE_HTML_CODE = document_FULL_HTML_CODE.select("div.type").first().text();
                 String document_NOW_DAY_HTML_CODE = document_FULL_HTML_CODE.select("div.now_day").first().text();
+                _NOW_DAY = document_NOW_DAY_HTML_CODE;
                 document_TIME_IMAGE_HTML_CODE = document_FULL_HTML_CODE.select("div.time_image").first().text();
                 Element document_GET_TIME_HTML_CODE = document_FULL_HTML_CODE.select("div." + document_TYPE_HTML_CODE).first();
 
@@ -307,7 +315,6 @@ public class MainActivity extends AppCompatActivity {
                     hello_title.setText("Добрый день!");
                     break;
                 case "evening":
-                    hello_bitmap.setImageResource(R.drawable.evening);
                     Glide.with(mContext).load("http://s917802v.beget.tech/server_backdrop/images/evening.png").into(hello_bitmap);
                     hello_title.setText("Добрый вечер!");
                     break;

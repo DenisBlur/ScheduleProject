@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
 import com.example.application9.DataPackage.ResultsList_main;
 import com.example.application9.R;
 import com.google.android.material.card.MaterialCardView;
@@ -56,7 +57,7 @@ public class ResultsListAdapter_main extends RecyclerView.Adapter<ResultsListAda
     class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView name_t, name_l, hour_all,hour_out;
-        ProgressBar progressBar;
+        RoundCornerProgressBar progressBar;
         MaterialCardView container;
 
         public ViewHolder(@NonNull View itemView) {

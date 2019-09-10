@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.application9.DataPackage.TimeList_main;
+import com.example.application9.MainActivity;
 import com.example.application9.R;
 
 import java.util.List;
@@ -39,14 +40,30 @@ public class TimeListAdapter_main extends RecyclerView.Adapter<TimeListAdapter_m
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         TimeList_main main = timeListMains.get(position);
         holder.text_time.setText(main.getTime_support());
-        if (position != 2) {
-            if (position < 2) {
-                holder.text_title.setText(position + 1 + " пара");
+        if (!MainActivity._NOW_DAY.equals("3")) {
+            if (position != 2) {
+                if (position < 2) {
+                    holder.text_title.setText(position + 1 + " пара");
+                } else {
+                    holder.text_title.setText(position + " пара");
+                }
             } else {
-                holder.text_title.setText(position + " пара");
+                holder.text_title.setText("Обеденный перерыв");
             }
         } else {
-            holder.text_title.setText("Обеденный перерыв");
+            if (position != 3) {
+                if (position < 3) {
+                    if (position == 0) {
+                        holder.text_title.setText("Классный час");
+                    } else {
+                        holder.text_title.setText(position + " пара");
+                    }
+                } else {
+                    holder.text_title.setText(position - 1 + " пара");
+                }
+            } else {
+                holder.text_title.setText("Обеденный перерыв");
+            }
         }
 //        switch (position) {
 //            case 0: holder.text_title

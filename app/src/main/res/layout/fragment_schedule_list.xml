@@ -1,39 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/fragment_container"
+    android:id="@+id/scroll"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <com.google.android.material.card.MaterialCardView
-        android:visibility="gone"
-        android:id="@+id/pin_group_bg"
-        android:padding="8dp"
-        android:layout_margin="16dp"
-        app:cardCornerRadius="16dp"
-        app:cardElevation="8dp"
-        app:cardBackgroundColor="?android:attr/colorAccent"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/pin_group_title"
-            style="@style/TextAppearance.AppCompat.Title"
-            android:textStyle="bold"
-            android:layout_gravity="center"
-            android:text="ПСК-41"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/pin_group_bg"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_margin="16dp"
+            android:padding="8dp"
+            android:visibility="gone"
+            app:cardBackgroundColor="?android:attr/colorAccent"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="8dp">
 
-    </com.google.android.material.card.MaterialCardView>
+            <TextView
+                android:id="@+id/pin_group_title"
+                style="@style/TextAppearance.AppCompat.Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="ПСК-41"
+                android:textStyle="bold" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="4dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            <Button
+                android:id="@+id/unpin_button"
+                android:drawableBottom="@drawable/ic_clear_24px"
+                android:layout_gravity="end"
+                android:layout_margin="8dp"
+                android:background="@drawable/bg_button"
+                android:layout_width="24dp"
+                android:layout_height="24dp"/>
 
-</LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="4dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>
 

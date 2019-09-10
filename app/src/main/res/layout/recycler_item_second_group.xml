@@ -44,14 +44,18 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <ProgressBar
+            <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
                 android:id="@+id/progressBar"
-                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="5dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                app:rcBackgroundColor="?android:attr/colorPrimary"
+                app:rcProgressColor="?android:attr/colorAccent"
                 android:indeterminate="false"
                 android:max="100"
-                android:progress="20" />
+                android:progress="20"
+                app:rcRadius="10dp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"

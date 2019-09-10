@@ -17,6 +17,7 @@ import com.google.android.material.chip.Chip;
 
 import java.util.List;
 
+import static com.example.application9.MainActivity._NOW_DAY;
 import static com.example.application9.MainActivity.timeListMains;
 
 public class ScheduleListAdapter_second extends RecyclerView.Adapter<ScheduleListAdapter_second.ViewHolder> {
@@ -71,16 +72,26 @@ public class ScheduleListAdapter_second extends RecyclerView.Adapter<ScheduleLis
 
         TimeList_main listMain;
 
-
-        switch (listSecond.getNum_schedule()) {
-            case 1: listMain = timeListMains.get(0); holder.schedule_second_time_name.setText(listMain.getTime_support()); break;
-            case 2: listMain = timeListMains.get(1); holder.schedule_second_time_name.setText(listMain.getTime_support()); break;
-            case 3: listMain = timeListMains.get(3); holder.schedule_second_time_name.setText(listMain.getTime_support()); break;
-            case 4: listMain = timeListMains.get(4); holder.schedule_second_time_name.setText(listMain.getTime_support()); break;
-            case 5: listMain = timeListMains.get(5); holder.schedule_second_time_name.setText(listMain.getTime_support()); break;
-            case 6: listMain = timeListMains.get(6); holder.schedule_second_time_name.setText(listMain.getTime_support()); break;
-            case 9: listMain = timeListMains.get(2); holder.schedule_second_time_name.setText(listMain.getTime_support()); break;
-
+        if (!_NOW_DAY.equals("3")) {
+            switch (listSecond.getNum_schedule()) {
+                case 1: listMain = timeListMains.get(0); holder.schedule_second_time_name.setText(listMain.getTime_support()); break;
+                case 2: listMain = timeListMains.get(1); holder.schedule_second_time_name.setText(listMain.getTime_support()); break;
+                case 3: listMain = timeListMains.get(3); holder.schedule_second_time_name.setText(listMain.getTime_support()); break;
+                case 4: listMain = timeListMains.get(4); holder.schedule_second_time_name.setText(listMain.getTime_support()); break;
+                case 5: listMain = timeListMains.get(5); holder.schedule_second_time_name.setText(listMain.getTime_support()); break;
+                case 6: listMain = timeListMains.get(6); holder.schedule_second_time_name.setText(listMain.getTime_support()); break;
+                case 9: listMain = timeListMains.get(2); holder.schedule_second_time_name.setText(listMain.getTime_support()); break;
+            }
+        } else {
+            switch (listSecond.getNum_schedule()) {
+                case 1: listMain = timeListMains.get(1); holder.schedule_second_time_name.setText(listMain.getTime_support()); break;
+                case 2: listMain = timeListMains.get(2); holder.schedule_second_time_name.setText(listMain.getTime_support()); break;
+                case 3: listMain = timeListMains.get(4); holder.schedule_second_time_name.setText(listMain.getTime_support()); break;
+                case 4: listMain = timeListMains.get(5); holder.schedule_second_time_name.setText(listMain.getTime_support()); break;
+                case 5: listMain = timeListMains.get(6); holder.schedule_second_time_name.setText(listMain.getTime_support()); break;
+                case 6: listMain = timeListMains.get(7); holder.schedule_second_time_name.setText(listMain.getTime_support()); break;
+                case 9: listMain = timeListMains.get(3); holder.schedule_second_time_name.setText(listMain.getTime_support()); break;
+            }
         }
 
         if (listSecond.getNum_schedule() == 2) {
