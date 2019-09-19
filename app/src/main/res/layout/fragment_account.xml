@@ -14,9 +14,10 @@
         android:orientation="vertical">
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/vk_login"
             style="@style/Widget.MaterialComponents.CardView"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="175dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
@@ -26,41 +27,48 @@
             app:cardElevation="8dp">
 
             <ImageView
+                android:id="@+id/acc_bg_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:cropToPadding="true"
+                android:scaleType="fitCenter"
                 android:src="@drawable/vk"
                 tools:ignore="ContentDescription" />
 
+            <View
+                android:id="@+id/acc_gradient_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/simple_gradient"
+                android:visibility="gone" />
+
             <LinearLayout
+                android:id="@+id/acc_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:orientation="vertical"
                 android:visibility="gone">
 
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/acc_small_image"
+                    android:layout_width="86dp"
+                    android:layout_height="86dp"
+                    android:layout_margin="16dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/vk"
+                    android:translationZ="8dp" />
+
                 <TextView
+                    android:layout_gravity="center"
+                    android:id="@+id/acc_full_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#FFF"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:layout_width="86dp"
-                    android:layout_height="86dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/vk"
-                    android:translationZ="8dp" />
-
             </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/simple_gradient"
-                android:visibility="gone" />
-
 
         </com.google.android.material.card.MaterialCardView>
 
@@ -78,14 +86,7 @@
             app:cardCornerRadius="8dp"
             app:cardElevation="2dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="что нового"
-                android:textAllCaps="true"
-                android:textColor="?android:attr/textColorPrimary"
-                android:textStyle="bold" />
+
 
         </com.google.android.material.card.MaterialCardView>
 
@@ -175,7 +176,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="v 0.0.1 BETA"/>
+            android:text="@string/version_in_app"/>
 
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

@@ -1,4 +1,4 @@
-package com.example.application9;
+package com.example.application9.BottomSheets;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -15,6 +15,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.application9.R;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.card.MaterialCardView;
 

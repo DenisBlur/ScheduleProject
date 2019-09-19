@@ -13,7 +13,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.Red.Light"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning,UnusedAttribute">
-        <activity android:name="com.bluedexon.denis.application.WhatsNewActivity" />
+        <activity
+            android:name=".AccountActivity"
+            android:label="@string/title_activity_account"
+            android:theme="@style/AppTheme.Red.Light.NoActionBar"></activity>
+        <activity android:name=".VkLoginActivity" />
         <activity android:name=".WelcomeActivity" />
         <activity
             android:name=".SettingsActivity"
@@ -37,11 +41,12 @@
         </activity>
         <activity android:name=".MainActivity" />
     </application>
-
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"
-        tools:ignore="ManifestOrder" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission
+        android:name="android.permission.ACCESS_WIFI_STATE"
+        tools:ignore="ManifestOrder" />
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <dist:module dist:instant="true" />
 

@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "866655554511-ss7p8kke0k6slps0nntd9p2q0lnrldfq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bluedexon.denis.application",
+            "certificate_hash": "561068a9e7f3702400dce0cfda8d3723e439785f"
+          }
+        },
+        {
           "client_id": "866655554511-ds0h9dt533me786v4dpbom1fsposorg1.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -37,12 +45,20 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:866655554511:android:afaa3ac8eac9d8ec",
+        "mobilesdk_app_id": "1:866655554511:android:15473fcd9ac0afe7c960ba",
         "android_client_info": {
-          "package_name": "com.studio.blueribbon.adminapp"
+          "package_name": "com.example.application9"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "866655554511-f95fso4pje0vihmkrphlrb5pipurtg69.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.application9",
+            "certificate_hash": "561068a9e7f3702400dce0cfda8d3723e439785f"
+          }
+        },
         {
           "client_id": "866655554511-ds0h9dt533me786v4dpbom1fsposorg1.apps.googleusercontent.com",
           "client_type": 3

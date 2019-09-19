@@ -18,7 +18,6 @@ import static com.example.application9.HomePageFragments.GroupsHomeFragment.pin_
 import static com.example.application9.MainActivity._SECOND_GROUP_ID;
 import static com.example.application9.MainActivity._SECOND_GROUP_NAME;
 import static com.example.application9.MainActivity.myPreferences;
-import static com.example.application9.MainActivity.top_pin;
 import static com.example.application9.MainActivity.top_pin_title;
 
 public class MainDialog extends Dialog implements View.OnClickListener {

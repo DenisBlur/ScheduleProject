@@ -1,26 +1,16 @@
 <resources>
+    <integer name="com_vk_sdk_AppId">7131672</integer>
     <string name="app_name">Расписание</string>
     <string name="title_activity_group">GroupActivity</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_settings">Settings</string>
 
-    <!-- Preference Titles -->
-    <string name="messages_header">Messages</string>
-    <string name="sync_header">Sync</string>
-
-    <!-- Messages Preferences -->
-    <string name="signature_title">Your signature</string>
-    <string name="reply_title">Default reply action</string>
-
-    <!-- Sync Preferences -->
-    <string name="sync_title">Sync email periodically</string>
-    <string name="attachment_title">Download incoming attachments</string>
-    <string name="attachment_summary_on">Automatically download attachments for incoming emails
-    </string>
-    <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="donate_button">пожертвовать</string>
     <string name="setting_button">настройки</string>
     <string name="achievement">Достижения</string>
+
+    //welcome page
+
     <string name="zero_slide_main_text">Пришло время попрощаться со старым приложение СКСиПТ. Из-за утерянного исходного кода мне пришлось переписать его с нуля. На данный момент новое приложение работает намного лучше, а так же поддерживает новые API от Google. Я собирался выпустить его примерно в октябре, но из-за изменений на сайте старое приложение стало нерабочим. Я предусмотрел это и такие малейшие изменения на сайте я смогу спокойно поправить удаленно со своего сервера. Прошу прощения за неудобства.</string>
     <string name="zelo_slide_title_text">Прощай.</string>
     <string name="zero_slide_second_text">А так же не забудьте подписаться на мое сообщество ВКонтаке. Там я публикую информацию об обновлениях.</string>
@@ -32,4 +22,26 @@
     <string name="third_slide_main_text">Приложение было написано на новый архитектуре с использованием новых возможностей от Google</string>
     <string name="second_slide_title_text">Темы приложения</string>
     <string name="second_slide_main_text">Мы добавили и темную и светлую тему! Так же появились новые цвета</string>
+
+    //welcome page
+    //Auth VK
+
+    <string name="password">Password</string>
+    <string name="password_s">password</string>
+    <string name="login">Login</string>
+
+    <string name="login_info_text">Для входа в аккаунт введите пароль.</string>
+    <string name="reg_info_text">Информация о профиле получаена. Придумайте пароль и создайте аккаунт.</string>
+    <string name="title_your_id">Your ID</string>
+    <string name="title_full_name">Full Name</string>
+    <string name="create_account">create account</string>
+
+    //Auth VK
+    //Version App
+
+    <string name="version_in_app">v 0.0.6 BETA</string>
+    <string name="title_activity_account">AccountActivity</string>
+
+    //Version App
+
 </resources>

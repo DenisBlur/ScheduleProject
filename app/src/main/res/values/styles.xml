@@ -1,101 +1,126 @@
 <resources>
 
-    <style name="AppBottomSheetDialogTheme"
-        parent="Theme.MaterialComponents.Light.BottomSheetDialog">
+    <style name="AppBottomSheetDialogTheme" parent="Theme.MaterialComponents.Light.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/AppModalStyle</item>
     </style>
 
 
-    <style name="AppModalStyle"
-        parent="Widget.Design.BottomSheet.Modal">
+    <style name="AppModalStyle" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@drawable/rounded_dialog</item>
     </style>
 
     //LIGHT THEME
+
     <style name="AppTheme.Red.Light" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_Red_Light</item>
     </style>
+
     <style name="AppTheme.Pink.Light" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_Pink_Light</item>
     </style>
+
     <style name="AppTheme.Purple.Light" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_Purple_Light</item>
     </style>
+
     <style name="AppTheme.Indigo.Light" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_Indigo_Light</item>
     </style>
+
     <style name="AppTheme.Teal.Light" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_Teal_Light</item>
     </style>
+
     <style name="AppTheme.Green.Light" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_Green_Light</item>
     </style>
+
     <style name="AppTheme.Yellow.Light" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_Yellow_Light</item>
     </style>
+
     <style name="AppTheme.DeepOrange.Light" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_deepOrange_Light</item>
     </style>
+
     <style name="AppTheme.BlueGrey.Light" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_blueGrey_Light</item>
     </style>
     //LIGHT THEME
 
     //DayNight THEME
+
     <style name="AppTheme.Red.Andorid" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_Red_Light</item>
     </style>
+
     <style name="AppTheme.Pink.Andorid" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_Pink_Light</item>
     </style>
+
     <style name="AppTheme.Purple.Andorid" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_Purple_Light</item>
     </style>
+
     <style name="AppTheme.Indigo.Andorid" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_Indigo_Light</item>
     </style>
+
     <style name="AppTheme.Teal.Andorid" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_Teal_Light</item>
     </style>
+
     <style name="AppTheme.Green.Andorid" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_Green_Light</item>
     </style>
+
     <style name="AppTheme.Yellow.Andorid" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_Yellow_Light</item>
     </style>
+
     <style name="AppTheme.DeepOrange.Andorid" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_deepOrange_Light</item>
     </style>
+
     <style name="AppTheme.BlueGrey.Andorid" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_blueGrey_Light</item>
     </style>
     //DayNight THEME
 
     //DARK THEME
+
     <style name="AppTheme.Red.Dark" parent="Theme.MaterialComponents.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_Red_Light</item>
     </style>
+
     <style name="AppTheme.Pink.Dark" parent="Theme.MaterialComponents.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_Pink_Light</item>
     </style>
+
     <style name="AppTheme.Purple.Dark" parent="Theme.MaterialComponents.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_Purple_Light</item>
     </style>
+
     <style name="AppTheme.Indigo.Dark" parent="Theme.MaterialComponents.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_Indigo_Light</item>
     </style>
+
     <style name="AppTheme.Teal.Dark" parent="Theme.MaterialComponents.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_Teal_Light</item>
     </style>
+
     <style name="AppTheme.Green.Dark" parent="Theme.MaterialComponents.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_Green_Light</item>
     </style>
+
     <style name="AppTheme.Yellow.Dark" parent="Theme.MaterialComponents.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_Yellow_Light</item>
     </style>
+
     <style name="AppTheme.DeepOrange.Dark" parent="Theme.MaterialComponents.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_deepOrange_Light</item>
     </style>
+
     <style name="AppTheme.BlueGrey.Dark" parent="Theme.MaterialComponents.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_blueGrey_Light</item>
     </style>
@@ -104,5 +129,14 @@
     <style name="SplashTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
         <item name="android:windowBackground">@drawable/splash_screen</item>
     </style>
+
+    <style name="AppTheme.Red.Light.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.Red.Light.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.Red.Light.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 </resources>

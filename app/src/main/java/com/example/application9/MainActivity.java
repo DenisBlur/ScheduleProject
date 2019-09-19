@@ -34,6 +34,7 @@ import com.example.application9.HomePageFragments.TimeLineFragment;
 import com.example.application9.Support.NetworkManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.card.MaterialCardView;
+import com.google.firebase.auth.FirebaseAuth;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -46,6 +47,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static com.example.application9.HomePageFragments.AccountFragment.acc_bg_image;
+import static com.example.application9.HomePageFragments.AccountFragment.acc_full_name;
+import static com.example.application9.HomePageFragments.AccountFragment.acc_gradient_view;
+import static com.example.application9.HomePageFragments.AccountFragment.acc_info;
+import static com.example.application9.HomePageFragments.AccountFragment.acc_small_image;
 import static com.example.application9.HomePageFragments.GroupsHomeFragment.recycler_view_group;
 import static com.example.application9.HomePageFragments.TimeLineFragment.recycler_view_timeline;
 
@@ -55,7 +61,10 @@ public class MainActivity extends AppCompatActivity {
     public static String _MAIN_URL_FOR_TIMES = "http://s917802v.beget.tech/server_time/";
     public static String _MAIN_URL_FOR_VARIABLE = "http://s917802v.beget.tech/server_variable/";
     public static String _ONE_DAY_SITE_CODE;
+    public static String _UID_G = "null", _PASSWORD = "null";
     public static String _NOW_DAY;
+
+    public static FirebaseAuth mAuth;
 
     @SuppressLint("StaticFieldLeak")
     public static GroupListAdapter_main groupListAdapterMain;
@@ -78,7 +87,8 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("StaticFieldLeak")
     public static TextView top_pin_title;
 
-    private Context mContext;
+    @SuppressLint("StaticFieldLeak")
+    private static Context mContext;
     private View outlook_switch;
     private ImageView hello_bitmap;
     private TextView hello_title;
@@ -94,7 +104,6 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         //Setting
         myPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
@@ -119,6 +128,8 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mAuth = FirebaseAuth.getInstance();
+        //Google
 
         //Fragments
         fm.beginTransaction().add(R.id.fragment_container, fragment3, "3").hide(fragment3).commit();
@@ -141,7 +152,9 @@ public class MainActivity extends AppCompatActivity {
         hello_title = findViewById(R.id.hello_title);
         top_pin = findViewById(R.id.top_pin);
         top_pin_title = findViewById(R.id.top_pin_title);
+
         Toolbar toolbar1 = findViewById(R.id.toolbar);
+        mContext = MainActivity.this;
         setSupportActionBar(toolbar1);
         BottomNavigationView bottom_nav_view = findViewById(R.id.bottom_nav_view);
         //initializing all component
@@ -155,11 +168,6 @@ public class MainActivity extends AppCompatActivity {
 //            fake_fragment_schedule.setBackgroundColor(palette.getDominantSwatch().getRgb());
 //        });
         //color extracting
-
-        //Context
-        mContext = MainActivity.this;
-        //Context
-
 
         //Toolbar and AppBar Elements
         bottom_nav_view.setOnNavigationItemSelectedListener(item -> {
@@ -190,6 +198,7 @@ public class MainActivity extends AppCompatActivity {
 
         //thread start and more
         threadStart();
+        onCheckLogin();
         //thread start and more
 
         //Outlooks details
@@ -227,6 +236,74 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public static void onCheckLogin() {
+
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(mContext);
+        _UID_G = sharedPref.getString("account_id", "null");
+        _PASSWORD = sharedPref.getString("account_password", "null");
+
+        assert _PASSWORD != null;
+        if (!_UID_G.equals("null") || !_PASSWORD.equals("null")) {
+            LoginAccount loginAccount = new LoginAccount();
+            loginAccount.execute();
+        }
+
+//        acc_info.setVisibility(View.VISIBLE);
+//        acc_full_name.setText("Денис Токарь");
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    static
+    class LoginAccount extends AsyncTask<View, View, View> {
+
+        String full_name, photo_200, photo_max_orig, body;
+        boolean errors = false;
+
+        @Override
+        protected View doInBackground(View... views) {
+            try {
+                Document responses_check;
+                responses_check = Jsoup.connect("http://s917802v.beget.tech/server_account/loginaccount.php" +
+                        "?id=" + _UID_G +
+                        "&password=" + _PASSWORD).get();
+
+                body = responses_check.body().toString();
+                errors = body.contains("error");
+
+                if (!errors) {
+                    full_name = responses_check.select("div.full_name").text();
+                    photo_200 = responses_check.select("div.src_200px").text();
+                    photo_max_orig = responses_check.select("div.src_fullpx").text();
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(View view) {
+            super.onPostExecute(view);
+            if (!errors) {
+                Toast.makeText(mContext, "Вы успешно вошли в аккаунт!", Toast.LENGTH_SHORT).show();
+                acc_info.setVisibility(View.VISIBLE);
+                acc_gradient_view.setVisibility(View.VISIBLE);
+                acc_full_name.setText(full_name);
+                Glide.with(mContext).load(photo_max_orig).into(acc_bg_image);
+                Glide.with(mContext).load(photo_max_orig).into(acc_small_image);
+                acc_bg_image.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            } else {
+                Toast.makeText(mContext, "Произошла ошибка авторизации.", Toast.LENGTH_SHORT).show();
+                _UID_G = "null";
+                _PASSWORD = "null";
+                SharedPreferences.Editor myEditor = myPreferences.edit();
+                myEditor.putString("account_id", _UID_G);
+                myEditor.putString("account_password", _PASSWORD);
+                myEditor.apply();
+            }
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -242,7 +319,6 @@ public class MainActivity extends AppCompatActivity {
 
 //        item1.setOnMenuItemClickListener(v -> {
 //
-//            //startActivity(new Intent(mContext, WhatsNewActivity.class));
 //
 //            return true;
 //        });
