@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.application9.GroupActivity;
@@ -93,6 +94,9 @@ public class GroupsHomeFragment extends Fragment {
 
         top_pin.setOnClickListener(v -> {
             if (!_SECOND_GROUP_NAME.equals("null") && !_SECOND_GROUP_ID.equals("null")) {
+                SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(Objects.requireNonNull(getContext()));
+                _SECOND_GROUP_NAME = sharedPref.getString("group_TITLE", "null");
+                _SECOND_GROUP_ID = sharedPref.getString("group_ID", "null");
                 Intent intent = new Intent(getContext(), GroupActivity.class);
                 intent.putExtra("group_TITLE", _SECOND_GROUP_NAME);
                 intent.putExtra("group_ID", _SECOND_GROUP_ID);
@@ -102,6 +106,9 @@ public class GroupsHomeFragment extends Fragment {
 
         pin_group_bg.setOnClickListener(v -> {
             if (!_SECOND_GROUP_NAME.equals("null") && !_SECOND_GROUP_ID.equals("null")) {
+                SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(Objects.requireNonNull(getContext()));
+                _SECOND_GROUP_NAME = sharedPref.getString("group_TITLE", "null");
+                _SECOND_GROUP_ID = sharedPref.getString("group_ID", "null");
                 Intent intent = new Intent(getContext(), GroupActivity.class);
                 intent.putExtra("group_TITLE", _SECOND_GROUP_NAME);
                 intent.putExtra("group_ID", _SECOND_GROUP_ID);

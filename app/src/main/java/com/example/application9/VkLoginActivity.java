@@ -30,6 +30,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+import static com.example.application9.MainActivity._AID_G;
 import static com.example.application9.MainActivity.myPreferences;
 import static com.example.application9.MainActivity.resID;
 
@@ -139,6 +140,9 @@ public class VkLoginActivity extends AppCompatActivity {
                 myEditor.apply();
                 finish();
                 MainActivity.onCheckLogin();
+                MainActivity.AchievementCheck achievementCheck = new MainActivity.AchievementCheck();
+                _AID_G = "1";
+                achievementCheck.execute();
             }
         }
     }
@@ -231,7 +235,7 @@ public class VkLoginActivity extends AppCompatActivity {
                 try {
                     assert responses != null;
                     assert responses.body() != null;
-                    String jsonData = responses.body().string();
+                    String jsonData = Objects.requireNonNull(responses.body()).string();
                     JSONObject jsonObject = new JSONObject(jsonData);
                     first_name = jsonObject.getJSONArray("response").getJSONObject(0).getString("first_name");
                     last_name = jsonObject.getJSONArray("response").getJSONObject(0).getString("last_name");

@@ -39,7 +39,7 @@
     //Auth VK
     //Version App
 
-    <string name="version_in_app">v 0.0.6 BETA</string>
+    <string name="version_in_app">v 0.0.5 BETA</string>
     <string name="title_activity_account">AccountActivity</string>
 
     //Version App

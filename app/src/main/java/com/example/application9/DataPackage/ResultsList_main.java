@@ -2,16 +2,17 @@ package com.example.application9.DataPackage;
 
 public class ResultsList_main {
 
-    private String num, namet_t, name_gr, name_l, hour_all, hour_out;
+    private String num, namet_t, name_gr, name_l, hour_all, hour_out, ending;
     private int progress;
 
-    public ResultsList_main(String num, String namet_t, String name_gr, String name_l, String hour_all, String hour_out, int progress) {
+    public ResultsList_main(String num, String namet_t, String name_gr, String name_l, String hour_all, String hour_out, String ending, int progress) {
         this.num = num;
         this.namet_t = namet_t;
         this.name_gr = name_gr;
         this.name_l = name_l;
         this.hour_all = hour_all;
         this.hour_out = hour_out;
+        this.ending = ending;
         this.progress = progress;
     }
 
@@ -61,6 +62,14 @@ public class ResultsList_main {
 
     public void setHour_out(String hour_out) {
         this.hour_out = hour_out;
+    }
+
+    public String getEnding() {
+        return ending;
+    }
+
+    public void setEnding(String ending) {
+        this.ending = ending;
     }
 
     public int getProgress() {

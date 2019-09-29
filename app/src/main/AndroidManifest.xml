@@ -16,7 +16,7 @@
         <activity
             android:name=".AccountActivity"
             android:label="@string/title_activity_account"
-            android:theme="@style/AppTheme.Red.Light.NoActionBar"></activity>
+            android:theme="@style/AppTheme.Red.Light.NoActionBar" />
         <activity android:name=".VkLoginActivity" />
         <activity android:name=".WelcomeActivity" />
         <activity
@@ -41,7 +41,10 @@
         </activity>
         <activity android:name=".MainActivity" />
     </application>
-    <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-permission
+        android:name="android.permission.INTERNET"
+        tools:ignore="ManifestOrder" />
     <uses-permission
         android:name="android.permission.ACCESS_WIFI_STATE"
         tools:ignore="ManifestOrder" />

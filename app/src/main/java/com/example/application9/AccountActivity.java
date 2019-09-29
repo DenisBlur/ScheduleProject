@@ -1,34 +1,46 @@
 package com.example.application9;
 
+import android.content.Context;
 import android.os.Bundle;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
-import android.view.View;
+import com.bumptech.glide.Glide;
 
-import com.bluedexon.denis.application.R;
+import de.hdodenhof.circleimageview.CircleImageView;
+
+import static com.example.application9.HomePageFragments.AccountFragment.acc_bg_image;
+import static com.example.application9.HomePageFragments.AccountFragment.acc_small_image;
+import static com.example.application9.MainActivity.resID;
 
 public class AccountActivity extends AppCompatActivity {
 
+    private Context mContext;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        setTheme(resID);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        ImageView acc_cover = findViewById(R.id.acc_cover);
+        TextView acc_full_name = findViewById(R.id.acc_full_name);
+        CircleImageView acc_small = findViewById(R.id.acc_small);
+
+        mContext = this;
+
+        String full_name = getIntent().getStringExtra("acc_extra_full_name");
+        String photo_200 = getIntent().getStringExtra("acc_extra_photo_200");
+        String photo_full = getIntent().getStringExtra("acc_extra_photo_full");
+
+        Glide.with(mContext).load(photo_200).into(acc_small);
+        Glide.with(mContext).load(photo_full).into(acc_cover);
+        acc_full_name.setText(full_name);
+
     }
 
 }

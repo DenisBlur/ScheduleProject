@@ -1,10 +1,12 @@
 package com.example.application9.HomePageFragments;
 
+import android.animation.Animator;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -15,7 +17,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.application9.AccountActivity;
 import com.example.application9.BottomSheets.BottomSheetDonateFragment;
+import com.example.application9.GroupActivity;
+import com.example.application9.MainActivity;
 import com.example.application9.R;
 import com.example.application9.SettingsActivity;
 import com.example.application9.VkLoginActivity;
@@ -25,6 +30,9 @@ import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static com.example.application9.MainActivity._AID_G;
+import static com.example.application9.MainActivity._IMG_FULL_ACC;
+import static com.example.application9.MainActivity._IMG_SMALL_ACC;
 import static com.example.application9.MainActivity._PASSWORD;
 import static com.example.application9.MainActivity._UID_G;
 
@@ -58,13 +66,23 @@ public class AccountFragment extends Fragment {
 
         setting_fake_button.setOnClickListener(v -> startActivity(new Intent(getContext(), SettingsActivity.class)));
 
-        vk_login.setOnClickListener(v -> {
-            if (_UID_G.equals("null") && _PASSWORD.equals("null")) {
-                startActivity(new Intent(getContext(), VkLoginActivity.class));
-            } else {
-                Toast.makeText(getContext(), "Привет!" + _UID_G, Toast.LENGTH_SHORT).show();
-            }
-        });
+//        vk_login.setOnClickListener(v -> {
+//            if (_UID_G.equals("null") && _PASSWORD.equals("null")) {
+//                startActivity(new Intent(getContext(), VkLoginActivity.class));
+//            } else {
+//
+//
+//                int endRadius = (int) Math.hypot(vk_login.getWidth(), vk_login.getHeight());
+//                Animator anim = ViewAnimationUtils.createCircularReveal(vk_login, vk_login.getWidth()/2, vk_login.getHeight()/2, 0, endRadius);
+//                anim.setDuration(2500);
+//                anim.start();
+//                Intent intent = new Intent(getContext(), AccountActivity.class);
+//                intent.putExtra("acc_extra_full_name", acc_full_name.getText());
+//                intent.putExtra("acc_extra_photo_200", _IMG_SMALL_ACC);
+//                intent.putExtra("acc_extra_photo_full", _IMG_FULL_ACC);
+//                startActivity(intent);
+//            }
+//        });
 
         donte_fake_button.setOnClickListener(v -> {
             BottomSheetDonateFragment bottomSheetFragment = new BottomSheetDonateFragment(getContext());

@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,7 +36,6 @@ import com.example.application9.HomePageFragments.TimeLineFragment;
 import com.example.application9.Support.NetworkManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.card.MaterialCardView;
-import com.google.firebase.auth.FirebaseAuth;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -46,6 +47,8 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.example.application9.HomePageFragments.AccountFragment.acc_bg_image;
 import static com.example.application9.HomePageFragments.AccountFragment.acc_full_name;
@@ -60,11 +63,11 @@ public class MainActivity extends AppCompatActivity {
     public static String _MAIN_URL_FOR_GROUP_NAME = "http://83.174.201.182/cg.htm";
     public static String _MAIN_URL_FOR_TIMES = "http://s917802v.beget.tech/server_time/";
     public static String _MAIN_URL_FOR_VARIABLE = "http://s917802v.beget.tech/server_variable/";
+    public static String _MAIN_ACHIEVEMENT = "http://s917802v.beget.tech/server_account/achievement/checkachievement.php?";
     public static String _ONE_DAY_SITE_CODE;
-    public static String _UID_G = "null", _PASSWORD = "null";
+    public static String _UID_G = "null", _AID_G = "", _PASSWORD = "null";
+    public static String _IMG_SMALL_ACC = "null", _IMG_FULL_ACC = "null";
     public static String _NOW_DAY;
-
-    public static FirebaseAuth mAuth;
 
     @SuppressLint("StaticFieldLeak")
     public static GroupListAdapter_main groupListAdapterMain;
@@ -89,11 +92,15 @@ public class MainActivity extends AppCompatActivity {
 
     @SuppressLint("StaticFieldLeak")
     private static Context mContext;
-    private View outlook_switch;
     private ImageView hello_bitmap;
     private TextView hello_title;
-    private Float dp;
     private FirstDialog cdd;
+
+    @SuppressLint("StaticFieldLeak")
+    private static MaterialCardView ac_bg_main;
+    private static CircleImageView ac_preview;
+    @SuppressLint("StaticFieldLeak")
+    private static TextView ac_title, ac_main_text;
 
     final Fragment fragment1 = new GroupsHomeFragment();
     final Fragment fragment2 = new TimeLineFragment();
@@ -128,8 +135,6 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mAuth = FirebaseAuth.getInstance();
-        //Google
 
         //Fragments
         fm.beginTransaction().add(R.id.fragment_container, fragment3, "3").hide(fragment3).commit();
@@ -140,18 +145,17 @@ public class MainActivity extends AppCompatActivity {
         Objects.requireNonNull(cdd.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         //Fragments
 
-        //
-        dp = getApplicationContext().getResources().getDisplayMetrics().density;
-        //
-
         //initializing all component
-        outlook_switch = findViewById(R.id.outlook_switch);
-        TextView day_button_sw = findViewById(R.id.day_button_sw);
-        TextView week_button_sw = findViewById(R.id.week_button_sw);
         hello_bitmap = findViewById(R.id.backdrop_bitmap);
         hello_title = findViewById(R.id.hello_title);
         top_pin = findViewById(R.id.top_pin);
         top_pin_title = findViewById(R.id.top_pin_title);
+
+        ac_bg_main = findViewById(R.id.ac_bg_main);
+        ac_preview = findViewById(R.id.ac_preview);
+        ac_title = findViewById(R.id.ac_title);
+        ac_main_text = findViewById(R.id.ac_main_text);
+
 
         Toolbar toolbar1 = findViewById(R.id.toolbar);
         mContext = MainActivity.this;
@@ -198,15 +202,7 @@ public class MainActivity extends AppCompatActivity {
 
         //thread start and more
         threadStart();
-        onCheckLogin();
         //thread start and more
-
-        //Outlooks details
-        week_button_sw.setOnClickListener(v -> outlook_switch.animate().translationX(0 * dp).setDuration(150).start());
-
-        day_button_sw.setOnClickListener(v -> outlook_switch.animate().translationX(96 * dp).setDuration(150).start());
-
-        //Outlooks details
     }
 
     private void threadStart() {
@@ -226,6 +222,7 @@ public class MainActivity extends AppCompatActivity {
 
             ThreadGetVariable threadGetVariable = new ThreadGetVariable();
             threadGetVariable.execute();
+
             cdd.show();
             lottieAnimationView.setVisibility(View.GONE);
         } else {
@@ -247,9 +244,6 @@ public class MainActivity extends AppCompatActivity {
             LoginAccount loginAccount = new LoginAccount();
             loginAccount.execute();
         }
-
-//        acc_info.setVisibility(View.VISIBLE);
-//        acc_full_name.setText("Денис Токарь");
     }
 
     @SuppressLint("StaticFieldLeak")
@@ -274,6 +268,8 @@ public class MainActivity extends AppCompatActivity {
                     full_name = responses_check.select("div.full_name").text();
                     photo_200 = responses_check.select("div.src_200px").text();
                     photo_max_orig = responses_check.select("div.src_fullpx").text();
+                    _IMG_SMALL_ACC = photo_200;
+                    _IMG_FULL_ACC = photo_max_orig;
                 }
 
             } catch (IOException e) {
@@ -286,7 +282,6 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(View view) {
             super.onPostExecute(view);
             if (!errors) {
-                Toast.makeText(mContext, "Вы успешно вошли в аккаунт!", Toast.LENGTH_SHORT).show();
                 acc_info.setVisibility(View.VISIBLE);
                 acc_gradient_view.setVisibility(View.VISIBLE);
                 acc_full_name.setText(full_name);
@@ -305,23 +300,100 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @SuppressLint("StaticFieldLeak")
+    public static class AchievementCheck extends AsyncTask<View, View, View> {
+
+        String body, name, description, preview;
+        boolean errors, get = false;
+
+        @Override
+        protected View doInBackground(View... views) {
+
+            Document responses_check = null;
+            try {
+                responses_check = Jsoup.connect(_MAIN_ACHIEVEMENT +
+                        "id=" + _AID_G +
+                        "&user_id=" + _UID_G).get();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            assert responses_check != null;
+            body = responses_check.body().toString();
+            get = body.contains("congratulate");
+            errors = body.contains("error");
+
+            if (get) {
+                name = responses_check.select("div.name").text();
+                description = responses_check.select("div.description").text();
+                preview = responses_check.select("div.preview").text();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(View view) {
+            super.onPostExecute(view);
+
+            Animation anim1 = AnimationUtils.loadAnimation(mContext, R.anim.item_animation_fall_down_out);
+            anim1.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) { }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
+            ac_bg_main.setAnimation(anim1);
+            ac_bg_main.startAnimation(anim1);
+
+            if (errors) {
+                Toast.makeText(mContext, body, Toast.LENGTH_SHORT).show();
+            } else {
+                if (get) {
+                    Toast.makeText(mContext, "Достижение получено!", Toast.LENGTH_SHORT).show();
+                    ac_title.setText(name);
+                    ac_main_text.setText(description);
+                    Glide.with(mContext).load(preview).into(ac_preview);
+                    Animation anim = AnimationUtils.loadAnimation(mContext, R.anim.item_animation_fall_down);
+                    anim.setAnimationListener(new Animation.AnimationListener() {
+                        @Override
+                        public void onAnimationStart(Animation animation) {
+                            ac_bg_main.setVisibility(View.VISIBLE);
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animation animation) {
+
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animation animation) {
+
+                        }
+                    });
+                    ac_bg_main.startAnimation(anim);
+                }
+            }
+        }
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_activity_toolbar_menu, menu);
-
         MenuItem item = menu.findItem(R.id.refresh);
-//        MenuItem item1 = menu.findItem(R.id.event_note);
 
         item.setOnMenuItemClickListener(v -> {
             threadStart();
             return true;
         });
-
-//        item1.setOnMenuItemClickListener(v -> {
-//
-//
-//            return true;
-//        });
 
         return true;
     }
@@ -505,7 +577,8 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            Toast.makeText(mContext, "OK", Toast.LENGTH_SHORT).show();
+            //TODO: Проверка логина
+//            onCheckLogin();
         }
     }
 

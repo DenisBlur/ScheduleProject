@@ -11,17 +11,18 @@
     android:layout_marginBottom="4dp"
     android:orientation="vertical"
     app:cardCornerRadius="8dp"
+    app:cardBackgroundColor="?android:attr/colorPrimary"
     app:cardElevation="0dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="8dp">
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="8dp"
             android:orientation="vertical">
 
             <LinearLayout
@@ -50,7 +51,7 @@
                 android:layout_height="5dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                app:rcBackgroundColor="?android:attr/colorPrimary"
+                app:rcBackgroundColor="?android:attr/colorPrimaryDark"
                 app:rcProgressColor="?android:attr/colorAccent"
                 android:indeterminate="false"
                 android:max="100"
@@ -76,6 +77,19 @@
             </LinearLayout>
 
         </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="?android:attr/colorPrimaryDark" />
+
+        <TextView
+            android:id="@+id/ending"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:textStyle="bold" />
+
     </LinearLayout>
 
 

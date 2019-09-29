@@ -1,14 +1,10 @@
 package com.example.application9;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,7 +16,6 @@ import com.example.application9.AdaptersPackage.TabAdapter;
 import com.example.application9.CustomDialog.FirstDialog;
 import com.example.application9.DataPackage.ResultsList_main;
 import com.example.application9.DataPackage.ScheduleList_second;
-import com.example.application9.DataPackage.VariableList;
 import com.example.application9.GroupPageFragments.FirstTab;
 import com.example.application9.GroupPageFragments.SecondTab;
 import com.google.android.material.tabs.TabLayout;
@@ -48,7 +43,6 @@ public class GroupActivity extends AppCompatActivity {
     private List<ScheduleList_second> scheduleListSecond = new ArrayList<>();
     private List<ResultsList_main> resultsListMains = new ArrayList<>();
     private FirstDialog cdd;
-    private Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +69,6 @@ public class GroupActivity extends AppCompatActivity {
         //TabLayout
 
         //GetIntent
-        mContext = GroupActivity.this;
 
         String group_TITLE = getIntent().getStringExtra("group_TITLE");
         String group_ID = getIntent().getStringExtra("group_ID");
@@ -118,9 +111,10 @@ public class GroupActivity extends AppCompatActivity {
                     String name_l = document_TABLE_SELECTED_TD.get(Integer.parseInt(variableList.get(3).getValue())).text();
                     String hour_all = document_TABLE_SELECTED_TD.get(Integer.parseInt(variableList.get(4).getValue())).text();
                     String hour_out = document_TABLE_SELECTED_TD.get(Integer.parseInt(variableList.get(5).getValue())).text();
+                    String ending = document_TABLE_SELECTED_TD.get(Integer.parseInt(variableList.get(6).getValue())).text();
                     int progress = Integer.parseInt(document_TABLE_SELECTED_TD.get(Integer.parseInt(variableList.get(6).getValue())).select("img").attr("alt"));
 
-                    resultsListMains.add(new ResultsList_main(num,name_t,name_gr,name_l,hour_all,hour_out,progress));
+                    resultsListMains.add(new ResultsList_main(num,name_t,name_gr,name_l,hour_all,hour_out, ending,progress));
                 }
 
             } catch (IOException e) {
@@ -135,8 +129,6 @@ public class GroupActivity extends AppCompatActivity {
             super.onPostExecute(aVoid);
             ResultsListAdapter_main resultsListAdapter_main = new ResultsListAdapter_main(GroupActivity.this, resultsListMains);
             recyclerView_second.setAdapter(resultsListAdapter_main);
-            recyclerView_second.setAlpha(0);
-            recyclerView_second.animate().setDuration(250).alpha(1).start();
             cdd.dismiss();
         }
     }
@@ -156,43 +148,15 @@ public class GroupActivity extends AppCompatActivity {
                     Element document_TABLE_SELECTED = document_TABLE_ELEMENTS.get(i);
                     String day_params = document_TABLE_SELECTED.select("tr > td.hd").text();
 
-                    if (day_params.contains("Сб") || day_params.contains("Пн") || day_params.contains("Вт") || day_params.contains("Ср") ||
-                            day_params.contains("Чт") || day_params.contains("Пт")) {
-                        String first_lesson = document_TABLE_SELECTED.select("tr > td.ur > a.z1").text();
-                        String first_cabinet = document_TABLE_SELECTED.select("tr > td.ur > a.z2").text();
-                        String first_teacher = document_TABLE_SELECTED.select("tr > td.ur > a.z3").text();
+                    String first_lesson = document_TABLE_SELECTED.select("tr > td.ur > a.z1").text();
+                    String first_cabinet = document_TABLE_SELECTED.select("tr > td.ur > a.z2").text();
+                    String first_teacher = document_TABLE_SELECTED.select("tr > td.ur > a.z3").text();
 
-                        if (first_lesson.contains("Пр")) {
-                            scheduleListSecond.add(new ScheduleList_second(day_params, first_lesson, first_cabinet, first_teacher, "практика",0, 1));
-                        } else {
-                            scheduleListSecond.add(new ScheduleList_second(day_params, first_lesson, first_cabinet, first_teacher, "лекция",0, 1));
-                        }
-                        for (int j = 1; j < 6; j++) {
-                            if (j == 5) {
-                                String lesson_name = document_TABLE_ELEMENTS.get(i + j).select("tr > td.ur > a.z1").text();
-                                String cabinet_name = document_TABLE_ELEMENTS.get(i + j).select("tr > td.ur > a.z2").text();
-                                String teacher_name = document_TABLE_ELEMENTS.get(i + j).select("tr > td.ur > a.z3").text();
-                                if (lesson_name.contains("Пр")) {
-                                    scheduleListSecond.add(new ScheduleList_second(day_params, lesson_name, cabinet_name, teacher_name, "практика",2, j));
-                                } else {
-                                    scheduleListSecond.add(new ScheduleList_second(day_params, lesson_name, cabinet_name, teacher_name, "лекция",2, j));
-                                }
-                            } else {
-                                String lesson_name = document_TABLE_ELEMENTS.get(i + j).select("tr > td.ur > a.z1").text();
-                                String cabinet_name = document_TABLE_ELEMENTS.get(i + j).select("tr > td.ur > a.z2").text();
-                                String teacher_name = document_TABLE_ELEMENTS.get(i + j).select("tr > td.ur > a.z3").text();
-                                if (!lesson_name.equals("")) {
-                                    scheduleListSecond.add(new ScheduleList_second(day_params, lesson_name, cabinet_name, teacher_name, "",1, j+1));
-                                } else {
-                                    scheduleListSecond.add(new ScheduleList_second(day_params, lesson_name, cabinet_name, teacher_name, "",4, j+1));
-                                }
-                                if (j == 1) {
-                                    scheduleListSecond.add(new ScheduleList_second(day_params, "Обеденный перерыв", "", "", "",5, 9));
-                                }
-                            }
-                        }
-                    } else if (day_params.contains("Вс")) {
-                        scheduleListSecond.add(new ScheduleList_second(day_params, "", "", "", "",3, 0));
+                    if (day_params.contains("Сб") || day_params.contains("Пн") || day_params.contains("Вт") || day_params.contains("Ср") ||
+                            day_params.contains("Чт") || day_params.contains("Пт") || day_params.contains("Вс")) {
+                        scheduleListSecond.add(new ScheduleList_second(day_params, first_lesson, first_cabinet, first_teacher, "", 0, 0));
+                    } else {
+                        scheduleListSecond.add(new ScheduleList_second(day_params, first_lesson, first_cabinet, first_teacher, "", 1, 0));
                     }
                 }
             } catch (IOException e) {
@@ -207,31 +171,6 @@ public class GroupActivity extends AppCompatActivity {
             super.onPostExecute(aVoid);
             ScheduleListAdapter_second scheduleListAdapterSecond = new ScheduleListAdapter_second(GroupActivity.this, scheduleListSecond);
             recyclerView_first.setAdapter(scheduleListAdapterSecond);
-            recyclerView_first.setAlpha(0);
-            recyclerView_first.animate().setDuration(250).alpha(1).start();
-        }
-    }
-
-    class ThreadGetOneDay extends AsyncTask<Void, Void, Void> {
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-
-            Document document_FULL_HTML_CODE = null;
-            try {
-                document_FULL_HTML_CODE = Jsoup.connect(_MAIN_URL_FOR_GROUP_WEEK_SC).get();
-                Element document_TABLE_HTML_CODE = document_FULL_HTML_CODE.select("table.inf").first();
-                Elements document_TABLE_ELEMENTS = document_TABLE_HTML_CODE.select("tr");
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
         }
     }
 
