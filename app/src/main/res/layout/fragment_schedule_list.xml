@@ -16,7 +16,7 @@
             android:layout_height="200dp"
             android:layout_margin="16dp"
             android:padding="8dp"
-            android:visibility="visible"
+            android:visibility="gone"
             app:cardBackgroundColor="?android:attr/colorAccent"
             app:cardCornerRadius="8dp"
             app:cardElevation="8dp">
@@ -31,21 +31,22 @@
 
             <Button
                 android:id="@+id/unpin_button"
-                android:drawableBottom="@drawable/ic_clear_24px"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:layout_gravity="end"
                 android:layout_margin="8dp"
                 android:background="@drawable/bg_button"
-                android:layout_width="24dp"
-                android:layout_height="24dp"/>
+                android:drawableBottom="@drawable/ic_clear_24px" />
 
         </com.google.android.material.card.MaterialCardView>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="4dp"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="56dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>
 

@@ -14,7 +14,7 @@ import com.example.application9.R;
 
 public class TimeLineFragment extends Fragment {
 
-    public static RecyclerView recycler_view_timeline;
+    public static RecyclerView recycler_view_timeline, recycler_view_timeline_sr, recycler_view_timeline_sb;
 
     @Nullable
     @Override
@@ -23,6 +23,8 @@ public class TimeLineFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_time_line, container, false);
 
         recycler_view_timeline = view.findViewById(R.id.recycler_view_time);
+        recycler_view_timeline_sr = view.findViewById(R.id.recycler_view_time_sr);
+        recycler_view_timeline_sb = view.findViewById(R.id.recycler_view_time_sb);
 
         return view;
     }

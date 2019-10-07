@@ -17,6 +17,7 @@ import com.google.android.material.chip.Chip;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.application9.MainActivity.timeListMain_sr;
 import static com.example.application9.MainActivity.timeListMains;
 
 public class ScheduleListAdapter_second extends RecyclerView.Adapter<ScheduleListAdapter_second.ViewHolder> {
@@ -53,58 +54,192 @@ public class ScheduleListAdapter_second extends RecyclerView.Adapter<ScheduleLis
                 || listSecond.getDate_name().contains("Пт") || listSecond.getDate_name().contains("Сб")
                 || listSecond.getDate_name().contains("Вс")) {
 
+
             holder.schedule_second_recycler_view = holder.itemView.findViewById(R.id.schedule_second_recycler_view);
             holder.schedule_second_date_name = holder.itemView.findViewById(R.id.schedule_second_date_name);
             holder.schedule_second_date_name.setText(listSecond.getDate_name());
 
             List<ScheduleList_second_new> scheduleListSecondNew = new ArrayList<>();
-            scheduleListSecondNew.add(new ScheduleList_second_new(listSecond.getLesson_name(),listSecond.getCabinet_number(),listSecond.getTeacher_name(), "лекция", timeListMains.get(0).getTime_support(), 1));
-            scheduleListSecondNew.add(new ScheduleList_second_new(scheduleListSecond.get(position+1).getLesson_name(),scheduleListSecond.get(position+1).getCabinet_number(),scheduleListSecond.get(position+1).getTeacher_name(), "лекция",timeListMains.get(1).getTime_support(), 2));
-            scheduleListSecondNew.add(new ScheduleList_second_new(scheduleListSecond.get(position+2).getLesson_name(),scheduleListSecond.get(position+2).getCabinet_number(),scheduleListSecond.get(position+2).getTeacher_name(), "лекция",timeListMains.get(3).getTime_support(), 3));
-            scheduleListSecondNew.add(new ScheduleList_second_new(scheduleListSecond.get(position+3).getLesson_name(),scheduleListSecond.get(position+3).getCabinet_number(),scheduleListSecond.get(position+3).getTeacher_name(), "лекция",timeListMains.get(4).getTime_support(), 4));
-            scheduleListSecondNew.add(new ScheduleList_second_new(scheduleListSecond.get(position+4).getLesson_name(),scheduleListSecond.get(position+4).getCabinet_number(),scheduleListSecond.get(position+4).getTeacher_name(), "лекция",timeListMains.get(5).getTime_support(), 5));
-            scheduleListSecondNew.add(new ScheduleList_second_new(scheduleListSecond.get(position+5).getLesson_name(),scheduleListSecond.get(position+5).getCabinet_number(),scheduleListSecond.get(position+5).getTeacher_name(), "лекция",timeListMains.get(6).getTime_support(), 6));
+            if (listSecond.getDate_name().contains("Ср")) {
 
+                scheduleListSecondNew.add(new ScheduleList_second_new(
+                        "Классный час",
+                        "",
+                        "",
+                        "КЛ. ЧАС", timeListMain_sr.get(0).getTime_support(),
+                        "",
+                        "",
+                        2, 2));
 
-            ScheduleListAdapter_second_new scheduleListAdapterSecondNew = new ScheduleListAdapter_second_new(mContext, scheduleListSecondNew);
-            holder.schedule_second_recycler_view.setAdapter(scheduleListAdapterSecondNew);
-            holder.schedule_second_recycler_view.setNestedScrollingEnabled(false);
+                String[] subStr_Less;
+                subStr_Less = listSecond.getCabinet_number().split(" ");
+                if (subStr_Less.length >= 2) {
+                    scheduleListSecondNew.add(new ScheduleList_second_new(
+                            listSecond.getLesson_name(),
+                            listSecond.getCabinet_number(),
+                            listSecond.getTeacher_name(),
+                            "лекция",
+                            timeListMain_sr.get(1).getTime_support(),
+                            listSecond.getCabinet_number_link(),
+                            listSecond.getCabinet_number_link(),
+                            1, 1));
+                } else {
+                    scheduleListSecondNew.add(new ScheduleList_second_new(
+                            listSecond.getLesson_name(),
+                            listSecond.getCabinet_number(),
+                            listSecond.getTeacher_name(),
+                            "лекция",
+                            timeListMain_sr.get(1).getTime_support(),
+                            listSecond.getCabinet_number_link(),
+                            listSecond.getCabinet_number_link(),
+                            1, 0));
+                }
+
+                for (int i = 1; i < 6; i++) {
+                    if (i == 2) {
+                        scheduleListSecondNew.add(new ScheduleList_second_new(
+                                "Обеденный перерыв",
+                                "",
+                                "",
+                                "ОБЕД", timeListMain_sr.get(3).getTime_support(),
+                                "",
+                                "",
+                                2, 2));
+                    }
+                    String[] subStr_Less_2;
+                    subStr_Less_2 = scheduleListSecond.get(position + i).getCabinet_number().split(" ");
+                    if (subStr_Less_2.length >= 2) {
+                        if (i >= 2) {
+                            scheduleListSecondNew.add(new ScheduleList_second_new(
+                                    scheduleListSecond.get(position + i).getLesson_name(),
+                                    scheduleListSecond.get(position + i).getCabinet_number(),
+                                    scheduleListSecond.get(position + i).getTeacher_name(),
+                                    "лекция", timeListMain_sr.get(i + 2).getTime_support(),
+                                    scheduleListSecond.get(position + i).getCabinet_number_link(),
+                                    scheduleListSecond.get(position + i).getCabinet_number_link(),
+                                    i + 1, 1));
+                        } else {
+                            scheduleListSecondNew.add(new ScheduleList_second_new(
+                                    scheduleListSecond.get(position + i).getLesson_name(),
+                                    scheduleListSecond.get(position + i).getCabinet_number(),
+                                    scheduleListSecond.get(position + i).getTeacher_name(),
+                                    "лекция", timeListMain_sr.get(i + 1).getTime_support(),
+                                    scheduleListSecond.get(position + i).getCabinet_number_link(),
+                                    scheduleListSecond.get(position + i).getCabinet_number_link(),
+                                    i + 1, 1));
+                        }
+                    } else {
+                        if (i >= 2) {
+                            scheduleListSecondNew.add(new ScheduleList_second_new(
+                                    scheduleListSecond.get(position + i).getLesson_name(),
+                                    scheduleListSecond.get(position + i).getCabinet_number(),
+                                    scheduleListSecond.get(position + i).getTeacher_name(),
+                                    "лекция", timeListMain_sr.get(i + 2).getTime_support(),
+                                    scheduleListSecond.get(position + i).getCabinet_number_link(),
+                                    scheduleListSecond.get(position + i).getCabinet_number_link(),
+                                    i + 1, 0));
+                        } else {
+                            scheduleListSecondNew.add(new ScheduleList_second_new(
+                                    scheduleListSecond.get(position + i).getLesson_name(),
+                                    scheduleListSecond.get(position + i).getCabinet_number(),
+                                    scheduleListSecond.get(position + i).getTeacher_name(),
+                                    "лекция", timeListMain_sr.get(i + 1).getTime_support(),
+                                    scheduleListSecond.get(position + i).getCabinet_number_link(),
+                                    scheduleListSecond.get(position + i).getCabinet_number_link(),
+                                    i + 1, 0));
+                        }
+                    }
+                }
+
+                ScheduleListAdapter_second_new scheduleListAdapterSecondNew = new ScheduleListAdapter_second_new(mContext, scheduleListSecondNew);
+                holder.schedule_second_recycler_view.setAdapter(scheduleListAdapterSecondNew);
+                holder.schedule_second_recycler_view.setNestedScrollingEnabled(false);
+            } else {
+                String[] subStr_Less;
+                subStr_Less = listSecond.getCabinet_number().split(" ");
+                if (subStr_Less.length >= 2) {
+                    scheduleListSecondNew.add(new ScheduleList_second_new(
+                            listSecond.getLesson_name(),
+                            listSecond.getCabinet_number(),
+                            listSecond.getTeacher_name(),
+                            "лекция",
+                            timeListMains.get(0).getTime_support(),
+                            listSecond.getCabinet_number_link(),
+                            listSecond.getCabinet_number_link(),
+                            1, 1));
+                } else {
+                    scheduleListSecondNew.add(new ScheduleList_second_new(
+                            listSecond.getLesson_name(),
+                            listSecond.getCabinet_number(),
+                            listSecond.getTeacher_name(),
+                            "лекция",
+                            timeListMains.get(0).getTime_support(),
+                            listSecond.getCabinet_number_link(),
+                            listSecond.getCabinet_number_link(),
+                            1, 0));
+                }
+
+                for (int i = 1; i < 6; i++) {
+                    if (i == 2) {
+                        scheduleListSecondNew.add(new ScheduleList_second_new(
+                                "Обеденный перерыв",
+                                "",
+                                "",
+                                "ОБЕД", timeListMains.get(2).getTime_support(),
+                                "",
+                                "",
+                                2, 2));
+                    }
+                    String[] subStr_Less_2;
+                    subStr_Less_2 = scheduleListSecond.get(position + i).getCabinet_number().split(" ");
+                    if (subStr_Less_2.length >= 2) {
+                        if (i >= 2) {
+                            scheduleListSecondNew.add(new ScheduleList_second_new(
+                                    scheduleListSecond.get(position + i).getLesson_name(),
+                                    scheduleListSecond.get(position + i).getCabinet_number(),
+                                    scheduleListSecond.get(position + i).getTeacher_name(),
+                                    "лекция", timeListMains.get(i + 1).getTime_support(),
+                                    scheduleListSecond.get(position + i).getCabinet_number_link(),
+                                    scheduleListSecond.get(position + i).getCabinet_number_link(),
+                                    i + 1, 1));
+                        } else {
+                            scheduleListSecondNew.add(new ScheduleList_second_new(
+                                    scheduleListSecond.get(position + i).getLesson_name(),
+                                    scheduleListSecond.get(position + i).getCabinet_number(),
+                                    scheduleListSecond.get(position + i).getTeacher_name(),
+                                    "лекция", timeListMains.get(i).getTime_support(),
+                                    scheduleListSecond.get(position + i).getCabinet_number_link(),
+                                    scheduleListSecond.get(position + i).getCabinet_number_link(),
+                                    i + 1, 1));
+                        }
+                    } else {
+                        if (i >= 2) {
+                            scheduleListSecondNew.add(new ScheduleList_second_new(
+                                    scheduleListSecond.get(position + i).getLesson_name(),
+                                    scheduleListSecond.get(position + i).getCabinet_number(),
+                                    scheduleListSecond.get(position + i).getTeacher_name(),
+                                    "лекция", timeListMains.get(i + 1).getTime_support(),
+                                    scheduleListSecond.get(position + i).getCabinet_number_link(),
+                                    scheduleListSecond.get(position + i).getCabinet_number_link(),
+                                    i + 1, 0));
+                        } else {
+                            scheduleListSecondNew.add(new ScheduleList_second_new(
+                                    scheduleListSecond.get(position + i).getLesson_name(),
+                                    scheduleListSecond.get(position + i).getCabinet_number(),
+                                    scheduleListSecond.get(position + i).getTeacher_name(),
+                                    "лекция", timeListMains.get(i).getTime_support(),
+                                    scheduleListSecond.get(position + i).getCabinet_number_link(),
+                                    scheduleListSecond.get(position + i).getCabinet_number_link(),
+                                    i + 1, 0));
+                        }
+                    }
+                }
+
+                ScheduleListAdapter_second_new scheduleListAdapterSecondNew = new ScheduleListAdapter_second_new(mContext, scheduleListSecondNew);
+                holder.schedule_second_recycler_view.setAdapter(scheduleListAdapterSecondNew);
+                holder.schedule_second_recycler_view.setNestedScrollingEnabled(false);
+            }
         }
-
-//        holder.schedule_second_date_name.setText(listSecond.getDate_name());
-//        holder.schedule_second_teacher_name.setText(listSecond.getTeacher_name());
-//        holder.schedule_second_lesson_name.setText(listSecond.getLesson_name());
-//        holder.schedule_second_cabinet_name.setText(listSecond.getCabinet_number());
-//        holder.schedule_second_number_name.setText(Integer.toString(listSecond.getNum_schedule()));
-//
-//        TimeList_main listMain;
-//
-//        if (!_NOW_DAY.equals("3")) {
-//            switch (listSecond.getNum_schedule()) {
-//                case 1: listMain = timeListMains.get(0); holder.schedule_second_time_name.setText(listMain.getTime_support()); break;
-//                case 2: listMain = timeListMains.get(1); holder.schedule_second_time_name.setText(listMain.getTime_support()); break;
-//                case 3: listMain = timeListMains.get(3); holder.schedule_second_time_name.setText(listMain.getTime_support()); break;
-//                case 4: listMain = timeListMains.get(4); holder.schedule_second_time_name.setText(listMain.getTime_support()); break;
-//                case 5: listMain = timeListMains.get(5); holder.schedule_second_time_name.setText(listMain.getTime_support()); break;
-//                case 6: listMain = timeListMains.get(7); holder.schedule_second_time_name.setText(listMain.getTime_support()); break;
-//                case 9: listMain = timeListMains.get(2); holder.schedule_second_time_name.setText(listMain.getTime_support()); break;
-//            }
-//        } else {
-//            switch (listSecond.getNum_schedule()) {
-//                case 1: listMain = timeListMains.get(1); holder.schedule_second_time_name.setText(listMain.getTime_support()); break;
-//                case 2: listMain = timeListMains.get(2); holder.schedule_second_time_name.setText(listMain.getTime_support()); break;
-//                case 3: listMain = timeListMains.get(4); holder.schedule_second_time_name.setText(listMain.getTime_support()); break;
-//                case 4: listMain = timeListMains.get(5); holder.schedule_second_time_name.setText(listMain.getTime_support()); break;
-//                case 5: listMain = timeListMains.get(6); holder.schedule_second_time_name.setText(listMain.getTime_support()); break;
-//                case 6: listMain = timeListMains.get(7); holder.schedule_second_time_name.setText(listMain.getTime_support()); break;
-//                case 9: listMain = timeListMains.get(3); holder.schedule_second_time_name.setText(listMain.getTime_support()); break;
-//            }
-//        }
-//
-//        if (listSecond.getNum_schedule() == 2) {
-//            holder.bottom_view.setVisibility(View.INVISIBLE);
-//
-//        }
 
     }
 
@@ -116,22 +251,10 @@ public class ScheduleListAdapter_second extends RecyclerView.Adapter<ScheduleLis
     class ViewHolder extends RecyclerView.ViewHolder {
 
         private Chip schedule_second_date_name;
-//        private View bottom_view;
         private RecyclerView schedule_second_recycler_view;
-//        private TextView schedule_second_lesson_name, schedule_second_cabinet_name, schedule_second_teacher_name, schedule_second_number_name, schedule_second_time_name;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
-
-
-//            schedule_second_date_name = itemView.findViewById(R.id.schedule_second_date_name);
-//            schedule_second_number_name = itemView.findViewById(R.id.schedule_second_number_name);
-//            schedule_second_teacher_name = itemView.findViewById(R.id.schedule_second_teacher_name);
-//            schedule_second_lesson_name = itemView.findViewById(R.id.schedule_second_lesson_name);
-//            schedule_second_cabinet_name = itemView.findViewById(R.id.schedule_second_cabinet_name);
-//            schedule_second_time_name = itemView.findViewById(R.id.schedule_second_time_name);
-//            bottom_view = itemView.findViewById(R.id.bottom_view);
-
         }
     }
 

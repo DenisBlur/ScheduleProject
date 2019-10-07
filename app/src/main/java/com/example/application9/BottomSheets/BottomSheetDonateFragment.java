@@ -19,6 +19,8 @@ import com.example.application9.R;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.card.MaterialCardView;
 
+import static com.example.application9.MainActivity._DARK_THEME;
+
 public class BottomSheetDonateFragment extends BottomSheetDialogFragment {
 
     private Context mContext;
@@ -31,7 +33,17 @@ public class BottomSheetDonateFragment extends BottomSheetDialogFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setStyle(BottomSheetDialogFragment.STYLE_NORMAL, R.style.AppBottomSheetDialogTheme);
+        switch (_DARK_THEME) {
+            case "Light":
+                setStyle(BottomSheetDialogFragment.STYLE_NORMAL, R.style.AppBottomSheetDialogTheme);
+                break;
+            case "Dark":
+                setStyle(BottomSheetDialogFragment.STYLE_NORMAL, R.style.AppBottomSheetDialogTheme_Dark);
+                break;
+            case "Android":
+                setStyle(BottomSheetDialogFragment.STYLE_NORMAL, R.style.AppBottomSheetDialogTheme_DayNight);
+                break;
+        }
     }
 
     @Nullable

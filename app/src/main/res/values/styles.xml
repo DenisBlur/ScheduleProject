@@ -2,8 +2,19 @@
 
     <style name="AppBottomSheetDialogTheme" parent="Theme.MaterialComponents.Light.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/AppModalStyle</item>
+        <item name="colorPrimary">#FAFAFA</item>
     </style>
 
+    <style name="AppBottomSheetDialogTheme_Dark" parent="Theme.MaterialComponents.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/AppModalStyle</item>
+        <item name="colorPrimary">#303030</item>
+    </style>
+
+    <style name="AppBottomSheetDialogTheme_DayNight" parent="Theme.MaterialComponents.DayNight.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/AppModalStyle</item>
+        <item name="colorPrimary">#FAFAFA</item>
+        <item name="colorPrimaryDark">#303030</item>
+    </style>
 
     <style name="AppModalStyle" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@drawable/rounded_dialog</item>
@@ -12,117 +23,224 @@
     //LIGHT THEME
 
     <style name="AppTheme.Red.Light" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
-        <item name="colorAccent">@color/colorAccent_Red_Light</item>
+        <item name="colorAccent">@color/colorAccent_Red</item>
     </style>
 
     <style name="AppTheme.Pink.Light" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
-        <item name="colorAccent">@color/colorAccent_Pink_Light</item>
+        <item name="colorAccent">@color/colorAccent_Pink</item>
     </style>
 
     <style name="AppTheme.Purple.Light" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
-        <item name="colorAccent">@color/colorAccent_Purple_Light</item>
+        <item name="colorAccent">@color/colorAccent_Purple</item>
     </style>
 
     <style name="AppTheme.Indigo.Light" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
-        <item name="colorAccent">@color/colorAccent_Indigo_Light</item>
+        <item name="colorAccent">@color/colorAccent_Indigo</item>
     </style>
 
     <style name="AppTheme.Teal.Light" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
-        <item name="colorAccent">@color/colorAccent_Teal_Light</item>
+        <item name="colorAccent">@color/colorAccent_Teal</item>
     </style>
 
     <style name="AppTheme.Green.Light" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
-        <item name="colorAccent">@color/colorAccent_Green_Light</item>
+        <item name="colorAccent">@color/colorAccent_Green</item>
     </style>
 
     <style name="AppTheme.Yellow.Light" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
-        <item name="colorAccent">@color/colorAccent_Yellow_Light</item>
+        <item name="colorAccent">@color/colorAccent_Yellow</item>
     </style>
 
     <style name="AppTheme.DeepOrange.Light" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
-        <item name="colorAccent">@color/colorAccent_deepOrange_Light</item>
+        <item name="colorAccent">@color/colorAccent_deepOrange</item>
     </style>
 
     <style name="AppTheme.BlueGrey.Light" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
-        <item name="colorAccent">@color/colorAccent_blueGrey_Light</item>
+        <item name="colorAccent">@color/colorAccent_blueGrey</item>
+    </style>
+
+    <style name="AppTheme.OR1.Light" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
+        <item name="colorAccent">@color/colorAccent_OR1</item>
+    </style>
+
+    <style name="AppTheme.OR2.Light" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
+        <item name="colorAccent">@color/colorAccent_OR2</item>
+    </style>
+
+    <style name="AppTheme.OR3.Light" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
+        <item name="colorAccent">@color/colorAccent_OR3</item>
+    </style>
+
+    <style name="AppTheme.TS1.Light" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
+        <item name="colorAccent">@color/colorAccent_TS1</item>
+    </style>
+
+    <style name="AppTheme.TS2.Light" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
+        <item name="colorAccent">@color/colorAccent_TS2</item>
+    </style>
+
+    <style name="AppTheme.TS3.Light" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
+        <item name="colorAccent">@color/colorAccent_TS3</item>
+    </style>
+
+    <style name="AppTheme.СС1.Light" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
+        <item name="colorAccent">@color/colorAccent_CC1</item>
+    </style>
+
+    <style name="AppTheme.СС2.Light" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
+        <item name="colorAccent">@color/colorAccent_CC2</item>
+    </style>
+
+    <style name="AppTheme.СС3.Light" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
+        <item name="colorAccent">@color/colorAccent_CC3</item>
     </style>
     //LIGHT THEME
 
     //DayNight THEME
 
-    <style name="AppTheme.Red.Andorid" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
-        <item name="colorAccent">@color/colorAccent_Red_Light</item>
+    <style name="AppTheme.Red.Android" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
+        <item name="colorAccent">@color/colorAccent_Red</item>
     </style>
 
-    <style name="AppTheme.Pink.Andorid" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
-        <item name="colorAccent">@color/colorAccent_Pink_Light</item>
+    <style name="AppTheme.Pink.Android" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
+        <item name="colorAccent">@color/colorAccent_Pink</item>
     </style>
 
-    <style name="AppTheme.Purple.Andorid" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
-        <item name="colorAccent">@color/colorAccent_Purple_Light</item>
+    <style name="AppTheme.Purple.Android" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
+        <item name="colorAccent">@color/colorAccent_Purple</item>
     </style>
 
-    <style name="AppTheme.Indigo.Andorid" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
-        <item name="colorAccent">@color/colorAccent_Indigo_Light</item>
+    <style name="AppTheme.Indigo.Android" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
+        <item name="colorAccent">@color/colorAccent_Indigo</item>
     </style>
 
-    <style name="AppTheme.Teal.Andorid" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
-        <item name="colorAccent">@color/colorAccent_Teal_Light</item>
+    <style name="AppTheme.Teal.Android" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
+        <item name="colorAccent">@color/colorAccent_Teal</item>
     </style>
 
-    <style name="AppTheme.Green.Andorid" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
-        <item name="colorAccent">@color/colorAccent_Green_Light</item>
+    <style name="AppTheme.Green.Android" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
+        <item name="colorAccent">@color/colorAccent_Green</item>
     </style>
 
-    <style name="AppTheme.Yellow.Andorid" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
-        <item name="colorAccent">@color/colorAccent_Yellow_Light</item>
+    <style name="AppTheme.Yellow.Android" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
+        <item name="colorAccent">@color/colorAccent_Yellow</item>
     </style>
 
-    <style name="AppTheme.DeepOrange.Andorid" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
-        <item name="colorAccent">@color/colorAccent_deepOrange_Light</item>
+    <style name="AppTheme.DeepOrange.Android" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
+        <item name="colorAccent">@color/colorAccent_deepOrange</item>
     </style>
 
-    <style name="AppTheme.BlueGrey.Andorid" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
-        <item name="colorAccent">@color/colorAccent_blueGrey_Light</item>
+    <style name="AppTheme.BlueGrey.Android" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
+        <item name="colorAccent">@color/colorAccent_blueGrey</item>
+    </style>
+
+    <style name="AppTheme.OR1.Android" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
+        <item name="colorAccent">@color/colorAccent_OR1</item>
+    </style>
+
+    <style name="AppTheme.OR2.Android" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
+        <item name="colorAccent">@color/colorAccent_OR2</item>
+    </style>
+
+    <style name="AppTheme.OR3.Android" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
+        <item name="colorAccent">@color/colorAccent_OR3</item>
+    </style>
+
+    <style name="AppTheme.TS1.Android" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
+        <item name="colorAccent">@color/colorAccent_TS1</item>
+    </style>
+
+    <style name="AppTheme.TS2.Android" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
+        <item name="colorAccent">@color/colorAccent_TS2</item>
+    </style>
+
+    <style name="AppTheme.TS3.Android" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
+        <item name="colorAccent">@color/colorAccent_TS3</item>
+    </style>
+
+    <style name="AppTheme.СС1.Android" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
+        <item name="colorAccent">@color/colorAccent_CC1</item>
+    </style>
+
+    <style name="AppTheme.СС2.Android" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
+        <item name="colorAccent">@color/colorAccent_CC2</item>
+    </style>
+
+    <style name="AppTheme.СС3.Android" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
+        <item name="colorAccent">@color/colorAccent_CC3</item>
     </style>
     //DayNight THEME
 
     //DARK THEME
-
     <style name="AppTheme.Red.Dark" parent="Theme.MaterialComponents.NoActionBar.Bridge">
-        <item name="colorAccent">@color/colorAccent_Red_Light</item>
+        <item name="colorAccent">@color/colorAccent_Red</item>
     </style>
 
     <style name="AppTheme.Pink.Dark" parent="Theme.MaterialComponents.NoActionBar.Bridge">
-        <item name="colorAccent">@color/colorAccent_Pink_Light</item>
+        <item name="colorAccent">@color/colorAccent_Pink</item>
     </style>
 
     <style name="AppTheme.Purple.Dark" parent="Theme.MaterialComponents.NoActionBar.Bridge">
-        <item name="colorAccent">@color/colorAccent_Purple_Light</item>
+        <item name="colorAccent">@color/colorAccent_Purple</item>
     </style>
 
     <style name="AppTheme.Indigo.Dark" parent="Theme.MaterialComponents.NoActionBar.Bridge">
-        <item name="colorAccent">@color/colorAccent_Indigo_Light</item>
+        <item name="colorAccent">@color/colorAccent_Indigo</item>
     </style>
 
     <style name="AppTheme.Teal.Dark" parent="Theme.MaterialComponents.NoActionBar.Bridge">
-        <item name="colorAccent">@color/colorAccent_Teal_Light</item>
+        <item name="colorAccent">@color/colorAccent_Teal</item>
     </style>
 
     <style name="AppTheme.Green.Dark" parent="Theme.MaterialComponents.NoActionBar.Bridge">
-        <item name="colorAccent">@color/colorAccent_Green_Light</item>
+        <item name="colorAccent">@color/colorAccent_Green</item>
     </style>
 
     <style name="AppTheme.Yellow.Dark" parent="Theme.MaterialComponents.NoActionBar.Bridge">
-        <item name="colorAccent">@color/colorAccent_Yellow_Light</item>
+        <item name="colorAccent">@color/colorAccent_Yellow</item>
     </style>
 
     <style name="AppTheme.DeepOrange.Dark" parent="Theme.MaterialComponents.NoActionBar.Bridge">
-        <item name="colorAccent">@color/colorAccent_deepOrange_Light</item>
+        <item name="colorAccent">@color/colorAccent_deepOrange</item>
     </style>
 
     <style name="AppTheme.BlueGrey.Dark" parent="Theme.MaterialComponents.NoActionBar.Bridge">
-        <item name="colorAccent">@color/colorAccent_blueGrey_Light</item>
+        <item name="colorAccent">@color/colorAccent_blueGrey</item>
+    </style>
+
+    <style name="AppTheme.OR1.Dark" parent="Theme.MaterialComponents.NoActionBar.Bridge">
+        <item name="colorAccent">@color/colorAccent_OR1</item>
+    </style>
+
+    <style name="AppTheme.OR2.Dark" parent="Theme.MaterialComponents.NoActionBar.Bridge">
+        <item name="colorAccent">@color/colorAccent_OR2</item>
+    </style>
+
+    <style name="AppTheme.OR3.Dark" parent="Theme.MaterialComponents.NoActionBar.Bridge">
+        <item name="colorAccent">@color/colorAccent_OR3</item>
+    </style>
+
+    <style name="AppTheme.TS1.Dark" parent="Theme.MaterialComponents.NoActionBar.Bridge">
+        <item name="colorAccent">@color/colorAccent_TS1</item>
+    </style>
+
+    <style name="AppTheme.TS2.Dark" parent="Theme.MaterialComponents.NoActionBar.Bridge">
+        <item name="colorAccent">@color/colorAccent_TS2</item>
+    </style>
+
+    <style name="AppTheme.TS3.Dark" parent="Theme.MaterialComponents.NoActionBar.Bridge">
+        <item name="colorAccent">@color/colorAccent_TS3</item>
+    </style>
+
+    <style name="AppTheme.СС1.Dark" parent="Theme.MaterialComponents.NoActionBar.Bridge">
+        <item name="colorAccent">@color/colorAccent_CC1</item>
+    </style>
+
+    <style name="AppTheme.СС2.Dark" parent="Theme.MaterialComponents.NoActionBar.Bridge">
+        <item name="colorAccent">@color/colorAccent_CC2</item>
+    </style>
+
+    <style name="AppTheme.СС3.Dark" parent="Theme.MaterialComponents.NoActionBar.Bridge">
+        <item name="colorAccent">@color/colorAccent_CC3</item>
     </style>
     //DARK THEME
 

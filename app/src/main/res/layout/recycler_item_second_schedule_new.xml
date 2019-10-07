@@ -3,13 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:id="@+id/container"
-    android:layout_height="wrap_content"
+    android:layout_height="125dp"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="125dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:layout_marginBottom="8dp"
         tools:ignore="UselessParent">
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -36,9 +37,9 @@
                     android:textStyle="bold" />
 
                 <View
-                    android:layout_width="2dp"
+                    android:layout_width="1dp"
                     android:layout_height="match_parent"
-                    android:background="?android:attr/colorPrimary" />
+                    android:background="?android:attr/colorBackground" />
 
                 <TextView
                     android:id="@+id/schedule_second_type_name"
@@ -93,13 +94,6 @@
                 android:layout_height="wrap_content"
                 android:text="@string/app_name" />
         </LinearLayout>
-
-        <View
-            android:id="@+id/bottom_view"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginTop="24dp"
-            android:background="?android:attr/colorBackground" />
 
     </LinearLayout>
 

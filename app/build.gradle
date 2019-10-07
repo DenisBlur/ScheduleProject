@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 28
@@ -7,8 +6,8 @@ android {
         applicationId "com.bluedexon.denis.application"
         minSdkVersion 22
         targetSdkVersion 28
-        versionCode 27
-        versionName "0.0.5"
+        versionCode 30
+        versionName "0.0.8 Beta"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -26,11 +25,13 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.yandex.android:mobileads:2.101'
+    implementation 'com.yandex.android:mobmetricalib:3.6.4'
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     implementation 'com.akexorcist:RoundCornerProgressBar:2.0.3'
     implementation 'com.google.android.material:material:1.0.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
-    implementation group: 'com.google.android.material', name: 'material', version: '1.1.0-alpha10'
+    implementation group: 'com.google.android.material', name: 'material', version: '1.1.0-beta01'
     implementation "com.airbnb.android:lottie:3.0.7"
     implementation 'org.jsoup:jsoup:1.8.3'
     implementation 'com.android.support:palette-v7:28.0.0'
@@ -42,7 +43,4 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-    implementation 'com.google.firebase:firebase-core:17.2.0'
-    implementation 'com.google.firebase:firebase-analytics:17.2.0'
-    implementation 'com.google.firebase:firebase-auth:19.0.0'
 }

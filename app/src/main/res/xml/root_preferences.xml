@@ -19,24 +19,4 @@
 
     </PreferenceCategory>
 
-    <PreferenceCategory
-        app:iconSpaceReserved="false"
-        app:title="Оформление">
-
-        <ListPreference
-            android:entries="@array/design_color"
-            android:entryValues="@array/design_color_st"
-            android:key="_design_color_list"
-            android:title="Цвет приложения"
-            app:iconSpaceReserved="false" />
-
-        <ListPreference
-            android:entries="@array/theme_lds"
-            android:entryValues="@array/theme_lds_st"
-            android:key="_theme_lds_list"
-            android:title="Тема приложения"
-            app:iconSpaceReserved="false" />
-
-    </PreferenceCategory>
-
 </androidx.preference.PreferenceScreen>

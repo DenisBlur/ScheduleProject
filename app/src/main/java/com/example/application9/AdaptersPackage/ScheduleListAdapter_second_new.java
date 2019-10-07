@@ -28,8 +28,16 @@ public class ScheduleListAdapter_second_new extends RecyclerView.Adapter<Schedul
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = layoutInflater.inflate(R.layout.recycler_item_second_schedule_new, parent, false);
-        return new ViewHolder(view);
+        if (viewType == 1) {
+            View view = layoutInflater.inflate(R.layout.recycler_item_second_schedule_new_s, parent, false);
+            return new ViewHolder(view);
+        } else if (viewType == 2) {
+            View view = layoutInflater.inflate(R.layout.recycler_item_second_schedule_launch, parent, false);
+            return new ViewHolder(view);
+        } else {
+            View view = layoutInflater.inflate(R.layout.recycler_item_second_schedule_new, parent, false);
+            return new ViewHolder(view);
+        }
     }
 
     @SuppressLint("SetTextI18n")
@@ -37,12 +45,60 @@ public class ScheduleListAdapter_second_new extends RecyclerView.Adapter<Schedul
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ScheduleList_second_new listSecond = scheduleList_second_news.get(position);
 
-        holder.schedule_second_lesson_name.setText(listSecond.getLesson_name());
-        holder.schedule_second_cabinet_name.setText(listSecond.getCabinet_number());
-        holder.schedule_second_teacher_name.setText(listSecond.getTeacher_name());
-        holder.schedule_second_number_name.setText(Integer.toString(listSecond.getNum_schedule()));
-        holder.schedule_second_time_name.setText(listSecond.getTime_lesson());
-        holder.schedule_second_type_name.setText(listSecond.getType_lesson());
+
+        if (listSecond.getSeparate() == 0) {
+
+            holder.schedule_second_number_name = holder.itemView.findViewById(R.id.schedule_second_number_name);
+            holder.schedule_second_teacher_name = holder.itemView.findViewById(R.id.schedule_second_teacher_name);
+            holder.schedule_second_lesson_name = holder.itemView.findViewById(R.id.schedule_second_lesson_name);
+            holder.schedule_second_cabinet_name = holder.itemView.findViewById(R.id.schedule_second_cabinet_name);
+            holder.schedule_second_time_name = holder.itemView.findViewById(R.id.schedule_second_time_name);
+            holder.schedule_second_type_name = holder.itemView.findViewById(R.id.schedule_second_type_name);
+
+            holder.schedule_second_lesson_name.setText(listSecond.getLesson_name());
+            holder.schedule_second_cabinet_name.setText(listSecond.getCabinet_number());
+            holder.schedule_second_teacher_name.setText(listSecond.getTeacher_name());
+            holder.schedule_second_number_name.setText(Integer.toString(listSecond.getNum_schedule()));
+            holder.schedule_second_time_name.setText(listSecond.getTime_lesson());
+            holder.schedule_second_type_name.setText(listSecond.getType_lesson());
+        } else if (listSecond.getSeparate() == 1) {
+
+            String[] subStr_Cab, subStr_Less, subStr_Teac;
+            subStr_Less = listSecond.getLesson_name().split(" ");
+            subStr_Cab = listSecond.getCabinet_number().split(" ");
+            subStr_Teac = listSecond.getTeacher_name().split(" ");
+
+            holder.schedule_second_number_name = holder.itemView.findViewById(R.id.schedule_second_number_name);
+            holder.schedule_second_teacher_name = holder.itemView.findViewById(R.id.schedule_second_teacher_name);
+            holder.schedule_second_lesson_name = holder.itemView.findViewById(R.id.schedule_second_lesson_name);
+            holder.schedule_second_cabinet_name = holder.itemView.findViewById(R.id.schedule_second_cabinet_name);
+            holder.schedule_second_time_name = holder.itemView.findViewById(R.id.schedule_second_time_name);
+            holder.schedule_second_type_name = holder.itemView.findViewById(R.id.schedule_second_type_name);
+
+            holder.schedule_second_teacher_name_2 = holder.itemView.findViewById(R.id.schedule_second_teacher_name_2);
+            holder.schedule_second_lesson_name_2 = holder.itemView.findViewById(R.id.schedule_second_lesson_name_2);
+            holder.schedule_second_cabinet_name_2 = holder.itemView.findViewById(R.id.schedule_second_cabinet_name_2);
+
+            holder.schedule_second_lesson_name.setText(subStr_Less[0]);
+            holder.schedule_second_cabinet_name.setText(subStr_Cab[0]);
+            holder.schedule_second_teacher_name.setText(subStr_Teac[0] + " " + subStr_Teac[1]);
+            holder.schedule_second_lesson_name_2.setText(subStr_Less[0]);
+
+            if (subStr_Cab.length == 2) {
+                holder.schedule_second_cabinet_name_2.setText(subStr_Cab[1]);
+            }
+
+            holder.schedule_second_teacher_name_2.setText(subStr_Teac[2] + " " + subStr_Teac[3]);
+            holder.schedule_second_number_name.setText(Integer.toString(listSecond.getNum_schedule()));
+            holder.schedule_second_time_name.setText(listSecond.getTime_lesson());
+            holder.schedule_second_type_name.setText(listSecond.getType_lesson());
+
+        } else {
+            holder.schedule_second_lesson_name = holder.itemView.findViewById(R.id.schedule_second_lesson_name);
+            holder.schedule_second_time_name = holder.itemView.findViewById(R.id.schedule_second_time_name);
+            holder.schedule_second_lesson_name.setText(listSecond.getLesson_name());
+            holder.schedule_second_time_name.setText(listSecond.getTime_lesson());
+        }
 
     }
 
@@ -52,16 +108,18 @@ public class ScheduleListAdapter_second_new extends RecyclerView.Adapter<Schedul
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
+
+        private TextView schedule_second_lesson_name_2, schedule_second_cabinet_name_2, schedule_second_teacher_name_2;
         private TextView schedule_second_type_name, schedule_second_lesson_name, schedule_second_cabinet_name, schedule_second_teacher_name, schedule_second_number_name, schedule_second_time_name;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
-            schedule_second_number_name = itemView.findViewById(R.id.schedule_second_number_name);
-            schedule_second_teacher_name = itemView.findViewById(R.id.schedule_second_teacher_name);
-            schedule_second_lesson_name = itemView.findViewById(R.id.schedule_second_lesson_name);
-            schedule_second_cabinet_name = itemView.findViewById(R.id.schedule_second_cabinet_name);
-            schedule_second_time_name = itemView.findViewById(R.id.schedule_second_time_name);
-            schedule_second_type_name = itemView.findViewById(R.id.schedule_second_type_name);
         }
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        ScheduleList_second_new listSecond = scheduleList_second_news.get(position);
+        return listSecond.getSeparate();
     }
 }

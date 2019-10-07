@@ -55,8 +55,9 @@ public class GroupListAdapter_main extends RecyclerView.Adapter<GroupListAdapter
         holder.group_title.setText(listMain.getGroup_TITLE());
         holder.group_card.setOnClickListener(v -> {
             Intent intent = new Intent(mContext, GroupActivity.class);
-            intent.putExtra("group_TITLE", listMain.getGroup_TITLE());
-            intent.putExtra("group_ID", listMain.getGroup_ID());
+            intent.putExtra("_TYPE", "cg");
+            intent.putExtra("_TITLE", listMain.getGroup_TITLE());
+            intent.putExtra("_ID", listMain.getGroup_ID());
             mContext.startActivity(intent);
         });
         holder.group_card.setOnLongClickListener(v -> {

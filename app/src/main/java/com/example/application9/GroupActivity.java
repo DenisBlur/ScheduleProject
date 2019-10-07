@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
@@ -69,13 +70,26 @@ public class GroupActivity extends AppCompatActivity {
         //TabLayout
 
         //GetIntent
+        String _TYPE = getIntent().getStringExtra("_TYPE");
+        String _TITLE = getIntent().getStringExtra("_TITLE");
+        String _ID = getIntent().getStringExtra("_ID");
+        String _ID_RESULTS = null;
 
-        String group_TITLE = getIntent().getStringExtra("group_TITLE");
-        String group_ID = getIntent().getStringExtra("group_ID");
-        String group_ID_RESULTS = group_ID.replaceAll("cg", "vg");
-        group_title.setText(group_TITLE);
-        _MAIN_URL_FOR_GROUP_WEEK_SC = _MAIN_URL_FOR_GROUP_NAME + group_ID;
-        _MAIN_URL_FOR_GROUP_RESULTS_SC = _MAIN_URL_FOR_GROUP_NAME + group_ID_RESULTS;
+        switch (_TYPE) {
+            case "cg":
+                _ID_RESULTS = _ID.replaceAll(_TYPE, "vg");
+                break;
+            case "cp":
+                _ID_RESULTS = _ID.replaceAll(_TYPE, "vp");
+                break;
+            case "ca":
+                _ID_RESULTS = _ID.replaceAll(_TYPE, "va");
+                break;
+        }
+
+        group_title.setText(_TITLE);
+        _MAIN_URL_FOR_GROUP_WEEK_SC = _MAIN_URL_FOR_GROUP_NAME + _ID;
+        _MAIN_URL_FOR_GROUP_RESULTS_SC = _MAIN_URL_FOR_GROUP_NAME + _ID_RESULTS;
         //GetIntent
 
         //ThreadStart
@@ -88,6 +102,7 @@ public class GroupActivity extends AppCompatActivity {
 
         ThreadGetResults threadGetResults = new ThreadGetResults();
         threadGetResults.execute();
+
         //ThreadStart
     }
 
@@ -111,10 +126,10 @@ public class GroupActivity extends AppCompatActivity {
                     String name_l = document_TABLE_SELECTED_TD.get(Integer.parseInt(variableList.get(3).getValue())).text();
                     String hour_all = document_TABLE_SELECTED_TD.get(Integer.parseInt(variableList.get(4).getValue())).text();
                     String hour_out = document_TABLE_SELECTED_TD.get(Integer.parseInt(variableList.get(5).getValue())).text();
-                    String ending = document_TABLE_SELECTED_TD.get(Integer.parseInt(variableList.get(6).getValue())).text();
+                    String ending = document_TABLE_SELECTED_TD.get(Integer.parseInt(variableList.get(7).getValue())).text();
                     int progress = Integer.parseInt(document_TABLE_SELECTED_TD.get(Integer.parseInt(variableList.get(6).getValue())).select("img").attr("alt"));
 
-                    resultsListMains.add(new ResultsList_main(num,name_t,name_gr,name_l,hour_all,hour_out, ending,progress));
+                    resultsListMains.add(new ResultsList_main(num, name_t, name_gr, name_l, hour_all, hour_out, ending, progress));
                 }
 
             } catch (IOException e) {
@@ -150,13 +165,15 @@ public class GroupActivity extends AppCompatActivity {
 
                     String first_lesson = document_TABLE_SELECTED.select("tr > td.ur > a.z1").text();
                     String first_cabinet = document_TABLE_SELECTED.select("tr > td.ur > a.z2").text();
+                    String first_cabinet_link = document_TABLE_SELECTED.select("tr > td.ur > a.z2").attr("href");
                     String first_teacher = document_TABLE_SELECTED.select("tr > td.ur > a.z3").text();
+                    String first_teacher_link = document_TABLE_SELECTED.select("tr > td.ur > a.z3").attr("href");
 
                     if (day_params.contains("Сб") || day_params.contains("Пн") || day_params.contains("Вт") || day_params.contains("Ср") ||
                             day_params.contains("Чт") || day_params.contains("Пт") || day_params.contains("Вс")) {
-                        scheduleListSecond.add(new ScheduleList_second(day_params, first_lesson, first_cabinet, first_teacher, "", 0, 0));
+                        scheduleListSecond.add(new ScheduleList_second(day_params, first_lesson, first_cabinet, first_cabinet_link, first_teacher_link, first_teacher, "", 0, 0));
                     } else {
-                        scheduleListSecond.add(new ScheduleList_second(day_params, first_lesson, first_cabinet, first_teacher, "", 1, 0));
+                        scheduleListSecond.add(new ScheduleList_second(day_params, first_lesson, first_cabinet, first_cabinet_link, first_teacher_link, first_teacher, "", 1, 0));
                     }
                 }
             } catch (IOException e) {

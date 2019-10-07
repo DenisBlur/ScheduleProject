@@ -1,11 +1,15 @@
 package com.example.application9;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,8 +20,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.preference.PreferenceManager;
@@ -36,6 +42,10 @@ import com.example.application9.HomePageFragments.TimeLineFragment;
 import com.example.application9.Support.NetworkManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.card.MaterialCardView;
+import com.yandex.mobile.ads.AdEventListener;
+import com.yandex.mobile.ads.AdRequest;
+import com.yandex.mobile.ads.AdSize;
+import com.yandex.mobile.ads.AdView;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -44,12 +54,19 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static com.example.application9.BottomSheets.BottomSheetColorFragment._COLOR_TEMP;
+import static com.example.application9.BottomSheets.BottomSheetColorFragment._COLOR_TEMP_INT;
+import static com.example.application9.BottomSheets.BottomSheetColorFragment._THEME_TEMP;
 import static com.example.application9.HomePageFragments.AccountFragment.acc_bg_image;
 import static com.example.application9.HomePageFragments.AccountFragment.acc_full_name;
 import static com.example.application9.HomePageFragments.AccountFragment.acc_gradient_view;
@@ -57,11 +74,14 @@ import static com.example.application9.HomePageFragments.AccountFragment.acc_inf
 import static com.example.application9.HomePageFragments.AccountFragment.acc_small_image;
 import static com.example.application9.HomePageFragments.GroupsHomeFragment.recycler_view_group;
 import static com.example.application9.HomePageFragments.TimeLineFragment.recycler_view_timeline;
+import static com.example.application9.HomePageFragments.TimeLineFragment.recycler_view_timeline_sb;
+import static com.example.application9.HomePageFragments.TimeLineFragment.recycler_view_timeline_sr;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static String _MAIN_URL_FOR_GROUP_NAME = "http://83.174.201.182/cg.htm";
-    public static String _MAIN_URL_FOR_TIMES = "http://s917802v.beget.tech/server_time/";
+    public static String _MAIN_URL_CONSTRUCTOR_C = "cg";
+    public static String _MAIN_URL_FOR_GROUP_NAME = "http://83.174.201.182/";
+    public static String _MAIN_URL_FOR_TIMES = "http://s917802v.beget.tech/server_time_new/";
     public static String _MAIN_URL_FOR_VARIABLE = "http://s917802v.beget.tech/server_variable/";
     public static String _MAIN_ACHIEVEMENT = "http://s917802v.beget.tech/server_account/achievement/checkachievement.php?";
     public static String _ONE_DAY_SITE_CODE;
@@ -72,15 +92,21 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("StaticFieldLeak")
     public static GroupListAdapter_main groupListAdapterMain;
     @SuppressLint("StaticFieldLeak")
-    public static TimeListAdapter_main timeListAdapterMain;
+    public static TimeListAdapter_main timeListAdapterMain, timeListAdapterMain_sr, timeListAdapterMain_sb;
 
+    public static CoordinatorLayout main_content;
     public static String _DESIGN_COLOR;
     public static String _SITE;
     public static String _DARK_THEME;
+    public static int _THEME_INT, _COLOR_INT;
     public static boolean _ONE_DAY;
     public static int resID;
     public static List<TimeList_main> timeListMains = new ArrayList<>();
+    public static List<TimeList_main> timeListMain_sr = new ArrayList<>();
+    public static List<TimeList_main> timeListMain_sb = new ArrayList<>();
     public static List<VariableList> variableList = new ArrayList<>();
+    @SuppressLint("StaticFieldLeak")
+    private static Activity activity;
     private List<GroupList_main> groupListMains = new ArrayList<>();
 
     public static String _SECOND_GROUP_NAME, _SECOND_GROUP_ID;
@@ -108,16 +134,26 @@ public class MainActivity extends AppCompatActivity {
     final FragmentManager fm = getSupportFragmentManager();
     Fragment active = fragment1;
 
+    public static final String BLOCK_ID = "R-M-457144-1";
+
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //Setting
         myPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-        _DESIGN_COLOR = sharedPref.getString("_design_color_list", "Red");
+
         _SITE = sharedPref.getString("_site_list", "first_site");
         _ONE_DAY = sharedPref.getBoolean("_main_one_day_switch", false);
-        _DARK_THEME = sharedPref.getString("_theme_lds_list", "Andorid");
+
+        _DESIGN_COLOR = sharedPref.getString("_design_color_list_new", "Red");
+        _DARK_THEME = sharedPref.getString("_theme_lds_list_new", "Android");
+
+        _COLOR_TEMP = _DESIGN_COLOR;
+        _THEME_TEMP = _DARK_THEME;
+
+        _THEME_INT = sharedPref.getInt("_theme_lds_list_res", R.drawable.ic_launcher_background);
+        _COLOR_INT = sharedPref.getInt("_design_color_list_res", R.color.colorAccent_Red);
 
         _SECOND_GROUP_NAME = sharedPref.getString("group_TITLE", "null");
         _SECOND_GROUP_ID = sharedPref.getString("group_ID", "null");
@@ -136,6 +172,25 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        activity = this;
+
+        AdView mAdView = findViewById(R.id.banner_view);
+        mAdView.setBlockId(BLOCK_ID);
+        mAdView.setAdSize(AdSize.BANNER_320x50);
+
+        final AdRequest adRequest = new AdRequest.Builder().build();
+
+        // Регистрация слушателя для отслеживания событий, происходящих в баннерной рекламе.
+        mAdView.setAdEventListener(new AdEventListener.SimpleAdEventListener() {
+            @Override
+            public void onAdLoaded() {
+
+            }
+        });
+
+        // Загрузка объявления.
+        mAdView.loadAd(adRequest);
+
         //Fragments
         fm.beginTransaction().add(R.id.fragment_container, fragment3, "3").hide(fragment3).commit();
         fm.beginTransaction().add(R.id.fragment_container, fragment2, "2").hide(fragment2).commit();
@@ -150,6 +205,8 @@ public class MainActivity extends AppCompatActivity {
         hello_title = findViewById(R.id.hello_title);
         top_pin = findViewById(R.id.top_pin);
         top_pin_title = findViewById(R.id.top_pin_title);
+
+        main_content = findViewById(R.id.main_content);
 
         ac_bg_main = findViewById(R.id.ac_bg_main);
         ac_preview = findViewById(R.id.ac_preview);
@@ -230,6 +287,15 @@ public class MainActivity extends AppCompatActivity {
             lottieAnimationView.setVisibility(View.VISIBLE);
             hello_title.animate().setDuration(500).alpha(0).start();
             hello_bitmap.animate().setDuration(250).setStartDelay(800).alpha(0).start();
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public static void onCheckTheme() {
+        if (!_DARK_THEME.equals(_THEME_TEMP) || !_DESIGN_COLOR.equals(_COLOR_TEMP_INT)) {
+            activity.finish();
+            mContext.startActivity(new Intent(mContext, MainActivity.class), ActivityOptions.makeScaleUpAnimation(main_content, 0, 0, main_content.getWidth(), main_content.getHeight()).toBundle());
+
         }
     }
 
@@ -344,7 +410,8 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onAnimationEnd(Animation animation) { }
+                public void onAnimationEnd(Animation animation) {
+                }
 
                 @Override
                 public void onAnimationRepeat(Animation animation) {
@@ -412,34 +479,25 @@ public class MainActivity extends AppCompatActivity {
 
     @SuppressLint("StaticFieldLeak")
     public class ThreadGetTime extends AsyncTask<Void, Void, Void> {
-
-        String document_TIME_IMAGE_HTML_CODE;
-
         @Override
         protected Void doInBackground(Void... voids) {
             try {
                 Document document_FULL_HTML_CODE = Jsoup.connect(_MAIN_URL_FOR_TIMES).get();
                 String document_TYPE_HTML_CODE = document_FULL_HTML_CODE.select("div.type").first().text();
-                String document_NOW_DAY_HTML_CODE = document_FULL_HTML_CODE.select("div.now_day").first().text();
-                _NOW_DAY = document_NOW_DAY_HTML_CODE;
-                document_TIME_IMAGE_HTML_CODE = document_FULL_HTML_CODE.select("div.time_image").first().text();
+                _NOW_DAY = document_FULL_HTML_CODE.select("div.now_day").first().text();
                 Element document_GET_TIME_HTML_CODE = document_FULL_HTML_CODE.select("div." + document_TYPE_HTML_CODE).first();
 
-                if (document_NOW_DAY_HTML_CODE.equals("3")) {
-                    Elements document_GET_TIME_HTML_PnPt = document_GET_TIME_HTML_CODE.select("div.sr > p");
-                    for (Element document_GET_TIME_P : document_GET_TIME_HTML_PnPt) {
-                        timeListMains.add(new TimeList_main(document_GET_TIME_P.select("p").text()));
-                    }
-                } else if (document_NOW_DAY_HTML_CODE.equals("6")) {
-                    Elements document_GET_TIME_HTML_PnPt = document_GET_TIME_HTML_CODE.select("div.sb > p");
-                    for (Element document_GET_TIME_P : document_GET_TIME_HTML_PnPt) {
-                        timeListMains.add(new TimeList_main(document_GET_TIME_P.select("p").text()));
-                    }
-                } else {
-                    Elements document_GET_TIME_HTML_PnPt = document_GET_TIME_HTML_CODE.select("div.pnPt > p");
-                    for (Element document_GET_TIME_P : document_GET_TIME_HTML_PnPt) {
-                        timeListMains.add(new TimeList_main(document_GET_TIME_P.select("p").text()));
-                    }
+                Elements document_GET_TIME_HTML_SR = document_GET_TIME_HTML_CODE.select("div.pnPt > p");
+                for (Element document_GET_TIME_P : document_GET_TIME_HTML_SR) {
+                    timeListMains.add(new TimeList_main(document_GET_TIME_P.select("p").text()));
+                }
+                Elements document_GET_TIME_HTML_SB = document_GET_TIME_HTML_CODE.select("div.sr > p");
+                for (Element document_GET_TIME_P : document_GET_TIME_HTML_SB) {
+                    timeListMain_sr.add(new TimeList_main(document_GET_TIME_P.select("p").text()));
+                }
+                Elements document_GET_TIME_HTML_PnPt = document_GET_TIME_HTML_CODE.select("div.sb > p");
+                for (Element document_GET_TIME_P : document_GET_TIME_HTML_PnPt) {
+                    timeListMain_sb.add(new TimeList_main(document_GET_TIME_P.select("p").text()));
                 }
 
 
@@ -453,29 +511,32 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
-            switch (document_TIME_IMAGE_HTML_CODE) {
-                case "morning":
-                    Glide.with(mContext).load("http://s917802v.beget.tech/server_backdrop/images/morning.jpg").into(hello_bitmap);
-                    hello_title.setText("Доброе утро!");
-                    break;
-                case "daytime":
-                    Glide.with(mContext).load("http://s917802v.beget.tech/server_backdrop/images/daytime.jpg").into(hello_bitmap);
-                    hello_title.setText("Добрый день!");
-                    break;
-                case "evening":
-                    Glide.with(mContext).load("http://s917802v.beget.tech/server_backdrop/images/evening.png").into(hello_bitmap);
-                    hello_title.setText("Добрый вечер!");
-                    break;
-                case "night":
-                    Glide.with(mContext).load("http://s917802v.beget.tech/server_backdrop/images/night.jpg").into(hello_bitmap);
-                    hello_title.setText("Доброй ночи!");
-                    break;
+            Date currentDate = new Date();
+            DateFormat timeFormat = new SimpleDateFormat("k", Locale.getDefault());
+            int times_ms = Integer.parseInt(timeFormat.format(currentDate));
 
+            if (times_ms >= 0 && times_ms < 4) {
+                Glide.with(mContext).load("http://s917802v.beget.tech/server_backdrop/images/night.jpg").skipMemoryCache(true).into(hello_bitmap);
+                hello_title.setText("Доброй ночи!");
+            } else if (times_ms >= 4 && times_ms < 12) {
+                Glide.with(mContext).load("http://s917802v.beget.tech/server_backdrop/images/morning.jpg").skipMemoryCache(true).into(hello_bitmap);
+                hello_title.setText("Доброе утро!");
+            } else if (times_ms >= 12 && times_ms < 18) {
+                Glide.with(mContext).load("http://s917802v.beget.tech/server_backdrop/images/daytime.jpg").skipMemoryCache(true).into(hello_bitmap);
+                hello_title.setText("Добрый день!");
+            } else if (times_ms >= 18) {
+                Glide.with(mContext).load("http://s917802v.beget.tech/server_backdrop/images/evening.png").skipMemoryCache(true).into(hello_bitmap);
+                hello_title.setText("Добрый вечер!");
             }
+
             timeListAdapterMain = new TimeListAdapter_main(mContext, timeListMains);
+            timeListAdapterMain_sr = new TimeListAdapter_main(mContext, timeListMain_sr);
+            timeListAdapterMain_sb = new TimeListAdapter_main(mContext, timeListMain_sb);
+
             recycler_view_timeline.setAdapter(timeListAdapterMain);
-            recycler_view_timeline.setAlpha(0);
-            recycler_view_timeline.animate().setDuration(250).alpha(1).start();
+            recycler_view_timeline_sr.setAdapter(timeListAdapterMain_sr);
+            recycler_view_timeline_sb.setAdapter(timeListAdapterMain_sb);
+
             hello_bitmap.animate().setDuration(500).alpha(1).start();
             hello_title.animate().setDuration(250).setStartDelay(800).alpha(1).start();
         }
@@ -487,7 +548,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... voids) {
             try {
-                Document document_FULL_HTML_CODE = Jsoup.connect(_MAIN_URL_FOR_GROUP_NAME + "hg.htm").get();
+                Document document_FULL_HTML_CODE = Jsoup.connect(_MAIN_URL_FOR_GROUP_NAME + _MAIN_URL_CONSTRUCTOR_C + ".htm").get();
                 _ONE_DAY_SITE_CODE = document_FULL_HTML_CODE.html();
                 Element document_TABLE_HTML_CODE = document_FULL_HTML_CODE.select("table.inf").first();
                 Elements document_TABLE_ELEMENTS = document_TABLE_HTML_CODE.select("tr");
@@ -521,7 +582,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... voids) {
             try {
-                Document document_FULL_HTML_CODE = Jsoup.connect(_MAIN_URL_FOR_GROUP_NAME + "cg.htm").get();
+                Document document_FULL_HTML_CODE = Jsoup.connect(_MAIN_URL_FOR_GROUP_NAME + _MAIN_URL_CONSTRUCTOR_C + ".htm").get();
                 Element document_TABLE_HTML_CODE = document_FULL_HTML_CODE.select("table.inf").first();
                 Elements document_TABLE_ELEMENTS = document_TABLE_HTML_CODE.select("tr");
                 for (Element document_TABLE_SELECTED : document_TABLE_ELEMENTS) {

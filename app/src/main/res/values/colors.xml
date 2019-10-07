@@ -3,16 +3,34 @@
     <color name="colorVK">#4C75A3</color>
 
     //COLOR
-    <color name="colorAccent_Red_Light">#E53935</color>
-    <color name="colorAccent_Pink_Light">#D81B60</color>
-    <color name="colorAccent_Purple_Light">#8E24AA</color>
-    <color name="colorAccent_Indigo_Light">#3949AB</color>
-    <color name="colorAccent_Teal_Light">#00897B</color>
-    <color name="colorAccent_Green_Light">#43A047</color>
-    <color name="colorAccent_Yellow_Light">#FFB300</color>
-    <color name="colorAccent_deepOrange_Light">#ff7043</color>
-    <color name="colorAccent_blueGrey_Light">#90a4ae</color>
+    <color name="colorAccent_Red">#E53935</color>
+    <color name="colorAccent_Pink">#D81B60</color>
+    <color name="colorAccent_Purple">#8E24AA</color>
+    <color name="colorAccent_Indigo">#3949AB</color>
+    <color name="colorAccent_Teal">#00897B</color>
+    <color name="colorAccent_Green">#43A047</color>
+    <color name="colorAccent_Yellow">#FFB300</color>
+    <color name="colorAccent_deepOrange">#ff7043</color>
+    <color name="colorAccent_blueGrey">#90a4ae</color>
     //COLOR
+
+    //COLOR OR
+    <color name="colorAccent_OR1">#534F44</color>
+    <color name="colorAccent_OR2">#D1C2BB</color>
+    <color name="colorAccent_OR3">#AEAFB1</color>
+    //COLOR OR
+
+    //COLOR TS
+    <color name="colorAccent_TS1">#B7DFDF</color>
+    <color name="colorAccent_TS2">#FEDFB1</color>
+    <color name="colorAccent_TS3">#7F4039</color>
+    //COLOR TS
+
+    //COLOR CC
+    <color name="colorAccent_CC1">#F8C5A6</color>
+    <color name="colorAccent_CC2">#D07965</color>
+    <color name="colorAccent_CC3">#834B3E</color>
+    //COLOR CC
 
     <!-- Screens background color-->
     <color name="bg_screen1">#B71C1C</color>
@@ -46,6 +64,12 @@
         <item>@color/dot_dark_screen4</item>
     </array>
 
-    <color name="colorAccent_Blue">#0A84FF</color>
     <color name="white">#FFF</color>
+    <color name="black">#000</color>
+
+    <color name="theme_white">#FAFAFA</color>
+    <color name="theme_black">#303030</color>
+    <color name="theme_android">#A5A5A5</color>
+
+
 </resources>

@@ -14,7 +14,7 @@
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:contentScrim="?android:attr/colorButtonNormal"
+            app:contentScrim="?android:attr/colorBackground"
             app:expandedTitleGravity="top"
             app:expandedTitleMarginStart="@dimen/shrine_toolbar_offset_start"
             app:expandedTitleMarginTop="@dimen/shrine_toolbar_offset_top"

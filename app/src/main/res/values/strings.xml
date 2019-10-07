@@ -39,9 +39,26 @@
     //Auth VK
     //Version App
 
-    <string name="version_in_app">v 0.0.5 BETA</string>
-    <string name="title_activity_account">AccountActivity</string>
+    <string name="version_in_app">v 0.0.8 BETA</string>
 
     //Version App
+    //Color and Theme
+
+    <string name="title_activity_account">AccountActivity</string>
+    <string name="appearance">внешний вид</string>
+    <string name="title_theme_app">Тема приложения</string>
+    <string name="title_color_standart_app">Цвет приложения - Android</string>
+    <string name="title_color_dribbble_app">Цвет приложения - Fantastic</string>
+    <string name="title_preview_app">Предварительный просмотр</string>
+    <string name="apply">Применить</string>
+    <string name="title_color_or_app">Цветовые схемы от the.colour.lab</string>
+    <string name="sb">Суббота</string>
+    <string name="sr">Среда</string>
+    <string name="pnpt">Понедельник, вторник, пятница</string>
+    <string name="one">1</string>
+    <string name="two">2</string>
+    <string name="three">3</string>
+
+    //Color and Theme
 
 </resources>
