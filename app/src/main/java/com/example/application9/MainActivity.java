@@ -32,6 +32,7 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
 import com.example.application9.AdaptersPackage.GroupListAdapter_main;
 import com.example.application9.AdaptersPackage.TimeListAdapter_main;
+import com.example.application9.BottomSheets.BottomSheetUpdateAppFragment;
 import com.example.application9.CustomDialog.FirstDialog;
 import com.example.application9.DataPackage.GroupList_main;
 import com.example.application9.DataPackage.TimeList_main;
@@ -479,6 +480,9 @@ public class MainActivity extends AppCompatActivity {
 
     @SuppressLint("StaticFieldLeak")
     public class ThreadGetTime extends AsyncTask<Void, Void, Void> {
+
+        String v_app_server;
+
         @Override
         protected Void doInBackground(Void... voids) {
             try {
@@ -486,6 +490,8 @@ public class MainActivity extends AppCompatActivity {
                 String document_TYPE_HTML_CODE = document_FULL_HTML_CODE.select("div.type").first().text();
                 _NOW_DAY = document_FULL_HTML_CODE.select("div.now_day").first().text();
                 Element document_GET_TIME_HTML_CODE = document_FULL_HTML_CODE.select("div." + document_TYPE_HTML_CODE).first();
+
+                v_app_server = document_FULL_HTML_CODE.select("div.vapp").first().text();
 
                 Elements document_GET_TIME_HTML_SR = document_GET_TIME_HTML_CODE.select("div.pnPt > p");
                 for (Element document_GET_TIME_P : document_GET_TIME_HTML_SR) {
@@ -539,6 +545,12 @@ public class MainActivity extends AppCompatActivity {
 
             hello_bitmap.animate().setDuration(500).alpha(1).start();
             hello_title.animate().setDuration(250).setStartDelay(800).alpha(1).start();
+            String n_app = mContext.getString(R.string.version_in_app);
+
+            if (!v_app_server.equals(n_app)) {
+                BottomSheetUpdateAppFragment bottomSheetUpdateAppFragment = new BottomSheetUpdateAppFragment();
+                bottomSheetUpdateAppFragment.show(getSupportFragmentManager(), bottomSheetUpdateAppFragment.getTag());
+            }
         }
     }
 

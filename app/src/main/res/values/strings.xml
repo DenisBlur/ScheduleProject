@@ -39,7 +39,7 @@
     //Auth VK
     //Version App
 
-    <string name="version_in_app">v 0.0.8 BETA</string>
+    <string name="version_in_app">v 0.0.9 BETA</string>
 
     //Version App
     //Color and Theme
@@ -58,6 +58,9 @@
     <string name="one">1</string>
     <string name="two">2</string>
     <string name="three">3</string>
+    <string name="update_av">Доступно обновление</string>
+    <string name="update_text">Очень информативно.</string>
+    <string name="update">Обновить</string>
 
     //Color and Theme
 

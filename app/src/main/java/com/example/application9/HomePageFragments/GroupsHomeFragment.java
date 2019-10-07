@@ -41,8 +41,6 @@ public class GroupsHomeFragment extends Fragment {
     @SuppressLint("StaticFieldLeak")
     public static NestedScrollView scroll;
 
-    private Button unpin_button;
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -52,7 +50,7 @@ public class GroupsHomeFragment extends Fragment {
         recycler_view_group = view.findViewById(R.id.recycler_view);
         pin_group_bg = view.findViewById(R.id.pin_group_bg);
         scroll = view.findViewById(R.id.scroll);
-        unpin_button = view.findViewById(R.id.unpin_button);
+        Button unpin_button = view.findViewById(R.id.unpin_button);
         pin_group_title = view.findViewById(R.id.pin_group_title);
 
         top_pin.setAlpha(0);
