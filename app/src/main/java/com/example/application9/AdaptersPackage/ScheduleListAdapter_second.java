@@ -71,9 +71,10 @@ public class ScheduleListAdapter_second extends RecyclerView.Adapter<ScheduleLis
                         "",
                         2, 2));
 
-                String[] subStr_Less;
+                String[] subStr_Less, subStr_Teac;
                 subStr_Less = listSecond.getCabinet_number().split(" ");
-                if (subStr_Less.length >= 2) {
+                subStr_Teac = listSecond.getTeacher_name().split(" ");
+                if (subStr_Less.length >= 2 || subStr_Teac.length == 4) {
                     scheduleListSecondNew.add(new ScheduleList_second_new(
                             listSecond.getLesson_name(),
                             listSecond.getCabinet_number(),
@@ -106,9 +107,10 @@ public class ScheduleListAdapter_second extends RecyclerView.Adapter<ScheduleLis
                                 "",
                                 2, 2));
                     }
-                    String[] subStr_Less_2;
+                    String[] subStr_Less_2, subStr_Teac_2;
                     subStr_Less_2 = scheduleListSecond.get(position + i).getCabinet_number().split(" ");
-                    if (subStr_Less_2.length >= 2) {
+                    subStr_Teac_2 = scheduleListSecond.get(position + i).getTeacher_name().split(" ");
+                    if (subStr_Less_2.length >= 2 || subStr_Teac_2.length == 4) {
                         if (i >= 2) {
                             scheduleListSecondNew.add(new ScheduleList_second_new(
                                     scheduleListSecond.get(position + i).getLesson_name(),
@@ -155,9 +157,10 @@ public class ScheduleListAdapter_second extends RecyclerView.Adapter<ScheduleLis
                 holder.schedule_second_recycler_view.setAdapter(scheduleListAdapterSecondNew);
                 holder.schedule_second_recycler_view.setNestedScrollingEnabled(false);
             } else {
-                String[] subStr_Less;
+                String[] subStr_Less, subStr_Teac;
                 subStr_Less = listSecond.getCabinet_number().split(" ");
-                if (subStr_Less.length >= 2) {
+                subStr_Teac = listSecond.getTeacher_name().split(" ");
+                if (subStr_Less.length >= 2 || subStr_Teac.length == 4) {
                     scheduleListSecondNew.add(new ScheduleList_second_new(
                             listSecond.getLesson_name(),
                             listSecond.getCabinet_number(),
@@ -190,9 +193,10 @@ public class ScheduleListAdapter_second extends RecyclerView.Adapter<ScheduleLis
                                 "",
                                 2, 2));
                     }
-                    String[] subStr_Less_2;
+                    String[] subStr_Less_2, subStr_Teac_2;
                     subStr_Less_2 = scheduleListSecond.get(position + i).getCabinet_number().split(" ");
-                    if (subStr_Less_2.length >= 2) {
+                    subStr_Teac_2 = scheduleListSecond.get(position + i).getTeacher_name().split(" ");
+                    if (subStr_Less_2.length >= 2 || subStr_Teac_2.length == 4) {
                         if (i >= 2) {
                             scheduleListSecondNew.add(new ScheduleList_second_new(
                                     scheduleListSecond.get(position + i).getLesson_name(),

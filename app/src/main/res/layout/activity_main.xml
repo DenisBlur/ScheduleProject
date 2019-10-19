@@ -105,12 +105,19 @@
         android:layout_gravity="bottom"
         android:layout_marginBottom="56dp" />
 
+<!--    <com.startapp.android.publish.ads.banner.Banner-->
+<!--        android:id="@+id/startAppBanner"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_centerHorizontal="true"-->
+<!--        android:layout_gravity="bottom|center"-->
+<!--        android:layout_marginBottom="56dp" />-->
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        app:elevation="10dp"
         app:itemBackground="?android:attr/colorPrimary"
         app:itemIconTint="@drawable/bottom_navigation_selector"
         app:itemTextColor="@drawable/bottom_navigation_selector"

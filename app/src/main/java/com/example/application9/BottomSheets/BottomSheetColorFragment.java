@@ -28,9 +28,7 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-import static com.example.application9.MainActivity._COLOR_INT;
 import static com.example.application9.MainActivity._DARK_THEME;
-import static com.example.application9.MainActivity._THEME_INT;
 import static com.example.application9.MainActivity.myPreferences;
 
 public class BottomSheetColorFragment extends BottomSheetDialogFragment {
@@ -56,10 +54,8 @@ public class BottomSheetColorFragment extends BottomSheetDialogFragment {
                 setStyle(BottomSheetDialogFragment.STYLE_NORMAL, R.style.AppBottomSheetDialogTheme);
                 break;
             case "Dark":
-                setStyle(BottomSheetDialogFragment.STYLE_NORMAL, R.style.AppBottomSheetDialogTheme_Dark);
-                break;
             case "Android":
-                setStyle(BottomSheetDialogFragment.STYLE_NORMAL, R.style.AppBottomSheetDialogTheme_DayNight);
+                setStyle(BottomSheetDialogFragment.STYLE_NORMAL, R.style.AppBottomSheetDialogTheme_Dark);
                 break;
         }
     }
@@ -121,6 +117,24 @@ public class BottomSheetColorFragment extends BottomSheetDialogFragment {
                 R.color.colorAccent_TS1,
                 R.color.colorAccent_TS2,
                 R.color.colorAccent_TS3));
+        colorThemeLists_3.add(new ColourLabService_List(
+                "Summer Fruits",
+                "SF1",
+                "SF2",
+                "SF3",
+                "https://sun9-27.userapi.com/c851324/v851324345/1df18c/puaGt7w1jtQ.jpg",
+                R.color.colorAccent_SF1,
+                R.color.colorAccent_SF2,
+                R.color.colorAccent_SF3));
+        colorThemeLists_3.add(new ColourLabService_List(
+                "Yellow Ladder",
+                "YL1",
+                "YL2",
+                "YL3",
+                "https://sun9-26.userapi.com/c851036/v851036712/1e1a2b/8PQN8Mhsa8U.jpg",
+                R.color.colorAccent_YL1,
+                R.color.colorAccent_YL2,
+                R.color.colorAccent_YL3));
 //        colorThemeLists_3.add(new ColourLabService_List(
 //                "Clay Cave",
 //                "CC1",

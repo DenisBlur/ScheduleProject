@@ -6,7 +6,7 @@
     <string name="title_activity_settings">Settings</string>
 
     <string name="donate_button">пожертвовать</string>
-    <string name="setting_button">настройки</string>
+    <string name="setting_button">Настройки</string>
     <string name="achievement">Достижения</string>
 
     //welcome page
@@ -39,13 +39,13 @@
     //Auth VK
     //Version App
 
-    <string name="version_in_app">v 0.0.9 BETA</string>
+    <string name="version_in_app">v 0.1.1 BETA</string>
 
     //Version App
     //Color and Theme
 
     <string name="title_activity_account">AccountActivity</string>
-    <string name="appearance">внешний вид</string>
+    <string name="appearance">Дизайн</string>
     <string name="title_theme_app">Тема приложения</string>
     <string name="title_color_standart_app">Цвет приложения - Android</string>
     <string name="title_color_dribbble_app">Цвет приложения - Fantastic</string>
@@ -61,6 +61,13 @@
     <string name="update_av">Доступно обновление</string>
     <string name="update_text">Очень информативно.</string>
     <string name="update">Обновить</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="update_availibl">Обновление</string>
+    <string name="review">Отзыв</string>
+    <string name="servers">Сервера</string>
 
     //Color and Theme
 

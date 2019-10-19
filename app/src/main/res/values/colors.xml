@@ -26,11 +26,17 @@
     <color name="colorAccent_TS3">#7F4039</color>
     //COLOR TS
 
-    //COLOR CC
-    <color name="colorAccent_CC1">#F8C5A6</color>
-    <color name="colorAccent_CC2">#D07965</color>
-    <color name="colorAccent_CC3">#834B3E</color>
-    //COLOR CC
+    //COLOR SF
+    <color name="colorAccent_SF1">#3A5A81</color>
+    <color name="colorAccent_SF2">#D31336</color>
+    <color name="colorAccent_SF3">#252131</color>
+    //COLOR SF
+
+    //COLOR YL
+    <color name="colorAccent_YL1">#FECE25</color>
+    <color name="colorAccent_YL2">#C4C4C8</color>
+    <color name="colorAccent_YL3">#575B64</color>
+    //COLOR YL
 
     <!-- Screens background color-->
     <color name="bg_screen1">#B71C1C</color>

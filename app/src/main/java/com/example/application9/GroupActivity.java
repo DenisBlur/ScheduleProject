@@ -6,7 +6,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
@@ -104,6 +103,7 @@ public class GroupActivity extends AppCompatActivity {
         threadGetResults.execute();
 
         //ThreadStart
+
     }
 
     @SuppressLint("StaticFieldLeak")

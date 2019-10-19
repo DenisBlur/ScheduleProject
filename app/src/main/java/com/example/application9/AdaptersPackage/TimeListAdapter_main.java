@@ -19,51 +19,60 @@ import java.util.List;
 public class TimeListAdapter_main extends RecyclerView.Adapter<TimeListAdapter_main.ViewHolder> {
 
     private List<TimeList_main> timeListMains;
-    private Context mContext;
     private LayoutInflater layoutInflater;
 
     public TimeListAdapter_main(Context mContext, List<TimeList_main> timeListMains) {
         this.timeListMains = timeListMains;
-        this.mContext = mContext;
         this.layoutInflater = LayoutInflater.from(mContext);
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = layoutInflater.inflate(R.layout.recycler_item_main_time, parent, false);
-        return new ViewHolder(view);
+        if (viewType == 1) {
+            View view = layoutInflater.inflate(R.layout.recycler_item_update_list, parent, false);
+            return new ViewHolder(view);
+        } else {
+            View view = layoutInflater.inflate(R.layout.recycler_item_main_time, parent, false);
+            return new ViewHolder(view);
+        }
     }
 
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         TimeList_main main = timeListMains.get(position);
-        holder.text_time.setText(main.getTime_support());
-        if (!MainActivity._NOW_DAY.equals("3")) {
-            if (position != 2) {
-                if (position < 2) {
-                    holder.text_title.setText(position + 1 + " пара");
-                } else {
-                    holder.text_title.setText(position + " пара");
-                }
-            } else {
-                holder.text_title.setText("Обеденный перерыв");
-            }
-        } else {
-            if (position != 3) {
-                if (position < 3) {
-                    if (position == 0) {
-                        holder.text_title.setText("Классный час");
+
+        if (main.getType() != 1) {
+            holder.text_title = holder.itemView.findViewById(R.id.text_title);
+            holder.text_time.setText(main.getTime_support());
+            if (!MainActivity._NOW_DAY.equals("3")) {
+                if (position != 2) {
+                    if (position < 2) {
+                        holder.text_title.setText(position + 1 + " пара");
                     } else {
                         holder.text_title.setText(position + " пара");
                     }
                 } else {
-                    holder.text_title.setText(position - 1 + " пара");
+                    holder.text_title.setText("Обеденный перерыв");
                 }
             } else {
-                holder.text_title.setText("Обеденный перерыв");
+                if (position != 3) {
+                    if (position < 3) {
+                        if (position == 0) {
+                            holder.text_title.setText("Классный час");
+                        } else {
+                            holder.text_title.setText(position + " пара");
+                        }
+                    } else {
+                        holder.text_title.setText(position - 1 + " пара");
+                    }
+                } else {
+                    holder.text_title.setText("Обеденный перерыв");
+                }
             }
+        } else {
+            holder.text_time.setText(main.getTime_support());
         }
 //        switch (position) {
 //            case 0: holder.text_title
@@ -82,7 +91,12 @@ public class TimeListAdapter_main extends RecyclerView.Adapter<TimeListAdapter_m
         ViewHolder(@NonNull View itemView) {
             super(itemView);
             text_time = itemView.findViewById(R.id.text_time);
-            text_title = itemView.findViewById(R.id.text_title);
         }
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        TimeList_main main = timeListMains.get(position);
+        return main.getType();
     }
 }

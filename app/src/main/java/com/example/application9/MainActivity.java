@@ -31,10 +31,11 @@ import androidx.preference.PreferenceManager;
 import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
 import com.example.application9.AdaptersPackage.GroupListAdapter_main;
+import com.example.application9.AdaptersPackage.NewsUpdate_Adapter;
 import com.example.application9.AdaptersPackage.TimeListAdapter_main;
-import com.example.application9.BottomSheets.BottomSheetUpdateAppFragment;
 import com.example.application9.CustomDialog.FirstDialog;
 import com.example.application9.DataPackage.GroupList_main;
+import com.example.application9.DataPackage.NewsUpdate_List;
 import com.example.application9.DataPackage.TimeList_main;
 import com.example.application9.DataPackage.VariableList;
 import com.example.application9.HomePageFragments.AccountFragment;
@@ -70,9 +71,9 @@ import static com.example.application9.BottomSheets.BottomSheetColorFragment._CO
 import static com.example.application9.BottomSheets.BottomSheetColorFragment._THEME_TEMP;
 import static com.example.application9.HomePageFragments.AccountFragment.acc_bg_image;
 import static com.example.application9.HomePageFragments.AccountFragment.acc_full_name;
-import static com.example.application9.HomePageFragments.AccountFragment.acc_gradient_view;
-import static com.example.application9.HomePageFragments.AccountFragment.acc_info;
 import static com.example.application9.HomePageFragments.AccountFragment.acc_small_image;
+import static com.example.application9.HomePageFragments.AccountFragment.recycler_view_news;
+import static com.example.application9.HomePageFragments.AccountFragment.update_button;
 import static com.example.application9.HomePageFragments.GroupsHomeFragment.recycler_view_group;
 import static com.example.application9.HomePageFragments.TimeLineFragment.recycler_view_timeline;
 import static com.example.application9.HomePageFragments.TimeLineFragment.recycler_view_timeline_sb;
@@ -85,7 +86,6 @@ public class MainActivity extends AppCompatActivity {
     public static String _MAIN_URL_FOR_TIMES = "http://s917802v.beget.tech/server_time_new/";
     public static String _MAIN_URL_FOR_VARIABLE = "http://s917802v.beget.tech/server_variable/";
     public static String _MAIN_ACHIEVEMENT = "http://s917802v.beget.tech/server_account/achievement/checkachievement.php?";
-    public static String _ONE_DAY_SITE_CODE;
     public static String _UID_G = "null", _AID_G = "", _PASSWORD = "null";
     public static String _IMG_SMALL_ACC = "null", _IMG_FULL_ACC = "null";
     public static String _NOW_DAY;
@@ -100,12 +100,12 @@ public class MainActivity extends AppCompatActivity {
     public static String _SITE;
     public static String _DARK_THEME;
     public static int _THEME_INT, _COLOR_INT;
-    public static boolean _ONE_DAY;
     public static int resID;
     public static List<TimeList_main> timeListMains = new ArrayList<>();
     public static List<TimeList_main> timeListMain_sr = new ArrayList<>();
     public static List<TimeList_main> timeListMain_sb = new ArrayList<>();
     public static List<VariableList> variableList = new ArrayList<>();
+    public static List<NewsUpdate_List> newsUpdateLists = new ArrayList<>();
     @SuppressLint("StaticFieldLeak")
     private static Activity activity;
     private List<GroupList_main> groupListMains = new ArrayList<>();
@@ -122,6 +122,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView hello_bitmap;
     private TextView hello_title;
     private FirstDialog cdd;
+    private BottomNavigationView bottom_nav_view;
 
     @SuppressLint("StaticFieldLeak")
     private static MaterialCardView ac_bg_main;
@@ -145,7 +146,6 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
 
         _SITE = sharedPref.getString("_site_list", "first_site");
-        _ONE_DAY = sharedPref.getBoolean("_main_one_day_switch", false);
 
         _DESIGN_COLOR = sharedPref.getString("_design_color_list_new", "Red");
         _DARK_THEME = sharedPref.getString("_theme_lds_list_new", "Android");
@@ -218,20 +218,21 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar1 = findViewById(R.id.toolbar);
         mContext = MainActivity.this;
         setSupportActionBar(toolbar1);
-        BottomNavigationView bottom_nav_view = findViewById(R.id.bottom_nav_view);
+        bottom_nav_view = findViewById(R.id.bottom_nav_view);
         //initializing all component
 
         //TODO: Использовать в будущем
         //color extracting
-//        Bitmap helloImage = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.night);
+//        Bitmap helloImage = BitmapFactory.decodeResource(mContext.getResources(), pin_group_bg.getCardBackgroundColor());
 //        Palette.generateAsync(helloImage, palette -> {
 //            assert palette != null;
 //            assert palette.getDominantSwatch() != null;
-//            fake_fragment_schedule.setBackgroundColor(palette.getDominantSwatch().getRgb());
+//            pin_group_title.setBackgroundColor(palette.getDominantSwatch().getRgb());
 //        });
         //color extracting
 
         //Toolbar and AppBar Elements
+
         bottom_nav_view.setOnNavigationItemSelectedListener(item -> {
 
             switch (item.getItemId()) {
@@ -265,21 +266,22 @@ public class MainActivity extends AppCompatActivity {
 
     private void threadStart() {
         timeListMains = new ArrayList<>();
+        timeListMain_sr = new ArrayList<>();
+        timeListMain_sb = new ArrayList<>();
         LottieAnimationView lottieAnimationView = findViewById(R.id.no_internet);
         if (NetworkManager.isNetworkAvailable(mContext)) {
-            if (!_ONE_DAY) {
-                ThreadGetGroupNameWeek getGroupNameWeek = new ThreadGetGroupNameWeek();
-                getGroupNameWeek.execute();
-            } else {
-                ThreadGetGroupNameOneDay getGroupNameOneDay = new ThreadGetGroupNameOneDay();
-                getGroupNameOneDay.execute();
-            }
+
+            ThreadGetGroupNameWeek getGroupNameWeek = new ThreadGetGroupNameWeek();
+            getGroupNameWeek.execute();
 
             ThreadGetTime threadGetTime = new ThreadGetTime();
             threadGetTime.execute();
 
             ThreadGetVariable threadGetVariable = new ThreadGetVariable();
             threadGetVariable.execute();
+
+            ThreadGetNewsUpdate threadGetNewsUpdate = new ThreadGetNewsUpdate();
+            threadGetNewsUpdate.execute();
 
             cdd.show();
             lottieAnimationView.setVisibility(View.GONE);
@@ -349,12 +351,9 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(View view) {
             super.onPostExecute(view);
             if (!errors) {
-                acc_info.setVisibility(View.VISIBLE);
-                acc_gradient_view.setVisibility(View.VISIBLE);
                 acc_full_name.setText(full_name);
-                Glide.with(mContext).load(photo_max_orig).into(acc_bg_image);
                 Glide.with(mContext).load(photo_max_orig).into(acc_small_image);
-                acc_bg_image.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                acc_bg_image.setVisibility(View.GONE);
             } else {
                 Toast.makeText(mContext, "Произошла ошибка авторизации.", Toast.LENGTH_SHORT).show();
                 _UID_G = "null";
@@ -495,15 +494,15 @@ public class MainActivity extends AppCompatActivity {
 
                 Elements document_GET_TIME_HTML_SR = document_GET_TIME_HTML_CODE.select("div.pnPt > p");
                 for (Element document_GET_TIME_P : document_GET_TIME_HTML_SR) {
-                    timeListMains.add(new TimeList_main(document_GET_TIME_P.select("p").text()));
+                    timeListMains.add(new TimeList_main(document_GET_TIME_P.select("p").text(),0));
                 }
                 Elements document_GET_TIME_HTML_SB = document_GET_TIME_HTML_CODE.select("div.sr > p");
                 for (Element document_GET_TIME_P : document_GET_TIME_HTML_SB) {
-                    timeListMain_sr.add(new TimeList_main(document_GET_TIME_P.select("p").text()));
+                    timeListMain_sr.add(new TimeList_main(document_GET_TIME_P.select("p").text(),0));
                 }
                 Elements document_GET_TIME_HTML_PnPt = document_GET_TIME_HTML_CODE.select("div.sb > p");
                 for (Element document_GET_TIME_P : document_GET_TIME_HTML_PnPt) {
-                    timeListMain_sb.add(new TimeList_main(document_GET_TIME_P.select("p").text()));
+                    timeListMain_sb.add(new TimeList_main(document_GET_TIME_P.select("p").text(),0));
                 }
 
 
@@ -548,44 +547,10 @@ public class MainActivity extends AppCompatActivity {
             String n_app = mContext.getString(R.string.version_in_app);
 
             if (!v_app_server.equals(n_app)) {
-                BottomSheetUpdateAppFragment bottomSheetUpdateAppFragment = new BottomSheetUpdateAppFragment();
-                bottomSheetUpdateAppFragment.show(getSupportFragmentManager(), bottomSheetUpdateAppFragment.getTag());
+                bottom_nav_view.getOrCreateBadge(R.id.account);
+                update_button.setVisibility(View.VISIBLE);
             }
         }
-    }
-
-    @SuppressLint("StaticFieldLeak")
-    public class ThreadGetGroupNameOneDay extends AsyncTask<Void, Void, Void> {
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            try {
-                Document document_FULL_HTML_CODE = Jsoup.connect(_MAIN_URL_FOR_GROUP_NAME + _MAIN_URL_CONSTRUCTOR_C + ".htm").get();
-                _ONE_DAY_SITE_CODE = document_FULL_HTML_CODE.html();
-                Element document_TABLE_HTML_CODE = document_FULL_HTML_CODE.select("table.inf").first();
-                Elements document_TABLE_ELEMENTS = document_TABLE_HTML_CODE.select("tr");
-                for (Element document_TABLE_SELECTED : document_TABLE_ELEMENTS) {
-                    String group_TITLE = document_TABLE_SELECTED.select("tr > td.hd > a.hd").text();
-                    String group_ID = document_TABLE_SELECTED.select("tr > td.hd > a.hd").attr("href");
-                    if (!group_TITLE.equals("")) {
-                        groupListMains.add(new GroupList_main(group_TITLE, group_ID, ""));
-                    }
-                }
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            groupListAdapterMain = new GroupListAdapter_main(mContext, groupListMains);
-            recycler_view_group.setAdapter(groupListAdapterMain);
-            cdd.dismiss();
-        }
-
     }
 
     @SuppressLint("StaticFieldLeak")
@@ -651,7 +616,33 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             //TODO: Проверка логина
-//            onCheckLogin();
+            onCheckLogin();
+        }
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    public class ThreadGetNewsUpdate extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            try {
+                Document document_FULL_HTML_CODE = Jsoup.connect("http://s917802v.beget.tech/server_account/news.php").get();
+                Elements document_GET_TIME_HTML_SR = document_FULL_HTML_CODE.select("div.news");
+                for (Element document_GET_TIME_P : document_GET_TIME_HTML_SR) {
+                    newsUpdateLists.add(new NewsUpdate_List(document_GET_TIME_P.select("div.title").text(),document_GET_TIME_P.select("div.image").text(),document_GET_TIME_P.select("div.news_text").text()));
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            recycler_view_news.setAdapter(new NewsUpdate_Adapter(mContext, newsUpdateLists));
+
         }
     }
 

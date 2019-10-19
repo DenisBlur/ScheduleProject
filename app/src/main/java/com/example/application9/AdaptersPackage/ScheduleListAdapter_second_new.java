@@ -80,15 +80,26 @@ public class ScheduleListAdapter_second_new extends RecyclerView.Adapter<Schedul
             holder.schedule_second_cabinet_name_2 = holder.itemView.findViewById(R.id.schedule_second_cabinet_name_2);
 
             holder.schedule_second_lesson_name.setText(subStr_Less[0]);
-            holder.schedule_second_cabinet_name.setText(subStr_Cab[0]);
-            holder.schedule_second_teacher_name.setText(subStr_Teac[0] + " " + subStr_Teac[1]);
+            if (subStr_Cab.length != 0) {
+                holder.schedule_second_cabinet_name.setText(subStr_Cab[0]);
+            }
+            if (subStr_Teac.length < 4) {
+                holder.schedule_second_teacher_name.setText(subStr_Teac[0]);
+            } else {
+                holder.schedule_second_teacher_name.setText(subStr_Teac[0] + " " + subStr_Teac[1]);
+
+            }
             holder.schedule_second_lesson_name_2.setText(subStr_Less[0]);
 
             if (subStr_Cab.length == 2) {
                 holder.schedule_second_cabinet_name_2.setText(subStr_Cab[1]);
             }
 
-            holder.schedule_second_teacher_name_2.setText(subStr_Teac[2] + " " + subStr_Teac[3]);
+            if (subStr_Teac.length < 4) {
+                holder.schedule_second_teacher_name_2.setText(subStr_Teac[1] + " " + subStr_Teac[2]);
+            } else {
+                holder.schedule_second_teacher_name_2.setText(subStr_Teac[2] + " " + subStr_Teac[3]);
+            }
             holder.schedule_second_number_name.setText(Integer.toString(listSecond.getNum_schedule()));
             holder.schedule_second_time_name.setText(listSecond.getTime_lesson());
             holder.schedule_second_type_name.setText(listSecond.getType_lesson());

@@ -96,8 +96,9 @@ public class GroupsHomeFragment extends Fragment {
                 _SECOND_GROUP_NAME = sharedPref.getString("group_TITLE", "null");
                 _SECOND_GROUP_ID = sharedPref.getString("group_ID", "null");
                 Intent intent = new Intent(getContext(), GroupActivity.class);
-                intent.putExtra("group_TITLE", _SECOND_GROUP_NAME);
-                intent.putExtra("group_ID", _SECOND_GROUP_ID);
+                intent.putExtra("_TYPE", "cg");
+                intent.putExtra("_TITLE", _SECOND_GROUP_NAME);
+                intent.putExtra("_ID", _SECOND_GROUP_ID);
                 Objects.requireNonNull(getContext()).startActivity(intent);
             }
         });
