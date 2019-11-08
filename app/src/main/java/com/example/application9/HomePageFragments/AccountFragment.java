@@ -2,15 +2,18 @@ package com.example.application9.HomePageFragments;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.application9.BottomSheets.BottomSheetColorFragment;
 import com.example.application9.BottomSheets.BottomSheetUpdateAppFragment;
+import com.example.application9.MainActivity;
 import com.example.application9.R;
 import com.example.application9.VkLoginActivity;
 import com.google.android.material.card.MaterialCardView;
@@ -27,8 +31,13 @@ import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static com.example.application9.MainActivity._MAIN_URL_FOR_GROUP_NAME;
 import static com.example.application9.MainActivity._PASSWORD;
+import static com.example.application9.MainActivity._SECOND_GROUP_ID;
+import static com.example.application9.MainActivity._SECOND_GROUP_NAME;
+import static com.example.application9.MainActivity._SITE;
 import static com.example.application9.MainActivity._UID_G;
+import static com.example.application9.MainActivity.myPreferences;
 
 public class AccountFragment extends Fragment {
 
@@ -63,6 +72,35 @@ public class AccountFragment extends Fragment {
                 R.array.site, R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
+        if (_SITE.equals("first_site")) {
+            spinner.setSelection(0);
+        } else {
+            spinner.setSelection(1);
+        }
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String item = parent.getItemAtPosition(position).toString();
+                if (item.equals("Первая площадка")) {
+                    SharedPreferences.Editor myEditor = myPreferences.edit();
+                    myEditor.putString("_site_list", "first_site");
+                    myEditor.apply();
+                    _SITE = "first_site";
+                    _MAIN_URL_FOR_GROUP_NAME = "http://83.174.201.182/";
+                } else {
+                    SharedPreferences.Editor myEditor = myPreferences.edit();
+                    myEditor.putString("_site_list", "second_site");
+                    myEditor.apply();
+                    _SITE = "second_site";
+                    _MAIN_URL_FOR_GROUP_NAME = "http://83.174.201.182:85/";
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         setting_fake_button.setOnClickListener(v -> {
             BottomSheetUpdateAppFragment bottomSheetUpdateAppFragment = new BottomSheetUpdateAppFragment(getContext());

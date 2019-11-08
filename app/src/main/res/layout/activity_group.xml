@@ -57,7 +57,8 @@
                 android:background="@drawable/bg_fragment_round_up"
                 app:layout_collapseMode="pin"
                 app:tabGravity="fill"
-                app:tabIndicator="@drawable/shape_tab_indicator"
+                app:tabIndicatorColor="?android:attr/colorAccent"
+                app:tabSelectedTextColor="?android:attr/colorAccent"
                 app:tabIndicatorHeight="2dp"
                 app:tabMode="fixed" />
 

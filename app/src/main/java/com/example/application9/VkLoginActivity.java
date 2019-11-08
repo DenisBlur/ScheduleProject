@@ -140,9 +140,6 @@ public class VkLoginActivity extends AppCompatActivity {
                 myEditor.apply();
                 finish();
                 MainActivity.onCheckLogin();
-                MainActivity.AchievementCheck achievementCheck = new MainActivity.AchievementCheck();
-                _AID_G = "1";
-                achievementCheck.execute();
             }
         }
     }

@@ -39,7 +39,7 @@
     //Auth VK
     //Version App
 
-    <string name="version_in_app">v 0.1.1 BETA</string>
+    <string name="version_in_app">v 0.1.2 BETA</string>
 
     //Version App
     //Color and Theme
@@ -68,6 +68,9 @@
     <string name="update_availibl">Обновление</string>
     <string name="review">Отзыв</string>
     <string name="servers">Сервера</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
     //Color and Theme
 

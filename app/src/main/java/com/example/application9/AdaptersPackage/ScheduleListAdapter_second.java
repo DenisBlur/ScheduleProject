@@ -17,8 +17,8 @@ import com.google.android.material.chip.Chip;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.application9.MainActivity.timeListMain_sr;
-import static com.example.application9.MainActivity.timeListMains;
+import static com.example.application9.HomePageFragments.TimeLineFragment.timeListMain;
+import static com.example.application9.HomePageFragments.TimeLineFragment.timeListMain_sr;
 
 public class ScheduleListAdapter_second extends RecyclerView.Adapter<ScheduleListAdapter_second.ViewHolder> {
 
@@ -161,22 +161,34 @@ public class ScheduleListAdapter_second extends RecyclerView.Adapter<ScheduleLis
                 subStr_Less = listSecond.getCabinet_number().split(" ");
                 subStr_Teac = listSecond.getTeacher_name().split(" ");
                 if (subStr_Less.length >= 2 || subStr_Teac.length == 4) {
+                    String type_lesson;
+                    if (listSecond.getLesson_name().contains("Пр")) {
+                        type_lesson = "практика";
+                    } else {
+                        type_lesson = "лекция";
+                    }
                     scheduleListSecondNew.add(new ScheduleList_second_new(
                             listSecond.getLesson_name(),
                             listSecond.getCabinet_number(),
                             listSecond.getTeacher_name(),
-                            "лекция",
-                            timeListMains.get(0).getTime_support(),
+                            type_lesson,
+                            timeListMain.get(0).getTime_support(),
                             listSecond.getCabinet_number_link(),
                             listSecond.getCabinet_number_link(),
                             1, 1));
                 } else {
+                    String type_lesson;
+                    if (listSecond.getLesson_name().contains("Пр")) {
+                        type_lesson = "практика";
+                    } else {
+                        type_lesson = "лекция";
+                    }
                     scheduleListSecondNew.add(new ScheduleList_second_new(
                             listSecond.getLesson_name(),
                             listSecond.getCabinet_number(),
                             listSecond.getTeacher_name(),
-                            "лекция",
-                            timeListMains.get(0).getTime_support(),
+                            type_lesson,
+                            timeListMain.get(0).getTime_support(),
                             listSecond.getCabinet_number_link(),
                             listSecond.getCabinet_number_link(),
                             1, 0));
@@ -188,7 +200,7 @@ public class ScheduleListAdapter_second extends RecyclerView.Adapter<ScheduleLis
                                 "Обеденный перерыв",
                                 "",
                                 "",
-                                "ОБЕД", timeListMains.get(2).getTime_support(),
+                                "ОБЕД", timeListMain.get(2).getTime_support(),
                                 "",
                                 "",
                                 2, 2));
@@ -202,7 +214,7 @@ public class ScheduleListAdapter_second extends RecyclerView.Adapter<ScheduleLis
                                     scheduleListSecond.get(position + i).getLesson_name(),
                                     scheduleListSecond.get(position + i).getCabinet_number(),
                                     scheduleListSecond.get(position + i).getTeacher_name(),
-                                    "лекция", timeListMains.get(i + 1).getTime_support(),
+                                    "лекция", timeListMain.get(i + 1).getTime_support(),
                                     scheduleListSecond.get(position + i).getCabinet_number_link(),
                                     scheduleListSecond.get(position + i).getCabinet_number_link(),
                                     i + 1, 1));
@@ -211,7 +223,7 @@ public class ScheduleListAdapter_second extends RecyclerView.Adapter<ScheduleLis
                                     scheduleListSecond.get(position + i).getLesson_name(),
                                     scheduleListSecond.get(position + i).getCabinet_number(),
                                     scheduleListSecond.get(position + i).getTeacher_name(),
-                                    "лекция", timeListMains.get(i).getTime_support(),
+                                    "лекция", timeListMain.get(i).getTime_support(),
                                     scheduleListSecond.get(position + i).getCabinet_number_link(),
                                     scheduleListSecond.get(position + i).getCabinet_number_link(),
                                     i + 1, 1));
@@ -222,7 +234,7 @@ public class ScheduleListAdapter_second extends RecyclerView.Adapter<ScheduleLis
                                     scheduleListSecond.get(position + i).getLesson_name(),
                                     scheduleListSecond.get(position + i).getCabinet_number(),
                                     scheduleListSecond.get(position + i).getTeacher_name(),
-                                    "лекция", timeListMains.get(i + 1).getTime_support(),
+                                    "лекция", timeListMain.get(i + 1).getTime_support(),
                                     scheduleListSecond.get(position + i).getCabinet_number_link(),
                                     scheduleListSecond.get(position + i).getCabinet_number_link(),
                                     i + 1, 0));
@@ -231,7 +243,7 @@ public class ScheduleListAdapter_second extends RecyclerView.Adapter<ScheduleLis
                                     scheduleListSecond.get(position + i).getLesson_name(),
                                     scheduleListSecond.get(position + i).getCabinet_number(),
                                     scheduleListSecond.get(position + i).getTeacher_name(),
-                                    "лекция", timeListMains.get(i).getTime_support(),
+                                    "лекция", timeListMain.get(i).getTime_support(),
                                     scheduleListSecond.get(position + i).getCabinet_number_link(),
                                     scheduleListSecond.get(position + i).getCabinet_number_link(),
                                     i + 1, 0));

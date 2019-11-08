@@ -11,13 +11,6 @@
     <uses-permission
         android:name="android.permission.INTERNET"
         tools:ignore="ManifestOrder" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.BLUETOOTH" />
-    <uses-permission
-        android:name="android.permission.ACCESS_WIFI_STATE"
-        tools:node="remove" />
 
     <dist:module dist:instant="true" />
 
@@ -30,6 +23,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.Red.Light"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning,UnusedAttribute">
+        <activity
+            android:name="com.bluedexon.denis.application.Main2Activity"
+            android:label="@string/title_activity_main2"></activity>
         <activity android:name=".VkLoginActivity" />
         <activity android:name=".WelcomeActivity" />
         <activity
