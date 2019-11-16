@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
 import com.bumptech.glide.Glide;
 import com.example.application9.DataPackage.NewsUpdate_List;
 import com.example.application9.DataPackage.TimeList_main;
@@ -45,6 +46,8 @@ public class NewsUpdate_Adapter extends RecyclerView.Adapter<NewsUpdate_Adapter.
 
         Glide.with(mContext).load(list.getImage()).into(holder.news_backdrop);
         holder.news_title.setText(list.getTitle());
+        holder.stage.setText(list.getStage());
+        holder.progressBar.setProgress(Float.parseFloat(list.getProgress()));
 
         String[] separate_news_text;
         separate_news_text = list.getText().split("-");
@@ -67,15 +70,18 @@ public class NewsUpdate_Adapter extends RecyclerView.Adapter<NewsUpdate_Adapter.
     class ViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView news_backdrop;
-        private TextView news_title;
+        private TextView news_title, stage;
         private RecyclerView recycler_view;
+        private RoundCornerProgressBar progressBar;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             news_backdrop = itemView.findViewById(R.id.news_backdrop);
             recycler_view = itemView.findViewById(R.id.recycler_view);
+            progressBar = itemView.findViewById(R.id.progressBar);
             news_title = itemView.findViewById(R.id.news_title);
+            stage = itemView.findViewById(R.id.stage);
 
         }
     }

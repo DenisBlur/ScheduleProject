@@ -139,7 +139,6 @@ public class VkLoginActivity extends AppCompatActivity {
                 myEditor.putString("account_password", edit_password_login.getText().toString());
                 myEditor.apply();
                 finish();
-                MainActivity.onCheckLogin();
             }
         }
     }
@@ -193,7 +192,6 @@ public class VkLoginActivity extends AppCompatActivity {
                 myEditor.putString("account_password", edit_password.getText().toString());
                 myEditor.apply();
                 finish();
-                MainActivity.onCheckLogin();
             }
         }
     }

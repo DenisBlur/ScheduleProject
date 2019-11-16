@@ -63,23 +63,18 @@
                 app:menu="@menu/main_activity_toolbar_menu"
                 tools:ignore="RtlSymmetry">
 
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/top_pin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <TextView
                     android:visibility="gone"
-                    app:cardBackgroundColor="?android:attr/colorAccent"
-                    app:cardCornerRadius="8dp">
-
-                    <TextView
-                        android:id="@+id/top_pin_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
-                        android:textColor="?android:attr/textColorPrimary"
-                        android:textStyle="bold" />
-
-                </com.google.android.material.card.MaterialCardView>
+                    android:id="@+id/edit_text_search"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_edit_text"
+                    android:drawableEnd="@drawable/ic_search_24px"
+                    android:drawablePadding="8dp"
+                    android:elevation="6dp"
+                    android:onClick="onSearch"
+                    android:padding="8dp"
+                    android:transitionName="search_edit" />
 
             </androidx.appcompat.widget.Toolbar>
 
@@ -87,13 +82,19 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+    <com.yandex.mobile.ads.AdView
+        android:id="@+id/banner_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="72dp" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:layout_margin="8dp"
         android:id="@+id/bottom_nav_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
+        android:layout_margin="8dp"
         android:background="@drawable/bg_bottom_nav"
         app:itemIconTint="@drawable/bottom_navigation_selector"
         app:itemTextColor="@drawable/bottom_navigation_selector"

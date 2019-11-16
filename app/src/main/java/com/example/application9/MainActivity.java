@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,18 +23,18 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.app.ActivityOptionsCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 import androidx.preference.PreferenceManager;
 
-import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
 import com.example.application9.AdaptersPackage.GroupListAdapter_main;
-import com.example.application9.AdaptersPackage.NewsUpdate_Adapter;
 import com.example.application9.CustomDialog.FirstDialog;
 import com.example.application9.DataPackage.GroupList_main;
 import com.example.application9.DataPackage.NewsUpdate_List;
+import com.example.application9.DataPackage.TimeList_main;
 import com.example.application9.DataPackage.VariableList;
 import com.example.application9.Support.NetworkManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -50,17 +51,18 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 import static com.example.application9.BottomSheets.BottomSheetColorFragment._COLOR_TEMP;
 import static com.example.application9.BottomSheets.BottomSheetColorFragment._COLOR_TEMP_INT;
 import static com.example.application9.BottomSheets.BottomSheetColorFragment._THEME_TEMP;
-import static com.example.application9.HomePageFragments.AccountFragment.acc_bg_image;
-import static com.example.application9.HomePageFragments.AccountFragment.acc_full_name;
-import static com.example.application9.HomePageFragments.AccountFragment.acc_small_image;
-import static com.example.application9.HomePageFragments.AccountFragment.recycler_view_news;
+import static com.example.application9.HomePageFragments.GroupsHomeFragment.onSetUpGroup;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -68,8 +70,14 @@ public class MainActivity extends AppCompatActivity {
     public static String _MAIN_URL_FOR_TIMES = "http://s917802v.beget.tech/server_time_new/";
     public static String _MAIN_URL_FOR_VARIABLE = "http://s917802v.beget.tech/server_variable/";
     public static String _UID_G = "null", _AID_G = "", _PASSWORD = "null";
-    public static String _IMG_SMALL_ACC = "null", _IMG_FULL_ACC = "null";
     public static String _NOW_DAY;
+
+    public static List<GroupList_main> groupListMains = new ArrayList<>();
+    public static List<TimeList_main> timeListMain = new ArrayList<>();
+    public static List<TimeList_main> timeListMain_sr = new ArrayList<>();
+    public static List<TimeList_main> timeListMain_sb = new ArrayList<>();
+    public static List<VariableList> variableList = new ArrayList<>();
+    public static List<NewsUpdate_List> newsUpdateLists = new ArrayList<>();
 
     @SuppressLint("StaticFieldLeak")
     public static GroupListAdapter_main groupListAdapterMain;
@@ -81,17 +89,11 @@ public class MainActivity extends AppCompatActivity {
     public static String _DARK_THEME;
     public static int _THEME_INT, _COLOR_INT;
     public static int resID;
-    public static List<VariableList> variableList = new ArrayList<>();
-    public static List<NewsUpdate_List> newsUpdateLists = new ArrayList<>();
     @SuppressLint("StaticFieldLeak")
     private static Activity activity;
 
     public static String _SECOND_GROUP_NAME, _SECOND_GROUP_ID;
     public static SharedPreferences myPreferences;
-    @SuppressLint("StaticFieldLeak")
-    public static MaterialCardView top_pin;
-    @SuppressLint("StaticFieldLeak")
-    public static TextView top_pin_title;
 
     @SuppressLint("StaticFieldLeak")
     private static Context mContext;
@@ -164,8 +166,6 @@ public class MainActivity extends AppCompatActivity {
         //initializing all component
         hello_bitmap = findViewById(R.id.backdrop_bitmap);
         hello_title = findViewById(R.id.hello_title);
-        top_pin = findViewById(R.id.top_pin);
-        top_pin_title = findViewById(R.id.top_pin_title);
 
         main_content = findViewById(R.id.main_content);
 
@@ -188,35 +188,10 @@ public class MainActivity extends AppCompatActivity {
         //Toolbar and AppBar Elements
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupWithNavController(bottom_nav_view, navController);
-
-//        bottom_nav_view.setOnNavigationItemSelectedListener(item -> {
-//
-//            switch (item.getItemId()) {
-//                case R.id.schedule:
-//                    if (active != fragment1) {
-//                        fm.beginTransaction().setCustomAnimations(R.animator.fragment_anim_in, R.animator.fragment_anim_out).hide(active).show(fragment1).commit();
-//                    }
-//                    active = fragment1;
-//                    return true;
-//                case R.id.timeline:
-//                    if (active != fragment2) {
-//                        fm.beginTransaction().setCustomAnimations(R.animator.fragment_anim_in, R.animator.fragment_anim_out).hide(active).show(fragment2).commit();
-//                    }
-//                    active = fragment2;
-//                    return true;
-//                case R.id.account:
-//                    if (active != fragment3) {
-//                        fm.beginTransaction().setCustomAnimations(R.animator.fragment_anim_in, R.animator.fragment_anim_out).hide(active).show(fragment3).commit();
-//                    }
-//                    active = fragment3;
-//                    return true;
-//            }
-//            return false;
-//        });
         //Toolbar and AppBar Elements
 
         //thread start and more
-        //threadStart();
+        threadStart();
         //thread start and more
     }
 
@@ -225,14 +200,18 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         _SITE = sharedPref.getString("_site_list", "first_site");
         assert _SITE != null;
+
         if (_SITE.equals("first_site")) {
             _MAIN_URL_FOR_GROUP_NAME = "http://83.174.201.182/";
         } else {
             _MAIN_URL_FOR_GROUP_NAME = "http://83.174.201.182:85/";
         }
 
-        LottieAnimationView lottieAnimationView = findViewById(R.id.no_internet);
         if (NetworkManager.isNetworkAvailable(mContext)) {
+
+            timeListMain = new ArrayList<>();
+            timeListMain_sr = new ArrayList<>();
+            timeListMain_sb = new ArrayList<>();
 
             ThreadGetVariable threadGetVariable = new ThreadGetVariable();
             threadGetVariable.execute();
@@ -240,14 +219,27 @@ public class MainActivity extends AppCompatActivity {
             ThreadGetNewsUpdate threadGetNewsUpdate = new ThreadGetNewsUpdate();
             threadGetNewsUpdate.execute();
 
+            ThreadGetGroupNameWeek threadGetGroupNameWeek = new ThreadGetGroupNameWeek();
+            threadGetGroupNameWeek.execute();
+
+            ThreadGetTime threadGetTime = new ThreadGetTime();
+            threadGetTime.execute();
+
             cdd.show();
-            lottieAnimationView.setVisibility(View.GONE);
         } else {
             Toast.makeText(mContext, "Check your network connection", Toast.LENGTH_SHORT).show();
-            lottieAnimationView.setVisibility(View.VISIBLE);
             hello_title.animate().setDuration(500).alpha(0).start();
             hello_bitmap.animate().setDuration(250).setStartDelay(800).alpha(0).start();
         }
+    }
+
+    public void onSearch(View view){
+
+        Intent intent = new Intent(this, SearchActivity.class);
+        TextView textView_S = findViewById(R.id.edit_text_search);
+        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, textView_S, "search_edit");
+        startActivity(intent, options.toBundle());
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -256,70 +248,6 @@ public class MainActivity extends AppCompatActivity {
             activity.finish();
             mContext.startActivity(new Intent(mContext, MainActivity.class), ActivityOptions.makeScaleUpAnimation(main_content, 0, 0, main_content.getWidth(), main_content.getHeight()).toBundle());
 
-        }
-    }
-
-    public static void onCheckLogin() {
-
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(mContext);
-        _UID_G = sharedPref.getString("account_id", "null");
-        _PASSWORD = sharedPref.getString("account_password", "null");
-
-        assert _PASSWORD != null;
-        if (!_UID_G.equals("null") || !_PASSWORD.equals("null")) {
-            LoginAccount loginAccount = new LoginAccount();
-            loginAccount.execute();
-        }
-    }
-
-    @SuppressLint("StaticFieldLeak")
-    static
-    class LoginAccount extends AsyncTask<View, View, View> {
-
-        String full_name, photo_200, photo_max_orig, body;
-        boolean errors = false;
-
-        @Override
-        protected View doInBackground(View... views) {
-            try {
-                Document responses_check;
-                responses_check = Jsoup.connect("http://s917802v.beget.tech/server_account/loginaccount.php" +
-                        "?id=" + _UID_G +
-                        "&password=" + _PASSWORD).get();
-
-                body = responses_check.body().toString();
-                errors = body.contains("error");
-
-                if (!errors) {
-                    full_name = responses_check.select("div.full_name").text();
-                    photo_200 = responses_check.select("div.src_200px").text();
-                    photo_max_orig = responses_check.select("div.src_fullpx").text();
-                    _IMG_SMALL_ACC = photo_200;
-                    _IMG_FULL_ACC = photo_max_orig;
-                }
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(View view) {
-            super.onPostExecute(view);
-            if (!errors) {
-                acc_full_name.setText(full_name);
-                Glide.with(mContext).load(photo_max_orig).into(acc_small_image);
-                acc_bg_image.setVisibility(View.GONE);
-            } else {
-                Toast.makeText(mContext, "Произошла ошибка авторизации.", Toast.LENGTH_SHORT).show();
-                _UID_G = "null";
-                _PASSWORD = "null";
-                SharedPreferences.Editor myEditor = myPreferences.edit();
-                myEditor.putString("account_id", _UID_G);
-                myEditor.putString("account_password", _PASSWORD);
-                myEditor.apply();
-            }
         }
     }
 
@@ -348,118 +276,105 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-//    @SuppressLint("StaticFieldLeak")
-//    public class ThreadGetTime extends AsyncTask<Void, Void, Void> {
-//
-//        String v_app_server;
-//
-//        @Override
-//        protected Void doInBackground(Void... voids) {
-//            try {
-//                Document document_FULL_HTML_CODE = Jsoup.connect(_MAIN_URL_FOR_TIMES).get();
-//                String document_TYPE_HTML_CODE = document_FULL_HTML_CODE.select("div.type").first().text();
-//                _NOW_DAY = document_FULL_HTML_CODE.select("div.now_day").first().text();
-//                Element document_GET_TIME_HTML_CODE = document_FULL_HTML_CODE.select("div." + document_TYPE_HTML_CODE).first();
-//
-//                v_app_server = document_FULL_HTML_CODE.select("div.vapp").first().text();
-//
-//                Elements document_GET_TIME_HTML_SR = document_GET_TIME_HTML_CODE.select("div.pnPt > p");
-//                for (Element document_GET_TIME_P : document_GET_TIME_HTML_SR) {
-//                    timeListMains.add(new TimeList_main(document_GET_TIME_P.select("p").text(),0));
-//                }
-//                Elements document_GET_TIME_HTML_SB = document_GET_TIME_HTML_CODE.select("div.sr > p");
-//                for (Element document_GET_TIME_P : document_GET_TIME_HTML_SB) {
-//                    timeListMain_sr.add(new TimeList_main(document_GET_TIME_P.select("p").text(),0));
-//                }
-//                Elements document_GET_TIME_HTML_PnPt = document_GET_TIME_HTML_CODE.select("div.sb > p");
-//                for (Element document_GET_TIME_P : document_GET_TIME_HTML_PnPt) {
-//                    timeListMain_sb.add(new TimeList_main(document_GET_TIME_P.select("p").text(),0));
-//                }
-//
-//
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//            return null;
-//        }
-//
-//        @Override
-//        protected void onPostExecute(Void aVoid) {
-//            super.onPostExecute(aVoid);
-//
-//            startActivity(new Intent(mContext, Main2Activity.class));
-//
-//            Date currentDate = new Date();
-//            DateFormat timeFormat = new SimpleDateFormat("k", Locale.getDefault());
-//            int times_ms = Integer.parseInt(timeFormat.format(currentDate));
-//
-//            if (times_ms >= 0 && times_ms < 4) {
-//                Glide.with(mContext).load("http://s917802v.beget.tech/server_backdrop/images/night.jpg").skipMemoryCache(true).into(hello_bitmap);
-//                hello_title.setText("Доброй ночи!");
-//            } else if (times_ms >= 4 && times_ms < 12) {
-//                Glide.with(mContext).load("http://s917802v.beget.tech/server_backdrop/images/morning.jpg").skipMemoryCache(true).into(hello_bitmap);
-//                hello_title.setText("Доброе утро!");
-//            } else if (times_ms >= 12 && times_ms < 18) {
-//                Glide.with(mContext).load("http://s917802v.beget.tech/server_backdrop/images/daytime.jpg").skipMemoryCache(true).into(hello_bitmap);
-//                hello_title.setText("Добрый день!");
-//            } else if (times_ms >= 18) {
-//                Glide.with(mContext).load("http://s917802v.beget.tech/server_backdrop/images/evening.png").skipMemoryCache(true).into(hello_bitmap);
-//                hello_title.setText("Добрый вечер!");
-//            }
-//
-//            timeListAdapterMain = new TimeListAdapter_main(mContext, timeListMains);
-//            timeListAdapterMain_sr = new TimeListAdapter_main(mContext, timeListMain_sr);
-//            timeListAdapterMain_sb = new TimeListAdapter_main(mContext, timeListMain_sb);
-//
-//            //recycler_view_timeline.setAdapter(timeListAdapterMain);
-//            //recycler_view_timeline_sr.setAdapter(timeListAdapterMain_sr);
-//            //recycler_view_timeline_sb.setAdapter(timeListAdapterMain_sb);
-//
-//            hello_bitmap.animate().setDuration(500).alpha(1).start();
-//            hello_title.animate().setDuration(250).setStartDelay(800).alpha(1).start();
-//            String n_app = mContext.getString(R.string.version_in_app);
-//
-//            if (!v_app_server.equals(n_app)) {
-//                bottom_nav_view.getOrCreateBadge(R.id.navigation_account);
-//                //update_button.setVisibility(View.VISIBLE);
-//            }
-//        }
-//    }
+    @SuppressLint("StaticFieldLeak")
+    public class ThreadGetTime extends AsyncTask<Void, Void, Void> {
 
-//    @SuppressLint("StaticFieldLeak")
-//    public class ThreadGetGroupNameWeek extends AsyncTask<Void, Void, Void> {
-//
-//        @Override
-//        protected Void doInBackground(Void... voids) {
-//            groupListMains = new ArrayList<>();
-//            try {
-//                Document document_FULL_HTML_CODE = Jsoup.connect(_MAIN_URL_FOR_GROUP_NAME + "cg.htm").get();
-//                Element document_TABLE_HTML_CODE = document_FULL_HTML_CODE.select("table.inf").first();
-//                Elements document_TABLE_ELEMENTS = document_TABLE_HTML_CODE.select("tr");
-//                for (Element document_TABLE_SELECTED : document_TABLE_ELEMENTS) {
-//                    String group_TITLE = document_TABLE_SELECTED.select("tr > td.ur > a.z0").text();
-//                    String group_ID = document_TABLE_SELECTED.select("tr > td.ur > a.z0").attr("href");
-//                    if (!group_TITLE.equals("")) {
-//                        groupListMains.add(new GroupList_main(group_TITLE, group_ID, ""));
-//                    }
-//                }
-//
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//            return null;
-//        }
-//
-//        @Override
-//        protected void onPostExecute(Void aVoid) {
-//            super.onPostExecute(aVoid);
-//            groupListAdapterMain = new GroupListAdapter_main(mContext, groupListMains);
-//            recycler_view_group.setAdapter(groupListAdapterMain);
-//            recycler_view_group.setAlpha(0);
-//            recycler_view_group.animate().setDuration(250).alpha(1).start();
-//            cdd.dismiss();
-//        }
-//    }
+        String v_app_server;
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            try {
+                Document document_FULL_HTML_CODE = Jsoup.connect(_MAIN_URL_FOR_TIMES).get();
+                String document_TYPE_HTML_CODE = document_FULL_HTML_CODE.select("div.type").first().text();
+                _NOW_DAY = document_FULL_HTML_CODE.select("div.now_day").first().text();
+                Element document_GET_TIME_HTML_CODE = document_FULL_HTML_CODE.select("div." + document_TYPE_HTML_CODE).first();
+
+                v_app_server = document_FULL_HTML_CODE.select("div.vapp").first().text();
+
+                Elements document_GET_TIME_HTML_SR = document_GET_TIME_HTML_CODE.select("div.pnPt > p");
+                for (Element document_GET_TIME_P : document_GET_TIME_HTML_SR) {
+                    timeListMain.add(new TimeList_main(document_GET_TIME_P.select("p").text(), 0));
+                }
+                Elements document_GET_TIME_HTML_SB = document_GET_TIME_HTML_CODE.select("div.sr > p");
+                for (Element document_GET_TIME_P : document_GET_TIME_HTML_SB) {
+                    timeListMain_sr.add(new TimeList_main(document_GET_TIME_P.select("p").text(), 0));
+                }
+                Elements document_GET_TIME_HTML_PnPt = document_GET_TIME_HTML_CODE.select("div.sb > p");
+                for (Element document_GET_TIME_P : document_GET_TIME_HTML_PnPt) {
+                    timeListMain_sb.add(new TimeList_main(document_GET_TIME_P.select("p").text(), 0));
+                }
+
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            Date currentDate = new Date();
+            DateFormat timeFormat = new SimpleDateFormat("k", Locale.getDefault());
+            int times_ms = Integer.parseInt(timeFormat.format(currentDate));
+
+            if (times_ms >= 0 && times_ms < 4) {
+                Glide.with(mContext).load("http://s917802v.beget.tech/server_backdrop/images/night.jpg").skipMemoryCache(true).into(hello_bitmap);
+                hello_title.setText("Доброй ночи!");
+            } else if (times_ms >= 4 && times_ms < 12) {
+                Glide.with(mContext).load("http://s917802v.beget.tech/server_backdrop/images/morning.jpg").skipMemoryCache(true).into(hello_bitmap);
+                hello_title.setText("Доброе утро!");
+            } else if (times_ms >= 12 && times_ms < 18) {
+                Glide.with(mContext).load("http://s917802v.beget.tech/server_backdrop/images/daytime.jpg").skipMemoryCache(true).into(hello_bitmap);
+                hello_title.setText("Добрый день!");
+            } else if (times_ms >= 18) {
+                Glide.with(mContext).load("http://s917802v.beget.tech/server_backdrop/images/evening.png").skipMemoryCache(true).into(hello_bitmap);
+                hello_title.setText("Добрый вечер!");
+            }
+
+            hello_bitmap.animate().setDuration(500).alpha(1).start();
+            hello_title.animate().setDuration(250).setStartDelay(800).alpha(1).start();
+            String n_app = mContext.getString(R.string.version_in_app);
+
+            if (!v_app_server.equals(n_app)) {
+                bottom_nav_view.getOrCreateBadge(R.id.navigation_account);
+                //update_button.setVisibility(View.VISIBLE);
+            }
+        }
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    public class ThreadGetGroupNameWeek extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            groupListMains = new ArrayList<>();
+            try {
+                Document document_FULL_HTML_CODE = Jsoup.connect(_MAIN_URL_FOR_GROUP_NAME + "cg.htm").get();
+                Element document_TABLE_HTML_CODE = document_FULL_HTML_CODE.select("table.inf").first();
+                Elements document_TABLE_ELEMENTS = document_TABLE_HTML_CODE.select("tr");
+                for (Element document_TABLE_SELECTED : document_TABLE_ELEMENTS) {
+                    String group_TITLE = document_TABLE_SELECTED.select("tr > td.ur > a.z0").text();
+                    String group_ID = document_TABLE_SELECTED.select("tr > td.ur > a.z0").attr("href");
+                    if (!group_TITLE.equals("")) {
+                        groupListMains.add(new GroupList_main(group_TITLE, group_ID, ""));
+                    }
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            onSetUpGroup();
+            cdd.dismiss();
+        }
+    }
 
     @SuppressLint("StaticFieldLeak")
     public class ThreadGetVariable extends AsyncTask<Void, Void, Void> {
@@ -489,8 +404,6 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            //TODO: Проверка логина
-            onCheckLogin();
         }
     }
 
@@ -504,7 +417,7 @@ public class MainActivity extends AppCompatActivity {
                 Document document_FULL_HTML_CODE = Jsoup.connect("http://s917802v.beget.tech/server_account/news.php").get();
                 Elements document_GET_TIME_HTML_SR = document_FULL_HTML_CODE.select("div.news");
                 for (Element document_GET_TIME_P : document_GET_TIME_HTML_SR) {
-                    newsUpdateLists.add(new NewsUpdate_List(document_GET_TIME_P.select("div.title").text(),document_GET_TIME_P.select("div.image").text(),document_GET_TIME_P.select("div.news_text").text()));
+                    newsUpdateLists.add(new NewsUpdate_List(document_GET_TIME_P.select("div.title").text(), document_GET_TIME_P.select("div.image").text(), document_GET_TIME_P.select("div.news_text").text(), document_GET_TIME_P.select("div.progress").text(), document_GET_TIME_P.select("div.stage").text()));
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -515,8 +428,6 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-
-            recycler_view_news.setAdapter(new NewsUpdate_Adapter(mContext, newsUpdateLists));
 
         }
     }

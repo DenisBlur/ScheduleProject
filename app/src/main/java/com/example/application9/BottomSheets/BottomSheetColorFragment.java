@@ -54,7 +54,6 @@ public class BottomSheetColorFragment extends BottomSheetDialogFragment {
                 setStyle(BottomSheetDialogFragment.STYLE_NORMAL, R.style.AppBottomSheetDialogTheme);
                 break;
             case "Dark":
-            case "Android":
                 setStyle(BottomSheetDialogFragment.STYLE_NORMAL, R.style.AppBottomSheetDialogTheme_Dark);
                 break;
         }
@@ -84,7 +83,6 @@ public class BottomSheetColorFragment extends BottomSheetDialogFragment {
         //Theme
         colorThemeLists_0.add(new ColorTheme_List("Светлая", "Light", R.color.theme_white, 1));
         colorThemeLists_0.add(new ColorTheme_List("Темная", "Dark", R.color.theme_black, 1));
-        colorThemeLists_0.add(new ColorTheme_List("Система", "Android", R.drawable.ic_launcher_background, 1));
         //Theme
 
         //Color
@@ -135,15 +133,7 @@ public class BottomSheetColorFragment extends BottomSheetDialogFragment {
                 R.color.colorAccent_YL1,
                 R.color.colorAccent_YL2,
                 R.color.colorAccent_YL3));
-//        colorThemeLists_3.add(new ColourLabService_List(
-//                "Clay Cave",
-//                "CC1",
-//                "CC2",
-//                "CC3",
-//                "https://sun9-68.userapi.com/c854324/v854324775/113f2a/RtGOlJu9Edo.jpg",
-//                R.color.colorAccent_CC1,
-//                R.color.colorAccent_CC2,
-//                R.color.colorAccent_CC3));
+
         //Color OR
 
         //RecyclerView

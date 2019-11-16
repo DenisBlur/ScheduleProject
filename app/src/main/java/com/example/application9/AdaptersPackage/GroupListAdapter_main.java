@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Filter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -25,6 +26,7 @@ import com.irozon.alertview.AlertTheme;
 import com.irozon.alertview.AlertView;
 import com.irozon.alertview.objects.AlertAction;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.application9.HomePageFragments.GroupsHomeFragment.pin_group_bg;
@@ -33,18 +35,19 @@ import static com.example.application9.MainActivity._DARK_THEME;
 import static com.example.application9.MainActivity._SECOND_GROUP_ID;
 import static com.example.application9.MainActivity._SECOND_GROUP_NAME;
 import static com.example.application9.MainActivity.myPreferences;
-import static com.example.application9.MainActivity.top_pin_title;
 
 public class GroupListAdapter_main extends RecyclerView.Adapter<GroupListAdapter_main.ViewHolder> {
 
     private Context mContext;
     private List<GroupList_main> groupListMains;
+    private List<GroupList_main> groupListMainsFiltered;
     private LayoutInflater layoutInflater;
 
     public GroupListAdapter_main(Context mContext, List<GroupList_main> groupListMains) {
         this.mContext = mContext;
         this.groupListMains = groupListMains;
         this.layoutInflater = LayoutInflater.from(mContext);
+        this.groupListMainsFiltered = groupListMains;
     }
 
     @NonNull
@@ -78,7 +81,6 @@ public class GroupListAdapter_main extends RecyclerView.Adapter<GroupListAdapter
                 myEditor.apply();
                 pin_group_bg.setVisibility(View.VISIBLE);
                 pin_group_title.setText(_SECOND_GROUP_NAME);
-                top_pin_title.setText(_SECOND_GROUP_NAME);
                 pin_group_bg.setVisibility(View.VISIBLE);
                 pin_group_bg.setAlpha(1);
                 Animation anim = AnimationUtils.loadAnimation(mContext, R.anim.item_animation_fall_down);
@@ -102,9 +104,40 @@ public class GroupListAdapter_main extends RecyclerView.Adapter<GroupListAdapter
         });
     }
 
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String charString = charSequence.toString();
+                if (charString.isEmpty()) {
+                    groupListMainsFiltered = groupListMains;
+                } else {
+                    List<GroupList_main> filteredList = new ArrayList<>();
+                    for (GroupList_main row : groupListMains) {
+                        if (row.getGroup_TITLE().toLowerCase().contains(charString.toLowerCase())) {
+                            filteredList.add(row);
+                        }
+                    }
+
+                    groupListMainsFiltered = filteredList;
+                }
+
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = groupListMainsFiltered;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                groupListMainsFiltered = (ArrayList<GroupList_main>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
+    }
+
     @Override
     public int getItemCount() {
-        return groupListMains.size();
+        return groupListMainsFiltered.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

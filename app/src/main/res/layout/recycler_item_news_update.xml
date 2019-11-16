@@ -5,22 +5,37 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="8dp"
-    android:layout_marginEnd="8dp"
     android:layout_marginTop="8dp"
+    android:layout_marginEnd="8dp"
     android:layout_marginBottom="8dp">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
-        android:padding="8dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+        android:orientation="vertical">
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="256dp"
+            android:padding="8dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+        <TextView
+            android:id="@+id/stage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:background="@drawable/bg_for_text"
+            android:elevation="6dp"
+            android:padding="8dp" />
+
+    </LinearLayout>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="256dp"
         android:visibility="visible">
 
         <ImageView
@@ -41,9 +56,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_margin="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="21dp"
             android:textSize="20sp"
             android:textStyle="bold" />
+
+        <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_gravity="bottom"
+            android:layout_margin="8dp"
+            android:indeterminate="false"
+            android:max="100"
+            android:progress="20"
+            app:rcBackgroundColor="?android:attr/colorBackground"
+            app:rcProgressColor="?android:attr/colorAccent"
+            app:rcRadius="10dp" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

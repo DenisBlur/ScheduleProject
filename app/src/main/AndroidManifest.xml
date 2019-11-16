@@ -23,9 +23,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.Red.Light"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning,UnusedAttribute">
+        <activity android:name=".SearchActivity"></activity>
         <activity
             android:name="com.bluedexon.denis.application.Main2Activity"
-            android:label="@string/title_activity_main2"></activity>
+            android:label="@string/title_activity_main2" />
         <activity android:name=".VkLoginActivity" />
         <activity android:name=".WelcomeActivity" />
         <activity

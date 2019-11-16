@@ -14,7 +14,7 @@
             android:id="@+id/pin_group_bg"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:layout_margin="16dp"
+            android:layout_margin="8dp"
             android:padding="8dp"
             android:visibility="gone"
             app:cardBackgroundColor="?android:attr/colorAccent"
@@ -45,7 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="4dp"
-            android:layout_marginBottom="56dp"
+            android:layout_marginBottom="126dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

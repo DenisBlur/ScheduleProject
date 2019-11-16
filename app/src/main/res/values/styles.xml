@@ -18,12 +18,6 @@
         <item name="colorPrimary">#303030</item>
     </style>
 
-    <style name="AppBottomSheetDialogTheme_DayNight" parent="Theme.MaterialComponents.DayNight.BottomSheetDialog">
-        <item name="bottomSheetStyle">@style/AppModalStyle</item>
-        <item name="colorPrimary">#FAFAFA</item>
-        <item name="colorPrimaryDark">#303030</item>
-    </style>
-
     <style name="AppModalStyle" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@drawable/rounded_dialog</item>
     </style>
@@ -32,259 +26,425 @@
 
     <style name="AppTheme.Red.Light" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_Red</item>
+        <item name="android:windowSharedElementEnterTransition">
+            @transition/change_search_transform
+        </item>
+        <item name="android:windowSharedElementExitTransition">
+            @transition/change_search_transform
+        </item>
     </style>
 
     <style name="AppTheme.Pink.Light" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_Pink</item>
+        <item name="android:windowSharedElementEnterTransition">
+            @transition/change_search_transform
+        </item>
+        <item name="android:windowSharedElementExitTransition">
+            @transition/change_search_transform
+        </item>
     </style>
 
     <style name="AppTheme.Purple.Light" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_Purple</item>
+        <item name="android:windowSharedElementEnterTransition">
+            @transition/change_search_transform
+        </item>
+        <item name="android:windowSharedElementExitTransition">
+            @transition/change_search_transform
+        </item>
     </style>
 
     <style name="AppTheme.Indigo.Light" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_Indigo</item>
+        <item name="android:windowSharedElementEnterTransition">
+            @transition/change_search_transform
+        </item>
+        <item name="android:windowSharedElementExitTransition">
+            @transition/change_search_transform
+        </item>
     </style>
 
     <style name="AppTheme.Teal.Light" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_Teal</item>
+        <item name="android:windowSharedElementEnterTransition">
+            @transition/change_search_transform
+        </item>
+        <item name="android:windowSharedElementExitTransition">
+            @transition/change_search_transform
+        </item>
     </style>
 
     <style name="AppTheme.Green.Light" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_Green</item>
+        <item name="android:windowSharedElementEnterTransition">
+            @transition/change_search_transform
+        </item>
+        <item name="android:windowSharedElementExitTransition">
+            @transition/change_search_transform
+        </item>
     </style>
 
     <style name="AppTheme.Yellow.Light" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_Yellow</item>
+        <item name="android:windowSharedElementEnterTransition">
+            @transition/change_search_transform
+        </item>
+        <item name="android:windowSharedElementExitTransition">
+            @transition/change_search_transform
+        </item>
     </style>
 
     <style name="AppTheme.DeepOrange.Light" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_deepOrange</item>
+        <item name="android:windowSharedElementEnterTransition">
+            @transition/change_search_transform
+        </item>
+        <item name="android:windowSharedElementExitTransition">
+            @transition/change_search_transform
+        </item>
     </style>
 
     <style name="AppTheme.BlueGrey.Light" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_blueGrey</item>
+        <item name="android:windowSharedElementEnterTransition">
+            @transition/change_search_transform
+        </item>
+        <item name="android:windowSharedElementExitTransition">
+            @transition/change_search_transform
+        </item>
     </style>
 
     <style name="AppTheme.OR1.Light" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_OR1</item>
+        <item name="android:windowSharedElementEnterTransition">
+            @transition/change_search_transform
+        </item>
+        <item name="android:windowSharedElementExitTransition">
+            @transition/change_search_transform
+        </item>
     </style>
 
     <style name="AppTheme.OR2.Light" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_OR2</item>
+        <item name="android:windowSharedElementEnterTransition">
+            @transition/change_search_transform
+        </item>
+        <item name="android:windowSharedElementExitTransition">
+            @transition/change_search_transform
+        </item>
     </style>
 
     <style name="AppTheme.OR3.Light" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_OR3</item>
+        <item name="android:windowSharedElementEnterTransition">
+            @transition/change_search_transform
+        </item>
+        <item name="android:windowSharedElementExitTransition">
+            @transition/change_search_transform
+        </item>
     </style>
 
     <style name="AppTheme.TS1.Light" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_TS1</item>
+        <item name="android:windowSharedElementEnterTransition">
+            @transition/change_search_transform
+        </item>
+        <item name="android:windowSharedElementExitTransition">
+            @transition/change_search_transform
+        </item>
     </style>
 
     <style name="AppTheme.TS2.Light" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_TS2</item>
+        <item name="android:windowSharedElementEnterTransition">
+            @transition/change_search_transform
+        </item>
+        <item name="android:windowSharedElementExitTransition">
+            @transition/change_search_transform
+        </item>
     </style>
 
     <style name="AppTheme.TS3.Light" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_TS3</item>
+        <item name="android:windowSharedElementEnterTransition">
+            @transition/change_search_transform
+        </item>
+        <item name="android:windowSharedElementExitTransition">
+            @transition/change_search_transform
+        </item>
     </style>
 
     <style name="AppTheme.SF1.Light" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_SF1</item>
+        <item name="android:windowSharedElementEnterTransition">
+            @transition/change_search_transform
+        </item>
+        <item name="android:windowSharedElementExitTransition">
+            @transition/change_search_transform
+        </item>
     </style>
 
     <style name="AppTheme.SF2.Light" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_SF2</item>
+        <item name="android:windowSharedElementEnterTransition">
+            @transition/change_search_transform
+        </item>
+        <item name="android:windowSharedElementExitTransition">
+            @transition/change_search_transform
+        </item>
     </style>
 
     <style name="AppTheme.SF3.Light" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_SF3</item>
+        <item name="android:windowSharedElementEnterTransition">
+            @transition/change_search_transform
+        </item>
+        <item name="android:windowSharedElementExitTransition">
+            @transition/change_search_transform
+        </item>
     </style>
 
     <style name="AppTheme.YL1.Light" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_YL1</item>
+        <item name="android:windowSharedElementEnterTransition">
+            @transition/change_search_transform
+        </item>
+        <item name="android:windowSharedElementExitTransition">
+            @transition/change_search_transform
+        </item>
     </style>
 
     <style name="AppTheme.YL2.Light" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_YL2</item>
+        <item name="android:windowSharedElementEnterTransition">
+            @transition/change_search_transform
+        </item>
+        <item name="android:windowSharedElementExitTransition">
+            @transition/change_search_transform
+        </item>
     </style>
 
     <style name="AppTheme.YL3.Light" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_YL3</item>
+        <item name="android:windowSharedElementEnterTransition">
+            @transition/change_search_transform
+        </item>
+        <item name="android:windowSharedElementExitTransition">
+            @transition/change_search_transform
+        </item>
     </style>
     //LIGHT THEME
 
-    //DayNight THEME
-
-    <style name="AppTheme.Red.Android" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
-        <item name="colorAccent">@color/colorAccent_Red</item>
-    </style>
-
-    <style name="AppTheme.Pink.Android" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
-        <item name="colorAccent">@color/colorAccent_Pink</item>
-    </style>
-
-    <style name="AppTheme.Purple.Android" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
-        <item name="colorAccent">@color/colorAccent_Purple</item>
-    </style>
-
-    <style name="AppTheme.Indigo.Android" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
-        <item name="colorAccent">@color/colorAccent_Indigo</item>
-    </style>
-
-    <style name="AppTheme.Teal.Android" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
-        <item name="colorAccent">@color/colorAccent_Teal</item>
-    </style>
-
-    <style name="AppTheme.Green.Android" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
-        <item name="colorAccent">@color/colorAccent_Green</item>
-    </style>
-
-    <style name="AppTheme.Yellow.Android" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
-        <item name="colorAccent">@color/colorAccent_Yellow</item>
-    </style>
-
-    <style name="AppTheme.DeepOrange.Android" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
-        <item name="colorAccent">@color/colorAccent_deepOrange</item>
-    </style>
-
-    <style name="AppTheme.BlueGrey.Android" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
-        <item name="colorAccent">@color/colorAccent_blueGrey</item>
-    </style>
-
-    <style name="AppTheme.OR1.Android" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
-        <item name="colorAccent">@color/colorAccent_OR1</item>
-    </style>
-
-    <style name="AppTheme.OR2.Android" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
-        <item name="colorAccent">@color/colorAccent_OR2</item>
-    </style>
-
-    <style name="AppTheme.OR3.Android" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
-        <item name="colorAccent">@color/colorAccent_OR3</item>
-    </style>
-
-    <style name="AppTheme.TS1.Android" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
-        <item name="colorAccent">@color/colorAccent_TS1</item>
-    </style>
-
-    <style name="AppTheme.TS2.Android" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
-        <item name="colorAccent">@color/colorAccent_TS2</item>
-    </style>
-
-    <style name="AppTheme.TS3.Android" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
-        <item name="colorAccent">@color/colorAccent_TS3</item>
-    </style>
-
-    <style name="AppTheme.SF1.Android" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
-        <item name="colorAccent">@color/colorAccent_SF1</item>
-    </style>
-
-    <style name="AppTheme.SF2.Android" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
-        <item name="colorAccent">@color/colorAccent_SF2</item>
-    </style>
-
-    <style name="AppTheme.SF3.Android" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
-        <item name="colorAccent">@color/colorAccent_SF3</item>
-    </style>
-
-    <style name="AppTheme.YL1.Android" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
-        <item name="colorAccent">@color/colorAccent_YL1</item>
-    </style>
-
-    <style name="AppTheme.YL2.Android" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
-        <item name="colorAccent">@color/colorAccent_YL2</item>
-    </style>
-
-    <style name="AppTheme.YL3.Android" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
-        <item name="colorAccent">@color/colorAccent_YL3</item>
-    </style>
-    //DayNight THEME
-
     //DARK THEME
+
     <style name="AppTheme.Red.Dark" parent="Theme.MaterialComponents.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_Red</item>
+        <item name="android:windowSharedElementEnterTransition">
+            @transition/change_search_transform
+        </item>
+        <item name="android:windowSharedElementExitTransition">
+            @transition/change_search_transform
+        </item>
     </style>
 
     <style name="AppTheme.Pink.Dark" parent="Theme.MaterialComponents.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_Pink</item>
+        <item name="android:windowSharedElementEnterTransition">
+            @transition/change_search_transform
+        </item>
+        <item name="android:windowSharedElementExitTransition">
+            @transition/change_search_transform
+        </item>
     </style>
 
     <style name="AppTheme.Purple.Dark" parent="Theme.MaterialComponents.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_Purple</item>
+        <item name="android:windowSharedElementEnterTransition">
+            @transition/change_search_transform
+        </item>
+        <item name="android:windowSharedElementExitTransition">
+            @transition/change_search_transform
+        </item>
     </style>
 
     <style name="AppTheme.Indigo.Dark" parent="Theme.MaterialComponents.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_Indigo</item>
+        <item name="android:windowSharedElementEnterTransition">
+            @transition/change_search_transform
+        </item>
+        <item name="android:windowSharedElementExitTransition">
+            @transition/change_search_transform
+        </item>
     </style>
 
     <style name="AppTheme.Teal.Dark" parent="Theme.MaterialComponents.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_Teal</item>
+        <item name="android:windowSharedElementEnterTransition">
+            @transition/change_search_transform
+        </item>
+        <item name="android:windowSharedElementExitTransition">
+            @transition/change_search_transform
+        </item>
     </style>
 
     <style name="AppTheme.Green.Dark" parent="Theme.MaterialComponents.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_Green</item>
+        <item name="android:windowSharedElementEnterTransition">
+            @transition/change_search_transform
+        </item>
+        <item name="android:windowSharedElementExitTransition">
+            @transition/change_search_transform
+        </item>
     </style>
 
     <style name="AppTheme.Yellow.Dark" parent="Theme.MaterialComponents.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_Yellow</item>
+        <item name="android:windowSharedElementEnterTransition">
+            @transition/change_search_transform
+        </item>
+        <item name="android:windowSharedElementExitTransition">
+            @transition/change_search_transform
+        </item>
     </style>
 
     <style name="AppTheme.DeepOrange.Dark" parent="Theme.MaterialComponents.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_deepOrange</item>
+        <item name="android:windowSharedElementEnterTransition">
+            @transition/change_search_transform
+        </item>
+        <item name="android:windowSharedElementExitTransition">
+            @transition/change_search_transform
+        </item>
     </style>
 
     <style name="AppTheme.BlueGrey.Dark" parent="Theme.MaterialComponents.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_blueGrey</item>
+        <item name="android:windowSharedElementEnterTransition">
+            @transition/change_search_transform
+        </item>
+        <item name="android:windowSharedElementExitTransition">
+            @transition/change_search_transform
+        </item>
     </style>
 
     <style name="AppTheme.OR1.Dark" parent="Theme.MaterialComponents.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_OR1</item>
+        <item name="android:windowSharedElementEnterTransition">
+            @transition/change_search_transform
+        </item>
+        <item name="android:windowSharedElementExitTransition">
+            @transition/change_search_transform
+        </item>
     </style>
 
     <style name="AppTheme.OR2.Dark" parent="Theme.MaterialComponents.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_OR2</item>
+        <item name="android:windowSharedElementEnterTransition">
+            @transition/change_search_transform
+        </item>
+        <item name="android:windowSharedElementExitTransition">
+            @transition/change_search_transform
+        </item>
     </style>
 
     <style name="AppTheme.OR3.Dark" parent="Theme.MaterialComponents.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_OR3</item>
+        <item name="android:windowSharedElementEnterTransition">
+            @transition/change_search_transform
+        </item>
+        <item name="android:windowSharedElementExitTransition">
+            @transition/change_search_transform
+        </item>
     </style>
 
     <style name="AppTheme.TS1.Dark" parent="Theme.MaterialComponents.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_TS1</item>
+        <item name="android:windowSharedElementEnterTransition">
+            @transition/change_search_transform
+        </item>
+        <item name="android:windowSharedElementExitTransition">
+            @transition/change_search_transform
+        </item>
     </style>
 
     <style name="AppTheme.TS2.Dark" parent="Theme.MaterialComponents.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_TS2</item>
+        <item name="android:windowSharedElementEnterTransition">
+            @transition/change_search_transform
+        </item>
+        <item name="android:windowSharedElementExitTransition">
+            @transition/change_search_transform
+        </item>
     </style>
 
     <style name="AppTheme.TS3.Dark" parent="Theme.MaterialComponents.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_TS3</item>
+        <item name="android:windowSharedElementEnterTransition">
+            @transition/change_search_transform
+        </item>
+        <item name="android:windowSharedElementExitTransition">
+            @transition/change_search_transform
+        </item>
     </style>
 
     <style name="AppTheme.SF1.Dark" parent="Theme.MaterialComponents.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_SF1</item>
+        <item name="android:windowSharedElementEnterTransition">
+            @transition/change_search_transform
+        </item>
+        <item name="android:windowSharedElementExitTransition">
+            @transition/change_search_transform
+        </item>
     </style>
 
     <style name="AppTheme.SF2.Dark" parent="Theme.MaterialComponents.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_SF2</item>
+        <item name="android:windowSharedElementEnterTransition">
+            @transition/change_search_transform
+        </item>
+        <item name="android:windowSharedElementExitTransition">
+            @transition/change_search_transform
+        </item>
     </style>
 
     <style name="AppTheme.SF3.Dark" parent="Theme.MaterialComponents.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_SF3</item>
+        <item name="android:windowSharedElementEnterTransition">
+            @transition/change_search_transform
+        </item>
+        <item name="android:windowSharedElementExitTransition">
+            @transition/change_search_transform
+        </item>
     </style>
 
     <style name="AppTheme.YL1.Dark" parent="Theme.MaterialComponents.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_YL1</item>
+        <item name="android:windowSharedElementEnterTransition">
+            @transition/change_search_transform
+        </item>
+        <item name="android:windowSharedElementExitTransition">
+            @transition/change_search_transform
+        </item>
     </style>
 
     <style name="AppTheme.YL2.Dark" parent="Theme.MaterialComponents.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_YL2</item>
+        <item name="android:windowSharedElementEnterTransition">
+            @transition/change_search_transform
+        </item>
+        <item name="android:windowSharedElementExitTransition">
+            @transition/change_search_transform
+        </item>
     </style>
 
     <style name="AppTheme.YL3.Dark" parent="Theme.MaterialComponents.NoActionBar.Bridge">
         <item name="colorAccent">@color/colorAccent_YL3</item>
+        <item name="android:windowSharedElementEnterTransition">
+            @transition/change_search_transform
+        </item>
+        <item name="android:windowSharedElementExitTransition">
+            @transition/change_search_transform
+        </item>
     </style>
     //DARK THEME
 
