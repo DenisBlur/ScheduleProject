@@ -5,11 +5,14 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.application9.AdaptersPackage.ResultsListAdapter_main;
 import com.example.application9.AdaptersPackage.ScheduleListAdapter_second;
 import com.example.application9.AdaptersPackage.TabAdapter;
@@ -43,6 +46,7 @@ public class GroupActivity extends AppCompatActivity {
     private List<ScheduleList_second> scheduleListSecond = new ArrayList<>();
     private List<ResultsList_main> resultsListMains = new ArrayList<>();
     private FirstDialog cdd;
+    private ImageView backdrop_bitmap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +60,7 @@ public class GroupActivity extends AppCompatActivity {
 
         //Component Initializing
         TextView group_title = findViewById(R.id.group_title);
+        backdrop_bitmap = findViewById(R.id.backdrop_bitmap);
         //Component Initializing
 
         //TabLayout
@@ -101,6 +106,9 @@ public class GroupActivity extends AppCompatActivity {
 
         ThreadGetResults threadGetResults = new ThreadGetResults();
         threadGetResults.execute();
+
+        ThreadGetRandomBackdrops threadGetRandomBackdrops = new ThreadGetRandomBackdrops();
+        threadGetRandomBackdrops.execute();
 
         //ThreadStart
 
@@ -188,6 +196,34 @@ public class GroupActivity extends AppCompatActivity {
             super.onPostExecute(aVoid);
             ScheduleListAdapter_second scheduleListAdapterSecond = new ScheduleListAdapter_second(GroupActivity.this, scheduleListSecond);
             recyclerView_first.setAdapter(scheduleListAdapterSecond);
+        }
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    class ThreadGetRandomBackdrops extends AsyncTask<Void, Void, Void> {
+
+        String author_name, author_profile, image_url;
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            try {
+                Document document_FULL_HTML_CODE = Jsoup.connect("http://s917802v.beget.tech/server_backdrop/backdrops.php").get();
+                Elements document_GET_TIME_HTML_SR = document_FULL_HTML_CODE.select("div.backdrops");
+                for (Element document_GET_TIME_P : document_GET_TIME_HTML_SR) {
+                    author_name = document_GET_TIME_P.select("div.author_name").text();
+                    author_profile = document_GET_TIME_P.select("div.author_profile").text();
+                    image_url = document_GET_TIME_P.select("div.image_url").text();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            Glide.with(GroupActivity.this).load(image_url).into(backdrop_bitmap);
         }
     }
 

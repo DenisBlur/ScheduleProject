@@ -1,5 +1,7 @@
 package com.example.application9;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityOptions;
@@ -14,8 +16,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,7 +31,9 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 import androidx.preference.PreferenceManager;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.application9.AdaptersPackage.GroupListAdapter_main;
 import com.example.application9.CustomDialog.FirstDialog;
 import com.example.application9.DataPackage.GroupList_main;
@@ -69,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
     public static String _MAIN_URL_FOR_GROUP_NAME = "http://83.174.201.182/";
     public static String _MAIN_URL_FOR_TIMES = "http://s917802v.beget.tech/server_time_new/";
     public static String _MAIN_URL_FOR_VARIABLE = "http://s917802v.beget.tech/server_variable/";
-    public static String _UID_G = "null", _AID_G = "", _PASSWORD = "null";
+    public static String _UID_G = "null", _PASSWORD = "null";
     public static String _NOW_DAY;
 
     public static List<GroupList_main> groupListMains = new ArrayList<>();
@@ -102,6 +106,9 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("StaticFieldLeak")
     public static TextView hello_title;
     private FirstDialog cdd;
+    private MaterialCardView notification_bg;
+    private LinearLayout text_for_you;
+    private LottieAnimationView papper_id;
     public static BottomNavigationView bottom_nav_view;
     public static final String BLOCK_ID = "R-M-457149-1";
 
@@ -166,14 +173,37 @@ public class MainActivity extends AppCompatActivity {
         //initializing all component
         hello_bitmap = findViewById(R.id.backdrop_bitmap);
         hello_title = findViewById(R.id.hello_title);
-
+        notification_bg = findViewById(R.id.notification_bg);
         main_content = findViewById(R.id.main_content);
+        papper_id = findViewById(R.id.papper_id);
+        text_for_you = findViewById(R.id.text_for_you);
 
         Toolbar toolbar1 = findViewById(R.id.toolbar);
         mContext = MainActivity.this;
         setSupportActionBar(toolbar1);
         bottom_nav_view = findViewById(R.id.bottom_nav_view);
         //initializing all component
+
+        notification_bg.setOnClickListener(v -> {
+
+            text_for_you.animate().setDuration(250).alpha(0).start();
+            papper_id.setVisibility(View.VISIBLE);
+            papper_id.animate().setStartDelay(250).setDuration(250).alpha(1).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    super.onAnimationEnd(animation);
+                    papper_id.playAnimation();
+                    notification_bg.animate().setStartDelay(2000).setDuration(150).alpha(0).setListener(new AnimatorListenerAdapter() {
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            super.onAnimationEnd(animation);
+                            notification_bg.setVisibility(View.GONE);
+                        }
+                    }).start();
+                }
+            }).start();
+
+        });
 
         //TODO: Использовать в будущем
         //color extracting
@@ -225,6 +255,8 @@ public class MainActivity extends AppCompatActivity {
             ThreadGetTime threadGetTime = new ThreadGetTime();
             threadGetTime.execute();
 
+            onCheckLogin();
+
             cdd.show();
         } else {
             Toast.makeText(mContext, "Check your network connection", Toast.LENGTH_SHORT).show();
@@ -233,7 +265,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void onSearch(View view){
+    public void onSearch(View view) {
 
         Intent intent = new Intent(this, SearchActivity.class);
         TextView textView_S = findViewById(R.id.edit_text_search);
@@ -275,6 +307,88 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void onCheckLogin() {
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(mContext);
+        _UID_G = sharedPref.getString("account_id", "null");
+        _PASSWORD = sharedPref.getString("account_password", "null");
+
+        assert _PASSWORD != null;
+        if (!_UID_G.equals("null") || !_PASSWORD.equals("null")) {
+            LoginAccount_Date loginAccount = new LoginAccount_Date();
+            loginAccount.execute();
+        }
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    class LoginAccount_Date extends AsyncTask<View, View, View> {
+
+        String full_name, photo_200, photo_max_orig, body, b_date;
+        boolean errors = false;
+
+        @Override
+        protected View doInBackground(View... views) {
+            try {
+                Document responses_check;
+                responses_check = Jsoup.connect("http://s917802v.beget.tech/server_account/loginaccount.php" +
+                        "?id=" + _UID_G +
+                        "&password=" + _PASSWORD).get();
+
+                body = responses_check.body().toString();
+                errors = body.contains("error");
+
+                if (!errors) {
+                    full_name = responses_check.select("div.full_name").text();
+                    photo_200 = responses_check.select("div.src_200px").text();
+                    photo_max_orig = responses_check.select("div.src_fullpx").text();
+                    b_date = responses_check.select("div.bdate").text();
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @SuppressLint("SetTextI18n")
+        @Override
+        protected void onPostExecute(View view) {
+            super.onPostExecute(view);
+
+            if (!errors) {
+                Date currentDate = new Date();
+                DateFormat timeFormat = new SimpleDateFormat("d", Locale.getDefault());
+                DateFormat timeFormat_m = new SimpleDateFormat("M", Locale.getDefault());
+                String str_d = timeFormat.format(currentDate);
+                String str_m = timeFormat_m.format(currentDate);
+
+                String[] b_date_sp, name_f;
+                name_f = full_name.split(" ");
+                String bd = b_date.replace(".", "-");
+                b_date_sp = bd.split("-");
+                String str_b_d = b_date_sp[0];
+                String str_b_m = b_date_sp[1];
+
+                String str_uwp_now = str_d + str_m;
+                String str_uwp_bdate = str_b_d + str_b_m;
+
+                if (str_uwp_bdate.equals(str_uwp_now)) {
+                    TextView hb_name = findViewById(R.id.hb_name);
+                    hb_name.setText(name_f[0] + " с днем рождения!");
+                    notification_bg.setVisibility(View.VISIBLE);
+                } else {
+                    notification_bg.setVisibility(View.GONE);
+                }
+            } else {
+                Toast.makeText(mContext, "Произошла ошибка авторизации.", Toast.LENGTH_SHORT).show();
+                _UID_G = "null";
+                _PASSWORD = "null";
+                SharedPreferences.Editor myEditor = myPreferences.edit();
+                myEditor.putString("account_id", _UID_G);
+                myEditor.putString("account_password", _PASSWORD);
+                myEditor.apply();
+            }
+        }
+    }
 
     @SuppressLint("StaticFieldLeak")
     public class ThreadGetTime extends AsyncTask<Void, Void, Void> {
@@ -320,16 +434,16 @@ public class MainActivity extends AppCompatActivity {
             int times_ms = Integer.parseInt(timeFormat.format(currentDate));
 
             if (times_ms >= 0 && times_ms < 4) {
-                Glide.with(mContext).load("http://s917802v.beget.tech/server_backdrop/images/night.jpg").skipMemoryCache(true).into(hello_bitmap);
+                Glide.with(mContext).load("http://s917802v.beget.tech/server_backdrop/images/night.jpg").diskCacheStrategy(DiskCacheStrategy.NONE).skipMemoryCache(true).into(hello_bitmap);
                 hello_title.setText("Доброй ночи!");
             } else if (times_ms >= 4 && times_ms < 12) {
-                Glide.with(mContext).load("http://s917802v.beget.tech/server_backdrop/images/morning.jpg").skipMemoryCache(true).into(hello_bitmap);
+                Glide.with(mContext).load("http://s917802v.beget.tech/server_backdrop/images/morning.jpg").diskCacheStrategy(DiskCacheStrategy.NONE).skipMemoryCache(true).into(hello_bitmap);
                 hello_title.setText("Доброе утро!");
             } else if (times_ms >= 12 && times_ms < 18) {
-                Glide.with(mContext).load("http://s917802v.beget.tech/server_backdrop/images/daytime.jpg").skipMemoryCache(true).into(hello_bitmap);
+                Glide.with(mContext).load("http://s917802v.beget.tech/server_backdrop/images/daytime.jpg").diskCacheStrategy(DiskCacheStrategy.NONE).skipMemoryCache(true).into(hello_bitmap);
                 hello_title.setText("Добрый день!");
             } else if (times_ms >= 18) {
-                Glide.with(mContext).load("http://s917802v.beget.tech/server_backdrop/images/evening.png").skipMemoryCache(true).into(hello_bitmap);
+                Glide.with(mContext).load("http://s917802v.beget.tech/server_backdrop/images/evening.png").diskCacheStrategy(DiskCacheStrategy.NONE).skipMemoryCache(true).into(hello_bitmap);
                 hello_title.setText("Добрый вечер!");
             }
 

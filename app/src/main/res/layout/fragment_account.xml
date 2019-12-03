@@ -240,6 +240,15 @@
 
         </LinearLayout>
 
+        <com.google.android.material.card.MaterialCardView
+            android:layout_margin="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="100dp">
+
+
+
+        </com.google.android.material.card.MaterialCardView>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_news"
             android:layout_width="match_parent"

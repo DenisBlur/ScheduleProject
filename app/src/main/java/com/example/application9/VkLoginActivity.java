@@ -30,7 +30,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-import static com.example.application9.MainActivity._AID_G;
 import static com.example.application9.MainActivity.myPreferences;
 import static com.example.application9.MainActivity.resID;
 
@@ -132,13 +131,15 @@ public class VkLoginActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(View view) {
             super.onPostExecute(view);
-            Toast.makeText(VkLoginActivity.this, body, Toast.LENGTH_SHORT).show();
             if (!errors) {
+                Toast.makeText(VkLoginActivity.this, "Успешно!", Toast.LENGTH_SHORT).show();
                 SharedPreferences.Editor myEditor = myPreferences.edit();
                 myEditor.putString("account_id", _UID);
                 myEditor.putString("account_password", edit_password_login.getText().toString());
                 myEditor.apply();
                 finish();
+            } else {
+                Toast.makeText(VkLoginActivity.this, "Произошка ошибка!", Toast.LENGTH_SHORT).show();
             }
         }
     }

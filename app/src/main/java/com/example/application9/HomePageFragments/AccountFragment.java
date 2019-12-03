@@ -161,7 +161,7 @@ public class AccountFragment extends Fragment {
     }
 
     @SuppressLint("StaticFieldLeak")
-    static class LoginAccount extends AsyncTask<View, View, View> {
+    class LoginAccount extends AsyncTask<View, View, View> {
 
         String full_name, photo_200, photo_max_orig, body;
         boolean errors = false;
@@ -207,6 +207,5 @@ public class AccountFragment extends Fragment {
             }
         }
     }
-
 
 }

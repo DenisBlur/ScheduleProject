@@ -6,33 +6,61 @@
     android:layout_height="wrap_content"
     android:layout_gravity="bottom"
     android:layout_marginStart="16dp"
-    android:layout_marginEnd="16dp"
     android:layout_marginTop="16dp"
+    android:layout_marginEnd="16dp"
     android:layout_marginBottom="72dp"
     android:orientation="vertical"
-    app:cardBackgroundColor="?android:attr/colorAccent"
+    android:visibility="gone"
+    app:cardBackgroundColor="?android:attr/colorPrimary"
     app:cardCornerRadius="8dp"
     app:cardElevation="16dp">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/hp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:background="@drawable/simple_gradient" />
+
     <LinearLayout
-        android:orientation="vertical"
+        android:id="@+id/text_for_you"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="vertical"
         android:padding="8dp">
 
         <TextView
-            style="@style/TextAppearance.AppCompat.Title"
-            android:textStyle="bold"
+            android:id="@+id/hb_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Классный час" />
+            android:text="[name] с днем рождения!"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <TextView
-            style="@style/TextAppearance.AppCompat.Subhead"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="С 08.30 до 09.00" />
+            android:layout_marginTop="8dp"
+            android:text="Приветствуем и поздравляем вас с днем рождения! Желаем здоровья, счастья и, конечно же, удачи в учебе! Благодарим за пользование нашим приложением :)"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="14sp" />
 
     </LinearLayout>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/papper_id"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_margin="16dp"
+        android:layout_gravity="bottom|start"
+        android:alpha="0"
+        android:visibility="visible"
+        app:lottie_fileName="party-popper.json" />
 
 </com.google.android.material.card.MaterialCardView>
