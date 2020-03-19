@@ -1,42 +1,34 @@
 {
   "project_info": {
-    "project_number": "866655554511",
-    "firebase_url": "https://application1-4bf37.firebaseio.com",
-    "project_id": "application1-4bf37",
-    "storage_bucket": "application1-4bf37.appspot.com"
+    "project_number": "1090316875467",
+    "firebase_url": "https://ribbonlaunchersync.firebaseio.com",
+    "project_id": "ribbonlaunchersync",
+    "storage_bucket": "ribbonlaunchersync.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:866655554511:android:bde690aa04e509e8",
+        "mobilesdk_app_id": "1:1090316875467:android:9c79d3b2f5697c117c8d4e",
         "android_client_info": {
-          "package_name": "com.bluedexon.denis.application"
+          "package_name": "com.example.application9"
         }
       },
       "oauth_client": [
         {
-          "client_id": "866655554511-ss7p8kke0k6slps0nntd9p2q0lnrldfq.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.bluedexon.denis.application",
-            "certificate_hash": "561068a9e7f3702400dce0cfda8d3723e439785f"
-          }
-        },
-        {
-          "client_id": "866655554511-ds0h9dt533me786v4dpbom1fsposorg1.apps.googleusercontent.com",
+          "client_id": "1090316875467-cl621acolid2b4g499up4pkvnnnciqd0.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAvGWARsCwOQl2fw2X_T8qC_hXEwldaU2s"
+          "current_key": "AIzaSyAzxBikwPLqewSi9yJPXHwllhb2Tra7cOA"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "866655554511-ds0h9dt533me786v4dpbom1fsposorg1.apps.googleusercontent.com",
+              "client_id": "1090316875467-cl621acolid2b4g499up4pkvnnnciqd0.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
@@ -45,35 +37,27 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:866655554511:android:15473fcd9ac0afe7c960ba",
+        "mobilesdk_app_id": "1:1090316875467:android:f27455481fd827c47c8d4e",
         "android_client_info": {
-          "package_name": "com.example.application9"
+          "package_name": "com.example.ribbonlauncher"
         }
       },
       "oauth_client": [
         {
-          "client_id": "866655554511-f95fso4pje0vihmkrphlrb5pipurtg69.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.application9",
-            "certificate_hash": "561068a9e7f3702400dce0cfda8d3723e439785f"
-          }
-        },
-        {
-          "client_id": "866655554511-ds0h9dt533me786v4dpbom1fsposorg1.apps.googleusercontent.com",
+          "client_id": "1090316875467-cl621acolid2b4g499up4pkvnnnciqd0.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAvGWARsCwOQl2fw2X_T8qC_hXEwldaU2s"
+          "current_key": "AIzaSyAzxBikwPLqewSi9yJPXHwllhb2Tra7cOA"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "866655554511-ds0h9dt533me786v4dpbom1fsposorg1.apps.googleusercontent.com",
+              "client_id": "1090316875467-cl621acolid2b4g499up4pkvnnnciqd0.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

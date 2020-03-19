@@ -7,8 +7,7 @@
     android:layout_height="match_parent"
     android:layout_alignParentTop="true"
     android:orientation="vertical"
-    app:behavior_hideable="true"
-    tools:showIn="@layout/activity_main">
+    app:behavior_hideable="true">
 
     <TextView
         style="@style/TextAppearance.AppCompat.Title"

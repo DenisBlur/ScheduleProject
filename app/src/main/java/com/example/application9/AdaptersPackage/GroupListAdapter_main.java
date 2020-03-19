@@ -31,7 +31,6 @@ import java.util.List;
 
 import static com.example.application9.HomePageFragments.GroupsHomeFragment.pin_group_bg;
 import static com.example.application9.HomePageFragments.GroupsHomeFragment.pin_group_title;
-import static com.example.application9.MainActivity._DARK_THEME;
 import static com.example.application9.MainActivity._SECOND_GROUP_ID;
 import static com.example.application9.MainActivity._SECOND_GROUP_NAME;
 import static com.example.application9.MainActivity.myPreferences;
@@ -88,16 +87,6 @@ public class GroupListAdapter_main extends RecyclerView.Adapter<GroupListAdapter
             }));
             alert.addAction(new AlertAction("Нет", AlertActionStyle.NEGATIVE, action -> {
             }));
-            switch (_DARK_THEME) {
-                case "Light":
-                    alert.setTheme(AlertTheme.LIGHT);
-                    break;
-                case "Dark":
-                case "Android":
-                    alert.setTheme(AlertTheme.DARK);
-                    break;
-            }
-
             alert.show((AppCompatActivity) mContext);
 
             return false;

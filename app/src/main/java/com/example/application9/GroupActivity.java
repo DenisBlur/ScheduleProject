@@ -1,18 +1,24 @@
 package com.example.application9;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.application9.AdaptersPackage.ResultsListAdapter_main;
 import com.example.application9.AdaptersPackage.ScheduleListAdapter_second;
 import com.example.application9.AdaptersPackage.TabAdapter;
@@ -21,7 +27,9 @@ import com.example.application9.DataPackage.ResultsList_main;
 import com.example.application9.DataPackage.ScheduleList_second;
 import com.example.application9.GroupPageFragments.FirstTab;
 import com.example.application9.GroupPageFragments.SecondTab;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.tabs.TabLayout;
+
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -30,6 +38,7 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
@@ -46,14 +55,13 @@ public class GroupActivity extends AppCompatActivity {
     private List<ScheduleList_second> scheduleListSecond = new ArrayList<>();
     private List<ResultsList_main> resultsListMains = new ArrayList<>();
     private FirstDialog cdd;
+    private Context mContext;
     private ImageView backdrop_bitmap;
+
+    private String title_fr, id_fr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        //Theme
-        setTheme(resID);
-        //Theme
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group);
@@ -61,6 +69,7 @@ public class GroupActivity extends AppCompatActivity {
         //Component Initializing
         TextView group_title = findViewById(R.id.group_title);
         backdrop_bitmap = findViewById(R.id.backdrop_bitmap);
+        mContext = getApplicationContext();
         //Component Initializing
 
         //TabLayout
@@ -107,8 +116,8 @@ public class GroupActivity extends AppCompatActivity {
         ThreadGetResults threadGetResults = new ThreadGetResults();
         threadGetResults.execute();
 
-        ThreadGetRandomBackdrops threadGetRandomBackdrops = new ThreadGetRandomBackdrops();
-        threadGetRandomBackdrops.execute();
+//        ThreadGetRandomBackdrops threadGetRandomBackdrops = new ThreadGetRandomBackdrops();
+//        threadGetRandomBackdrops.execute();
 
         //ThreadStart
 

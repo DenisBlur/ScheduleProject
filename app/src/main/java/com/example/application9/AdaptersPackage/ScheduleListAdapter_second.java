@@ -363,7 +363,7 @@ public class ScheduleListAdapter_second extends RecyclerView.Adapter<ScheduleLis
         return scheduleListSecond.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
 
         private Chip schedule_second_date_name;
         private RecyclerView schedule_second_recycler_view;

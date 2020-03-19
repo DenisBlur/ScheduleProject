@@ -29,10 +29,6 @@ public class FirstTab extends Fragment {
         View view = inflater.inflate(R.layout.content_group_first, container, false);
 
         recyclerView_first = view.findViewById(R.id.recycler_view);
-//        AdView mAdView = view.findViewById(R.id.banner_view);
-//        mAdView.setBlockId("R-M-457144-2");
-//        mAdView.setAdSize(AdSize.BANNER_320x50);
-
         return view;
     }
 }

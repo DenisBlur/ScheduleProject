@@ -37,9 +37,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginBottom="28dp"
                 android:background="@drawable/bg_for_text"
                 android:padding="8dp"
-                android:layout_marginBottom="28dp"
                 android:textStyle="bold"
                 app:layout_collapseMode="parallax"
                 app:layout_collapseParallaxMultiplier="0.8" />
@@ -58,9 +58,9 @@
                 app:layout_collapseMode="pin"
                 app:tabGravity="fill"
                 app:tabIndicatorColor="?android:attr/colorAccent"
-                app:tabSelectedTextColor="?android:attr/colorAccent"
                 app:tabIndicatorHeight="2dp"
-                app:tabMode="fixed" />
+                app:tabMode="fixed"
+                app:tabSelectedTextColor="?android:attr/colorAccent" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 

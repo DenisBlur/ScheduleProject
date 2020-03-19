@@ -5,10 +5,6 @@
         android:title="Schedule"
         android:icon="@drawable/ic_outline_calendar_view_day_24px"/>
     <item
-        android:id="@+id/navigation_time_line"
-        android:title="Time"
-        android:icon="@drawable/ic_outline_access_time_24px"/>
-    <item
         android:id="@+id/navigation_account"
         android:title="Account"
         android:icon="@drawable/ic_outline_account_circle_24px"/>
